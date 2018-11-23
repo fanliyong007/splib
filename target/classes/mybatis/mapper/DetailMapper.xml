@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yixing.splib.dao.DetailMapper" >
+  <resultMap id="BaseResultMap" type="com.yixing.splib.entity.Detail" >
+    <id column="book_id" property="bookId" jdbcType="VARCHAR" />
+    <result column="subnum" property="subnum" jdbcType="VARCHAR" />
+    <result column="book_code" property="bookCode" jdbcType="INTEGER" />
+    <result column="islended" property="islended" jdbcType="BIT" />
+    <result column="outdate" property="outdate" jdbcType="TIMESTAMP" />
+    <result column="indate" property="indate" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="islost" property="islost" jdbcType="BIT" />
+    <result column="lostdate" property="lostdate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    book_id, subnum, book_code, islended, outdate, indate, user_id, islost, lostdate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yixing.splib.entity.DetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from detail
+    where book_id = #{bookId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from detail
+    where book_id = #{bookId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yixing.splib.entity.DetailExample" >
+    delete from detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yixing.splib.entity.Detail" >
+    insert into detail (book_id, subnum, book_code, 
+      islended, outdate, indate, 
+      user_id, islost, lostdate
+      )
+    values (#{bookId,jdbcType=VARCHAR}, #{subnum,jdbcType=VARCHAR}, #{bookCode,jdbcType=INTEGER}, 
+      #{islended,jdbcType=BIT}, #{outdate,jdbcType=TIMESTAMP}, #{indate,jdbcType=TIMESTAMP}, 
+      #{userId,jdbcType=VARCHAR}, #{islost,jdbcType=BIT}, #{lostdate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yixing.splib.entity.Detail" >
+    insert into detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bookId != null" >
+        book_id,
+      </if>
+      <if test="subnum != null" >
+        subnum,
+      </if>
+      <if test="bookCode != null" >
+        book_code,
+      </if>
+      <if test="islended != null" >
+        islended,
+      </if>
+      <if test="outdate != null" >
+        outdate,
+      </if>
+      <if test="indate != null" >
+        indate,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="islost != null" >
+        islost,
+      </if>
+      <if test="lostdate != null" >
+        lostdate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bookId != null" >
+        #{bookId,jdbcType=VARCHAR},
+      </if>
+      <if test="subnum != null" >
+        #{subnum,jdbcType=VARCHAR},
+      </if>
+      <if test="bookCode != null" >
+        #{bookCode,jdbcType=INTEGER},
+      </if>
+      <if test="islended != null" >
+        #{islended,jdbcType=BIT},
+      </if>
+      <if test="outdate != null" >
+        #{outdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="indate != null" >
+        #{indate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="islost != null" >
+        #{islost,jdbcType=BIT},
+      </if>
+      <if test="lostdate != null" >
+        #{lostdate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yixing.splib.entity.DetailExample" resultType="java.lang.Integer" >
+    select count(*) from detail
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update detail
+    <set >
+      <if test="record.bookId != null" >
+        book_id = #{record.bookId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subnum != null" >
+        subnum = #{record.subnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookCode != null" >
+        book_code = #{record.bookCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.islended != null" >
+        islended = #{record.islended,jdbcType=BIT},
+      </if>
+      <if test="record.outdate != null" >
+        outdate = #{record.outdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.indate != null" >
+        indate = #{record.indate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.islost != null" >
+        islost = #{record.islost,jdbcType=BIT},
+      </if>
+      <if test="record.lostdate != null" >
+        lostdate = #{record.lostdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update detail
+    set book_id = #{record.bookId,jdbcType=VARCHAR},
+      subnum = #{record.subnum,jdbcType=VARCHAR},
+      book_code = #{record.bookCode,jdbcType=INTEGER},
+      islended = #{record.islended,jdbcType=BIT},
+      outdate = #{record.outdate,jdbcType=TIMESTAMP},
+      indate = #{record.indate,jdbcType=TIMESTAMP},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      islost = #{record.islost,jdbcType=BIT},
+      lostdate = #{record.lostdate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yixing.splib.entity.Detail" >
+    update detail
+    <set >
+      <if test="subnum != null" >
+        subnum = #{subnum,jdbcType=VARCHAR},
+      </if>
+      <if test="bookCode != null" >
+        book_code = #{bookCode,jdbcType=INTEGER},
+      </if>
+      <if test="islended != null" >
+        islended = #{islended,jdbcType=BIT},
+      </if>
+      <if test="outdate != null" >
+        outdate = #{outdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="indate != null" >
+        indate = #{indate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="islost != null" >
+        islost = #{islost,jdbcType=BIT},
+      </if>
+      <if test="lostdate != null" >
+        lostdate = #{lostdate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where book_id = #{bookId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yixing.splib.entity.Detail" >
+    update detail
+    set subnum = #{subnum,jdbcType=VARCHAR},
+      book_code = #{bookCode,jdbcType=INTEGER},
+      islended = #{islended,jdbcType=BIT},
+      outdate = #{outdate,jdbcType=TIMESTAMP},
+      indate = #{indate,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=VARCHAR},
+      islost = #{islost,jdbcType=BIT},
+      lostdate = #{lostdate,jdbcType=TIMESTAMP}
+    where book_id = #{bookId,jdbcType=VARCHAR}
+  </update>
+</mapper>
