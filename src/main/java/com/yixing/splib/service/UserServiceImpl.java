@@ -11,7 +11,6 @@ import java.util.List;
 @Service("userService")
 public class UserServiceImpl implements UserService
 {
-
     @Resource
     private UserMapper userMapper;
 
@@ -21,14 +20,14 @@ public class UserServiceImpl implements UserService
         userMapper.insertSelective(user);
     }
     //删除User信息
-    public void deleteUser(Integer id)
+    public void deleteUser(Integer userCode)
     {
-        userMapper.deleteByPrimaryKey(id);
+        userMapper.deleteByPrimaryKey(userCode);
     }
     //更新User信息
     public void updateUser(User user)
     {
-        userMapper.updateByPrimaryKeySelective(user);
+        userMapper.updateByPrimaryKey(user);
     }
     //获取所有User信息
     public List<User> getAll()
