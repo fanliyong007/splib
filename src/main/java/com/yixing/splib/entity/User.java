@@ -35,9 +35,12 @@ public class User {
 
     private Integer fineint;
 
+    private String majorId;
     private String colleageId;
 
-    private String majorId;
+    private Colleage colleage;
+
+    private Major major;
 
     public Integer getUserCode() {
         return userCode;
@@ -167,19 +170,95 @@ public class User {
         this.fineint = fineint;
     }
 
-    public String getColleageId() {
-        return colleageId;
+    public Colleage getColleage()
+    {
+        return colleage;
     }
 
-    public void setColleageId(String colleageId) {
-        this.colleageId = colleageId == null ? null : colleageId.trim();
+    public void setColleage(Colleage colleage)
+    {
+        this.colleage = colleage;
     }
 
-    public String getMajorId() {
+    public Major getMajor()
+    {
+        return major;
+    }
+
+    public void setMajor(Major major)
+    {
+        this.major = major;
+    }
+
+    public String getMajorId()
+    {
         return majorId;
     }
 
-    public void setMajorId(String majorId) {
-        this.majorId = majorId == null ? null : majorId.trim();
+    public void setMajorId(String majorId)
+    {
+        this.majorId = majorId;
+    }
+
+    public String getColleageId()
+    {
+        return colleageId;
+    }
+
+    public void setColleageId(String colleageId)
+    {
+        this.colleageId = colleageId;
+    }
+
+    public User(Integer userCode, String userId, String userName, Date regdate, Integer borrowed, Boolean iscanceled, Date canceleddate, Integer userAge, String userGender, String idnum, String userPhone, Integer brrowlimit, Boolean iscompensated, Integer compensatedint, Boolean isfined, Integer fineint, String majorId, String colleageId)
+    {
+        this.userCode = userCode;
+        this.userId = userId;
+        this.userName = userName;
+        this.regdate = regdate;
+        this.borrowed = borrowed;
+        this.iscanceled = iscanceled;
+        this.canceleddate = canceleddate;
+        this.userAge = userAge;
+        this.userGender = userGender;
+        this.idnum = idnum;
+        this.userPhone = userPhone;
+        this.brrowlimit = brrowlimit;
+        this.iscompensated = iscompensated;
+        this.compensatedint = compensatedint;
+        this.isfined = isfined;
+        this.fineint = fineint;
+        this.majorId = majorId;
+        this.colleageId = colleageId;
+    }
+
+    public User()
+    {
+        super();
+    }
+
+    @Override
+    public String toString()
+    {
+        return "User{" +
+                "userCode=" + userCode +
+                ", userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", regdate=" + regdate +
+                ", borrowed=" + borrowed +
+                ", iscanceled=" + iscanceled +
+                ", canceleddate=" + canceleddate +
+                ", userAge=" + userAge +
+                ", userGender='" + userGender + '\'' +
+                ", idnum='" + idnum + '\'' +
+                ", userPhone='" + userPhone + '\'' +
+                ", brrowlimit=" + brrowlimit +
+                ", iscompensated=" + iscompensated +
+                ", compensatedint=" + compensatedint +
+                ", isfined=" + isfined +
+                ", fineint=" + fineint +
+                ", majorId='" + majorId + '\'' +
+                ", colleageId='" + colleageId + '\'' +
+                '}';
     }
 }

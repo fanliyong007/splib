@@ -20,6 +20,10 @@ public interface UserMapper {
 
     User selectByPrimaryKey(Integer userCode);
 
+    List<User> selectByExampleALL(UserExample example);
+
+    User selectByPrimaryKeyALL(Integer userCode);
+
     int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
 
     int updateByExample(@Param("record") User record, @Param("example") UserExample example);

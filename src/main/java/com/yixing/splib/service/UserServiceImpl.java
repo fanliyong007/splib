@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService
     {
         UserExample userExample=new UserExample();
         userExample.setOrderByClause("user_id");
-        return userMapper.selectByExample(userExample);
+        return userMapper.selectByExampleALL(userExample);
     }
     //批量删除
     public void deleteUserBatch(List<String> ids)

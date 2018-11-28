@@ -21,6 +21,34 @@
     <result column="colleage_id" property="colleageId" jdbcType="VARCHAR" />
     <result column="major_id" property="majorId" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="ALLResultMap" type="com.yixing.splib.entity.User" >
+        <id column="user_code" property="userCode" jdbcType="INTEGER" />
+        <result column="user_id" property="userId" jdbcType="VARCHAR" />
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="regdate" property="regdate" jdbcType="TIMESTAMP" />
+        <result column="borrowed" property="borrowed" jdbcType="INTEGER" />
+        <result column="iscanceled" property="iscanceled" jdbcType="BIT" />
+        <result column="canceleddate" property="canceleddate" jdbcType="TIMESTAMP" />
+        <result column="user_age" property="userAge" jdbcType="INTEGER" />
+        <result column="user_gender" property="userGender" jdbcType="VARCHAR" />
+        <result column="idnum" property="idnum" jdbcType="VARCHAR" />
+        <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+        <result column="brrowlimit" property="brrowlimit" jdbcType="INTEGER" />
+        <result column="iscompensated" property="iscompensated" jdbcType="BIT" />
+        <result column="compensatedint" property="compensatedint" jdbcType="INTEGER" />
+        <result column="isfined" property="isfined" jdbcType="BIT" />
+        <result column="fineint" property="fineint" jdbcType="INTEGER" />
+        <result column="colleage_id" property="colleageId" jdbcType="VARCHAR" />
+        <result column="major_id" property="majorId" jdbcType="VARCHAR" />
+        <association property="major" javaType="com.yixing.splib.entity.Major">
+            <id column="Major_id" property="majorId"/>
+            <result column="Major_name" property="majorName" />
+        </association>
+        <association property="colleage" javaType="com.yixing.splib.entity.Colleage">
+            <id column="Colleage_id" property="colleageId"/>
+            <result column="Colleage_name" property="colleageName" />
+        </association>
+    </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -84,7 +112,40 @@
     user_gender, idnum, user_phone, brrowlimit, iscompensated, compensatedint, isfined, 
     fineint, colleage_id, major_id
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yixing.splib.entity.UserExample" >
+  <sql id="ALL_Column_List" >
+    u.user_code, u.user_id, u.user_name, u.regdate, u.borrowed, u.iscanceled, u.canceleddate, u.user_age,
+    u.user_gender, u.idnum, u.user_phone, u.brrowlimit, u.iscompensated, u.compensatedint, u.isfined,
+    u.fineint, u.colleage_id, u.major_id,m.Major_id,m.Major_name,co.Colleage_id,co.Colleage_name
+  </sql>
+    <!--List<User> selectByExampleALL(UserExample example);-->
+
+    <!--User selectByPrimaryKeyALL(Integer userCode);-->
+    <select id="selectByExampleALL" resultMap="ALLResultMap"  >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        <include refid="ALL_Column_List" />
+        FROM lib.user u
+        LEFT outer join majormessage m on u.major_id=m.major_id
+        LEFT outer join colleagemessage co on u.colleage_id=co.colleage_id
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKeyALL" resultMap="ALLResultMap">
+        select
+        <include refid="ALL_Column_List" />
+        FROM lib.user u
+        LEFT outer join majormessage m on u.major_id=m.major_id
+        LEFT outer join colleagemessage co on u.colleage_id=co.colleage_id
+        where user_code = #{userCode,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yixing.splib.entity.UserExample" >
     select
     <if test="distinct" >
       distinct

@@ -70,13 +70,9 @@ public class UserManageController
         PageHelper.startPage(pageNum, 8);
         //startPage后面紧跟着的查询就是分页查询
         List<User> users = userService.getAll();
-        List<Login> logins=loginService.getAll();
-        List<Major> majors=majorService.getAll();
         //使用PageInfo包装查询后的结果，并将pageInfo存入map中
         PageInfo<User> pageInfo = new PageInfo<>(users, 1);
-        PageInfo<Login> pageInfo1=new PageInfo<>(logins,1);
-        PageInfo<Major> pageInfo2=new PageInfo<>(majors,1);
-        return Msg.success().add("user", pageInfo).add("login",pageInfo1).add("major",pageInfo2);
+        return Msg.success().add("user", pageInfo);
     }
     @InitBinder
     public void initBinder(WebDataBinder binder)
