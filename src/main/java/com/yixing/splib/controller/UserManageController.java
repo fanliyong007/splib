@@ -13,14 +13,18 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.WebRequest;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -35,8 +39,6 @@ public class UserManageController
     private UserService userService;
     @Resource
     private LoginService loginService;
-    @Resource
-    private MajorService majorService;
     //增加user外部接口
     @RequestMapping(value = "/addUser")
     public Msg save(@Valid User user,@Valid Login login,BindingResult result)
@@ -74,6 +76,30 @@ public class UserManageController
         PageInfo<User> pageInfo = new PageInfo<>(users, 1);
         return Msg.success().add("user", pageInfo);
     }
+    //禁用或更新user接口
+    @RequestMapping(value = "/updateUser/{id}")
+    public Msg disableUser(@Valid User user,BindingResult result)
+    {
+        if (result.getErrorCount() > 0)
+        {
+            Map<String, Object> errors = new HashMap<>();
+            for (FieldError error : result.getFieldErrors())
+            {
+                System.out.println(error.getField() + ":" + error.getDefaultMessage());
+                errors.put(error.getField(), error.getDefaultMessage());
+            }
+            return Msg.fail().add("errors", errors);
+        }
+        try
+        {
+            userService.updateUser(user);
+            return Msg.success();
+        } catch (Exception e)
+        {
+            return Msg.fail().add("errors", e.getMessage());
+        }
+    }
+
     @InitBinder
     public void initBinder(WebDataBinder binder)
     {

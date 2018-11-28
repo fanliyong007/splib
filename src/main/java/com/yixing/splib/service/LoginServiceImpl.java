@@ -18,13 +18,6 @@ public class LoginServiceImpl implements LoginService
     {
         loginMapper.insertSelective(login);
     }
-
-    @Override
-    public void deleteLogin(String username)
-    {
-        loginMapper.deleteByPrimaryKey(username);
-    }
-
     @Override
     public void updateLogin(Login login)
     {
@@ -37,14 +30,5 @@ public class LoginServiceImpl implements LoginService
         LoginExample loginExample=new LoginExample();
         loginExample.setOrderByClause("username");
         return loginMapper.selectByExample(loginExample);
-    }
-
-    @Override
-    public void deleteLoginBatch(List<String> usernames)
-    {
-        LoginExample loginExample=new LoginExample();
-        LoginExample.Criteria criteria=loginExample.createCriteria();
-        criteria.andUsernameIn(usernames);
-        loginMapper.deleteByExample(loginExample);
     }
 }

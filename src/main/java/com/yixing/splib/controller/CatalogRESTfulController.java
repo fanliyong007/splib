@@ -19,7 +19,6 @@ import java.util.*;
 
 
 @RestController
-@EnableAutoConfiguration
 @RequestMapping("/api")
 public class CatalogRESTfulController
 {
