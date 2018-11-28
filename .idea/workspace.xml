@@ -2,24 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c5728232-838d-49ee-9512-9bee47ff3c29" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/UserManageController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/DetailService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/DetailServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/LoginService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/LoginServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/OplogService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/OplogServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/MajorService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/MajorServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/CatalogRESTfulController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/CatalogRESTfulController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/ThymeleafController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/ThymeleafController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/UserManageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/UserManageController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/UserRESTfulController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/UserRESTfulController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/yixing/splib/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yixing/splib/entity/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/hello.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/hello.html" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -45,51 +35,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ThymeleafController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/ThymeleafController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="15" column="19" lean-forward="true" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="CatalogRESTfulController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/CatalogRESTfulController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="65">
-              <caret line="20" selection-start-line="20" selection-end-line="22" selection-end-column="23" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/service/UserServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#497#498#0" expanded="true" />
-                <element signature="e#545#546#0" expanded="true" />
-                <element signature="e#605#606#0" expanded="true" />
-                <element signature="e#654#655#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserMapper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/dao/UserMapper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="10" column="45" lean-forward="true" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
+            <state relative-caret-position="87">
+              <caret line="21" selection-start-line="21" selection-end-line="21" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -97,12 +47,41 @@
       <file leaf-file-name="UserManageController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/UserManageController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="34" column="40" lean-forward="true" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="40" />
+            <state relative-caret-position="305">
+              <caret line="70" column="33" selection-start-line="70" selection-start-column="33" selection-end-line="70" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MajorService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/service/MajorService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="132">
+              <caret line="6" column="29" lean-forward="true" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#813#829#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MajorServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/service/MajorServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="99">
+              <caret line="10" column="24" lean-forward="true" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Major.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/entity/Major.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="66">
+              <caret line="3" column="19" lean-forward="true" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -110,8 +89,8 @@
       <file leaf-file-name="LoginServiceImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/service/LoginServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="52">
-              <caret line="16" column="27" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+            <state relative-caret-position="374">
+              <caret line="38" column="57" lean-forward="true" selection-start-line="36" selection-start-column="8" selection-end-line="38" selection-end-column="57" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#454#455#0" expanded="true" />
@@ -121,11 +100,23 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="OplogService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/service/OplogService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="176">
+              <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="11" selection-end-column="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="UserRESTfulController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/UserRESTfulController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
-              <caret line="26" column="36" selection-start-line="26" selection-start-column="36" selection-end-line="26" selection-end-column="36" />
+            <state relative-caret-position="46">
+              <caret line="51" selection-start-line="51" selection-end-line="51" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -133,23 +124,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="User.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="User.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/entity/User.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="154">
-              <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="26" />
+              <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserService.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/service/UserService.java">
+      <file leaf-file-name="ColleageMapper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/dao/ColleageMapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="154">
+              <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -186,7 +174,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/util/Msg.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/dao/CatalogMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/entity/UserExample.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/entity/User.java" />
         <option value="$PROJECT_DIR$/mbg.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/mybatis-config.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/config/MyBatisConfiguration.java" />
@@ -198,7 +185,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/RESTfulController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/CatalogService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/CatalogServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/LoginService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/DetailService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/LoginServiceImpl.java" />
@@ -208,10 +194,14 @@
         <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/DetailServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/login.html" />
         <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/ThymeleafController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/UserManageController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/UserServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/UserRESTfulController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/UserService.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/UserRESTfulController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/MajorService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/MajorServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/UserManageController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/entity/User.java" />
       </list>
     </option>
   </component>
@@ -242,7 +232,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -292,7 +282,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="splib" type="462c0819:PsiDirectoryNode" />
-              <item name="entity" type="462c0819:PsiDirectoryNode" />
+              <item name="dao" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="splib" type="b2602c69:ProjectViewProjectNode" />
@@ -301,7 +291,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="splib" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="splib" type="b2602c69:ProjectViewProjectNode" />
@@ -329,7 +319,7 @@
         </subPane>
       </pane>
       <pane id="AndroidView" />
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -347,21 +337,21 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\splib\src\main\resources\static" />
+      <recent name="D:\splib\src\main\resources\mybatis\mapper" />
+      <recent name="D:\splib\src\test" />
+      <recent name="D:\splib\src" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.yixing.splib.util" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\splib\src\main\resources\static\image" />
       <recent name="D:\splib\src\main\resources\static\css" />
       <recent name="D:\splib\src\main\resources\mybatis" />
       <recent name="D:\splib\src\main\java\com\yixing\splib" />
       <recent name="D:\splib\src\test\java" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.yixing.splib.util" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\splib\src\main\resources\static" />
-      <recent name="D:\splib\src\main\resources\mybatis\mapper" />
-      <recent name="D:\splib\src\test" />
-      <recent name="D:\splib\src" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -450,6 +440,7 @@
       <workItem from="1543157865972" duration="775000" />
       <workItem from="1543192015875" duration="13071000" />
       <workItem from="1543293462443" duration="7813000" />
+      <workItem from="1543387488594" duration="1466000" />
     </task>
     <servers />
   </component>
@@ -474,10 +465,11 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31536000" />
+    <option name="totallyTimeSpent" value="33002000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="704" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="6" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
@@ -497,7 +489,7 @@
       <window_info anchor="bottom" id="Java Enterprise" order="3" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="bottom" id="Version Control" order="5" weight="0.329806" />
-      <window_info anchor="bottom" id="Run" order="9" weight="0.47619048" />
+      <window_info anchor="bottom" id="Run" order="9" weight="0.6684303" />
       <window_info anchor="bottom" id="Spring" order="0" />
       <window_info anchor="bottom" id="Terminal" order="1" weight="0.329806" />
       <window_info active="true" content_ui="combo" id="Project" order="5" sideWeight="0.49911818" visible="true" weight="0.2700081" />
@@ -551,15 +543,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/entity/Department.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/entity/DepartmentImpl.java" />
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/yixing/splib/SplibApplicationTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/mapper/CatalogMapper.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/dao/OplogMapper.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -583,13 +566,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/dao/DetailMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/dao/ColleageMapper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
           <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
@@ -686,14 +662,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/splib/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor />
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/splib/README.md" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/entity/Detail.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
@@ -745,16 +714,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/service/OplogService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" column="39" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/service/CatalogServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
@@ -789,13 +748,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="11" column="45" lean-forward="true" selection-start-line="11" selection-start-column="45" selection-end-line="11" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/SplibApplication.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="66">
@@ -812,18 +764,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/ThymeleafController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="15" column="19" lean-forward="true" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/CatalogRESTfulController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="65">
-          <caret line="20" selection-start-line="20" selection-end-line="22" selection-end-column="23" />
+        <state relative-caret-position="198">
+          <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -837,35 +779,90 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/entity/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/dao/UserMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="10" column="45" lean-forward="true" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
+        <state relative-caret-position="154">
+          <caret line="10" column="45" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/UserManageController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/service/UserServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="34" column="40" lean-forward="true" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="40" />
+        <state relative-caret-position="440">
+          <caret line="20" column="5" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#813#829#0" expanded="true" />
+            <element signature="e#497#498#0" expanded="true" />
+            <element signature="e#545#546#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/service/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/dao/ColleageMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="51" selection-start-line="7" selection-start-column="51" selection-end-line="7" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/CatalogRESTfulController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="21" selection-start-line="21" selection-end-line="21" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/UserRESTfulController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="51" selection-start-line="51" selection-end-line="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/service/OplogService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="11" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/service/MajorService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="29" lean-forward="true" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/service/LoginServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="16" column="27" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+        <state relative-caret-position="374">
+          <caret line="38" column="57" lean-forward="true" selection-start-line="36" selection-start-column="8" selection-end-line="38" selection-end-column="57" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#454#455#0" expanded="true" />
@@ -874,37 +871,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/UserRESTfulController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/entity/Major.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="66">
-          <caret line="26" column="36" selection-start-line="26" selection-start-column="36" selection-end-line="26" selection-end-column="36" />
+          <caret line="3" column="19" lean-forward="true" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/service/MajorServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="10" column="24" lean-forward="true" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/service/UserServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/UserManageController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="20" column="5" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="20" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#497#498#0" expanded="true" />
-            <element signature="e#545#546#0" expanded="true" />
-            <element signature="e#605#606#0" expanded="true" />
-            <element signature="e#654#655#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="305">
+          <caret line="70" column="33" selection-start-line="70" selection-start-column="33" selection-end-line="70" selection-end-column="33" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/service/UserService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/entity/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="154">
+          <caret line="7" column="16" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
         </state>
       </provider>
     </entry>
