@@ -3,10 +3,11 @@ package com.yixing.splib.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yixing.splib.entity.Catalog;
+import com.yixing.splib.entity.Detail;
 import com.yixing.splib.service.CatalogService;
+import com.yixing.splib.service.DetailService;
 import com.yixing.splib.util.Msg;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
@@ -17,17 +18,17 @@ import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-
 @RestController
 @RequestMapping("/api")
-public class CatalogRESTfulController
+public class BookManageController
 {
     @Resource
     private CatalogService catalogService;
-
+    @Resource
+    private DetailService detailService;
     //增加Catalog外部接口
-    @RequestMapping(value = "/addCatalog")
-    public Msg save(@Valid Catalog catalog, BindingResult result)
+    @RequestMapping(value = "/addBook")
+    public Msg save(@Valid Catalog catalog,@Valid Detail detail, BindingResult result)
     {
 
         if (result.getErrorCount() > 0)
@@ -43,6 +44,7 @@ public class CatalogRESTfulController
         try
         {
             catalogService.saveCatalog(catalog);
+            detailService.saveDetail(detail);
             return Msg.success();
         } catch (Exception e)
         {
@@ -51,7 +53,7 @@ public class CatalogRESTfulController
     }
     //删除Catalog外部接口
     @ResponseBody
-    @RequestMapping(value="/deleteCatalog/{ids}")
+    @RequestMapping(value="/deleteBook/{ids}")
     public Msg delete(@PathVariable("ids")String ids) {
         if(ids.contains(",")) {
             String[] strIds=ids.split(",");
@@ -66,8 +68,8 @@ public class CatalogRESTfulController
         return Msg.success();
     }
     //修改Catalog外部接口
-    @RequestMapping(value = "/updateCatalog/{id}")
-    public Msg updateUser(@Valid Catalog catalog, BindingResult result)
+    @RequestMapping(value = "/updateBook/{id}")
+    public Msg updateUser(@Valid Catalog catalog, @Valid Detail detail, BindingResult result)
     {
         if (result.getErrorCount() > 0)
         {
@@ -82,6 +84,7 @@ public class CatalogRESTfulController
         try
         {
             catalogService.updateCatalog(catalog);
+            detailService.updateDetail(detail);
             return Msg.success();
         } catch (Exception e)
         {
@@ -89,16 +92,19 @@ public class CatalogRESTfulController
         }
     }
     //查询所有Catalog外部接口
-    @RequestMapping(value = "/catalog")
+    @RequestMapping(value = "/book")
     public Msg getUser(@RequestParam(value = "pn", defaultValue = "1") Integer pageNum)
     {
         //在查询之前调用静态方法设置起始页和页面大小
         PageHelper.startPage(pageNum, 8);
         //startPage后面紧跟着的查询就是分页查询
-        List<Catalog> users = catalogService.getAll();
+        List<Catalog> catalogs = catalogService.getAll();
+        List<Detail> details=detailService.getAll();
+        System.out.println(details.get(1).toString());
         //使用PageInfo包装查询后的结果，并将pageInfo存入map中
-        PageInfo<Catalog> pageInfo = new PageInfo<>(users, 1);
-        return Msg.success().add("page", pageInfo);
+        PageInfo<Catalog> catalogpageInfo = new PageInfo<>(catalogs, 1);
+        PageInfo<Detail> detailpageInfo=new PageInfo<Detail>(details,1);
+        return Msg.success().add("catalog", catalogpageInfo).add("detail",detailpageInfo);
     }
     @InitBinder
     public void initBinder(WebDataBinder binder)
