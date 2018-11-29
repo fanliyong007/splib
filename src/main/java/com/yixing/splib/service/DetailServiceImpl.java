@@ -35,7 +35,7 @@ public class DetailServiceImpl implements DetailService
     {
         DetailExample detailExample=new DetailExample();
         detailExample.setOrderByClause("book_id");
-        return detailMapper.selectByExample(detailExample);
+        return detailMapper.selectByExampleALL(detailExample);
     }
 
     @Override

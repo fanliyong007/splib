@@ -98,13 +98,10 @@ public class BookManageController
         //在查询之前调用静态方法设置起始页和页面大小
         PageHelper.startPage(pageNum, 8);
         //startPage后面紧跟着的查询就是分页查询
-        List<Catalog> catalogs = catalogService.getAll();
         List<Detail> details=detailService.getAll();
-        System.out.println(details.get(1).toString());
         //使用PageInfo包装查询后的结果，并将pageInfo存入map中
-        PageInfo<Catalog> catalogpageInfo = new PageInfo<>(catalogs, 1);
         PageInfo<Detail> detailpageInfo=new PageInfo<Detail>(details,1);
-        return Msg.success().add("catalog", catalogpageInfo).add("detail",detailpageInfo);
+        return Msg.success().add("detail",detailpageInfo);
     }
     @InitBinder
     public void initBinder(WebDataBinder binder)

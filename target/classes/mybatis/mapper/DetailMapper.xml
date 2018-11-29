@@ -12,6 +12,36 @@
     <result column="islost" property="islost" jdbcType="BIT" />
     <result column="lostdate" property="lostdate" jdbcType="TIMESTAMP" />
   </resultMap>
+  <resultMap id="ALLResultMap" type="com.yixing.splib.entity.Detail" >
+    <id column="book_id" property="bookId" jdbcType="VARCHAR" />
+    <result column="subnum" property="subnum" jdbcType="VARCHAR" />
+    <result column="book_code" property="bookCode" jdbcType="INTEGER" />
+    <result column="islended" property="islended" jdbcType="BIT" />
+    <result column="outdate" property="outdate" jdbcType="TIMESTAMP" />
+    <result column="indate" property="indate" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="islost" property="islost" jdbcType="BIT" />
+    <result column="lostdate" property="lostdate" jdbcType="TIMESTAMP" />
+    <association property="catalog" javaType="com.yixing.splib.entity.Catalog">
+      <id column="Subnum" property="subnum"/>
+      <result column="Classnum" property="classnum" jdbcType="VARCHAR" />
+      <result column="Isbn" property="isbn" jdbcType="VARCHAR" />
+      <result column="Book_name" property="bookName" jdbcType="VARCHAR" />
+      <result column="Book_nameS" property="bookNames" jdbcType="VARCHAR" />
+      <result column="Book_author" property="bookAuthor" jdbcType="VARCHAR" />
+      <result column="Book_authorS" property="bookAuthors" jdbcType="VARCHAR" />
+      <result column="Book_version" property="bookVersion" jdbcType="VARCHAR" />
+      <result column="Book_press" property="bookPress" jdbcType="VARCHAR" />
+      <result column="Book_pubdate" property="bookPubdate" jdbcType="TIMESTAMP" />
+      <result column="Book_page" property="bookPage" jdbcType="INTEGER" />
+      <result column="Book_price" property="bookPrice" jdbcType="INTEGER" />
+      <result column="Book_date" property="bookDate" jdbcType="TIMESTAMP" />
+      <result column="Book_remainnum" property="bookRemainnum" jdbcType="INTEGER" />
+      <result column="Book_num" property="bookNum" jdbcType="INTEGER" />
+      <result column="Catalog_man" property="catalogMan" jdbcType="VARCHAR" />
+      <result column="Iscanceled" property="iscanceled" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -73,6 +103,38 @@
   <sql id="Base_Column_List" >
     book_id, subnum, book_code, islended, outdate, indate, user_id, islost, lostdate
   </sql>
+  <sql id="ALL_Column_List" >
+ d.book_id, d.subnum, d.book_code, d.islended, d.outdate, d.indate, d.user_id, d.islost, d.lostdate,
+    ca.Subnum, ca.Classnum, ca.Isbn, ca.Book_name, ca.Book_nameS, ca.Book_author, ca.Book_authorS, ca.Book_version,
+    ca.Book_press, ca.Book_pubdate, ca.Book_page, ca.Book_price, ca.Book_date, ca.Book_remainnum, ca.Book_num,
+    ca.Catalog_man, ca.Iscanceled</sql>
+  <!--List<Detail> selectByExampleALL(DetailExample example);-->
+
+  <!--Detail selectByPrimaryKeyALL(String bookId);-->
+  <select id="selectByExampleALL" resultMap="ALLResultMap" parameterType="com.yixing.splib.entity.DetailExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="ALL_Column_List" />
+    FROM
+    lib.detail d
+    LEFT outer join catalog ca on d.subnum=ca.subnum
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKeyALL" resultMap="ALLResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="ALL_Column_List" />
+    FROM
+    lib.detail d
+    LEFT outer join catalog ca on d.subnum=ca.subnum
+    where book_id = #{bookId,jdbcType=VARCHAR}
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yixing.splib.entity.DetailExample" >
     select
     <if test="distinct" >

@@ -7,6 +7,8 @@ public class Detail {
 
     private String subnum;
 
+    private Catalog catalog;
+
     private Integer bookCode;
 
     private Boolean islended;
@@ -91,5 +93,49 @@ public class Detail {
 
     public void setLostdate(Date lostdate) {
         this.lostdate = lostdate;
+    }
+
+    public Catalog getCatalog()
+    {
+        return catalog;
+    }
+
+    public void setCatalog(Catalog catalog)
+    {
+        this.catalog = catalog;
+    }
+
+    public Detail(String bookId, String subnum, Integer bookCode, Boolean islended, Date outdate, Date indate, String userId, Boolean islost, Date lostdate)
+    {
+        this.bookId = bookId;
+        this.subnum = subnum;
+        this.bookCode = bookCode;
+        this.islended = islended;
+        this.outdate = outdate;
+        this.indate = indate;
+        this.userId = userId;
+        this.islost = islost;
+        this.lostdate = lostdate;
+    }
+
+    public Detail()
+    {
+        super();
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Detail{" +
+                "bookId='" + bookId + '\'' +
+                ", subnum='" + subnum + '\'' +
+                ", bookCode=" + bookCode +
+                ", islended=" + islended +
+                ", outdate=" + outdate +
+                ", indate=" + indate +
+                ", userId='" + userId + '\'' +
+                ", islost=" + islost +
+                ", lostdate=" + lostdate +
+                '}';
     }
 }

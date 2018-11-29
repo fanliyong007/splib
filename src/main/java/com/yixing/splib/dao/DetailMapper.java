@@ -16,6 +16,10 @@ public interface DetailMapper {
 
     int insertSelective(Detail record);
 
+    List<Detail> selectByExampleALL(DetailExample example);
+
+    Detail selectByPrimaryKeyALL(String bookId);
+
     List<Detail> selectByExample(DetailExample example);
 
     Detail selectByPrimaryKey(String bookId);
