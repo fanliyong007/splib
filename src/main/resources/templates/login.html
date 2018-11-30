@@ -15,20 +15,22 @@
 </head>
 
 <body class="text-center">
-<form class="form-signin">
+
+<form class="form-signin" method="post" action="login">
     <img class="mb-4" th:src="@{/image/qt1.jpg}" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">欢迎使用ZIME图书馆</h1>
+    <p class="bg-dange" th:text="${msg}"></p>
     <label for="inputEmail" class="sr-only">用户名</label>
-    <input type="input" id="inputEmail" class="form-control" placeholder="用户名" required autofocus>
-    <label for="inputPassword" class="sr-only">密码</label>
-    <input type="password" id="inputPassword" class="form-control" placeholder="密码" required>
+    <input name="username" type="input" id="inputEmail" class="form-control" placeholder="用户名" required autofocus>
+    <label  for="inputPassword" class="sr-only">密码</label>
+    <input name="password" type="password" id="inputPassword" class="form-control" placeholder="密码" required>
     <div class="checkbox mb-3">
         <label>
             <input type="checkbox" value="remember-me">记住我
         </label>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">登 录</button>
-    <p class="mt-5 mb-3 text-muted" th:text="${msg}"></p>
+    <p class="mt-5 mb-3 text-muted" th:text="${time}"></p>
 </form>
 </body>
 </html>
