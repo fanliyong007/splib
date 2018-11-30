@@ -1,5 +1,6 @@
 package com.yixing.splib.config;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -32,10 +33,15 @@ public class ShiroConfig
         //放行登录页面
         filterMap.put("/login","anon");
         filterMap.put("/*","authc");
+        //授权过滤器
+        filterMap.put("/api/user","perms[admin]");
+        filterMap.put("/api/book","perms[user]");
+
         //修改跳转页面
         shiroFilterFactoryBean.setLoginUrl("/");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
-
+        //设置未授权提示页面
+        shiroFilterFactoryBean.setUnauthorizedUrl("/noAuth");
         return shiroFilterFactoryBean;
     }
     @Bean(name = "securityManager")
@@ -53,6 +59,13 @@ public class ShiroConfig
     {
         return new UserRealm();
     }
-
+    /**
+     * 配置ShiroDialect结合thymeleaf与shiro
+     */
+    @Bean
+    public ShiroDialect getShiroDialect()
+    {
+        return new ShiroDialect();
+    }
 }
 

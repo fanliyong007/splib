@@ -10,6 +10,8 @@ public interface LoginService
     public void saveLogin(Login login);
     //更新Login信息
     public void updateLogin(Login login);
+    //得到某个用户信息
+    public Login get(String username);
     //获取所有Login信息
     public List<Login> getAll();
 }

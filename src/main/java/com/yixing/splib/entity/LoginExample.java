@@ -244,73 +244,73 @@ public class LoginExample {
             return (Criteria) this;
         }
 
-        public Criteria andRoleIsNull() {
-            addCriterion("role is null");
+        public Criteria andPermsIsNull() {
+            addCriterion("perms is null");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIsNotNull() {
-            addCriterion("role is not null");
+        public Criteria andPermsIsNotNull() {
+            addCriterion("perms is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRoleEqualTo(String value) {
-            addCriterion("role =", value, "role");
+        public Criteria andPermsEqualTo(String value) {
+            addCriterion("perms =", value, "perms");
             return (Criteria) this;
         }
 
-        public Criteria andRoleNotEqualTo(String value) {
-            addCriterion("role <>", value, "role");
+        public Criteria andPermsNotEqualTo(String value) {
+            addCriterion("perms <>", value, "perms");
             return (Criteria) this;
         }
 
-        public Criteria andRoleGreaterThan(String value) {
-            addCriterion("role >", value, "role");
+        public Criteria andPermsGreaterThan(String value) {
+            addCriterion("perms >", value, "perms");
             return (Criteria) this;
         }
 
-        public Criteria andRoleGreaterThanOrEqualTo(String value) {
-            addCriterion("role >=", value, "role");
+        public Criteria andPermsGreaterThanOrEqualTo(String value) {
+            addCriterion("perms >=", value, "perms");
             return (Criteria) this;
         }
 
-        public Criteria andRoleLessThan(String value) {
-            addCriterion("role <", value, "role");
+        public Criteria andPermsLessThan(String value) {
+            addCriterion("perms <", value, "perms");
             return (Criteria) this;
         }
 
-        public Criteria andRoleLessThanOrEqualTo(String value) {
-            addCriterion("role <=", value, "role");
+        public Criteria andPermsLessThanOrEqualTo(String value) {
+            addCriterion("perms <=", value, "perms");
             return (Criteria) this;
         }
 
-        public Criteria andRoleLike(String value) {
-            addCriterion("role like", value, "role");
+        public Criteria andPermsLike(String value) {
+            addCriterion("perms like", value, "perms");
             return (Criteria) this;
         }
 
-        public Criteria andRoleNotLike(String value) {
-            addCriterion("role not like", value, "role");
+        public Criteria andPermsNotLike(String value) {
+            addCriterion("perms not like", value, "perms");
             return (Criteria) this;
         }
 
-        public Criteria andRoleIn(List<String> values) {
-            addCriterion("role in", values, "role");
+        public Criteria andPermsIn(List<String> values) {
+            addCriterion("perms in", values, "perms");
             return (Criteria) this;
         }
 
-        public Criteria andRoleNotIn(List<String> values) {
-            addCriterion("role not in", values, "role");
+        public Criteria andPermsNotIn(List<String> values) {
+            addCriterion("perms not in", values, "perms");
             return (Criteria) this;
         }
 
-        public Criteria andRoleBetween(String value1, String value2) {
-            addCriterion("role between", value1, value2, "role");
+        public Criteria andPermsBetween(String value1, String value2) {
+            addCriterion("perms between", value1, value2, "perms");
             return (Criteria) this;
         }
 
-        public Criteria andRoleNotBetween(String value1, String value2) {
-            addCriterion("role not between", value1, value2, "role");
+        public Criteria andPermsNotBetween(String value1, String value2) {
+            addCriterion("perms not between", value1, value2, "perms");
             return (Criteria) this;
         }
     }

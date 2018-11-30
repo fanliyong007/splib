@@ -5,7 +5,7 @@ public class Login {
 
     private String password;
 
-    private String role;
+    private String perms;
 
     public String getUsername() {
         return username;
@@ -23,11 +23,11 @@ public class Login {
         this.password = password == null ? null : password.trim();
     }
 
-    public String getRole() {
-        return role;
+    public String getPerms() {
+        return perms;
     }
 
-    public void setRole(String role) {
-        this.role = role == null ? null : role.trim();
+    public void setPerms(String perms) {
+        this.perms = perms == null ? null : perms.trim();
     }
 }

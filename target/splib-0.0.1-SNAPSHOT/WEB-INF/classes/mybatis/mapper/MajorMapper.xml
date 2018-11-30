@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yixing.splib.dao.MajorMapper" >
+  <resultMap id="BaseResultMap" type="com.yixing.splib.entity.Major" >
+    <id column="major_id" property="majorId" jdbcType="VARCHAR" />
+    <result column="major_name" property="majorName" jdbcType="VARCHAR" />
+    <result column="colleage_id" property="colleageId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    major_id, major_name, colleage_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yixing.splib.entity.MajorExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from majormessage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from majormessage
+    where major_id = #{majorId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from majormessage
+    where major_id = #{majorId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yixing.splib.entity.MajorExample" >
+    delete from majormessage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yixing.splib.entity.Major" >
+    insert into majormessage (major_id, major_name, colleage_id
+      )
+    values (#{majorId,jdbcType=VARCHAR}, #{majorName,jdbcType=VARCHAR}, #{colleageId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yixing.splib.entity.Major" >
+    insert into majormessage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="majorId != null" >
+        major_id,
+      </if>
+      <if test="majorName != null" >
+        major_name,
+      </if>
+      <if test="colleageId != null" >
+        colleage_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="majorId != null" >
+        #{majorId,jdbcType=VARCHAR},
+      </if>
+      <if test="majorName != null" >
+        #{majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="colleageId != null" >
+        #{colleageId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yixing.splib.entity.MajorExample" resultType="java.lang.Integer" >
+    select count(*) from majormessage
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update majormessage
+    <set >
+      <if test="record.majorId != null" >
+        major_id = #{record.majorId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorName != null" >
+        major_name = #{record.majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.colleageId != null" >
+        colleage_id = #{record.colleageId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update majormessage
+    set major_id = #{record.majorId,jdbcType=VARCHAR},
+      major_name = #{record.majorName,jdbcType=VARCHAR},
+      colleage_id = #{record.colleageId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yixing.splib.entity.Major" >
+    update majormessage
+    <set >
+      <if test="majorName != null" >
+        major_name = #{majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="colleageId != null" >
+        colleage_id = #{colleageId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where major_id = #{majorId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yixing.splib.entity.Major" >
+    update majormessage
+    set major_name = #{majorName,jdbcType=VARCHAR},
+      colleage_id = #{colleageId,jdbcType=VARCHAR}
+    where major_id = #{majorId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -25,6 +25,12 @@ public class LoginServiceImpl implements LoginService
     }
 
     @Override
+    public Login get(String username)
+    {
+        return loginMapper.selectByPrimaryKey(username);
+    }
+
+    @Override
     public List<Login> getAll()
     {
         LoginExample loginExample=new LoginExample();

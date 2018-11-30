@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yixing.splib.dao.CatalogMapper" >
+  <resultMap id="BaseResultMap" type="com.yixing.splib.entity.Catalog" >
+    <id column="subnum" property="subnum" jdbcType="VARCHAR" />
+    <result column="classnum" property="classnum" jdbcType="VARCHAR" />
+    <result column="isbn" property="isbn" jdbcType="VARCHAR" />
+    <result column="book_name" property="bookName" jdbcType="VARCHAR" />
+    <result column="book_nameS" property="bookNames" jdbcType="VARCHAR" />
+    <result column="book_author" property="bookAuthor" jdbcType="VARCHAR" />
+    <result column="book_authorS" property="bookAuthors" jdbcType="VARCHAR" />
+    <result column="book_version" property="bookVersion" jdbcType="VARCHAR" />
+    <result column="book_press" property="bookPress" jdbcType="VARCHAR" />
+    <result column="book_pubdate" property="bookPubdate" jdbcType="TIMESTAMP" />
+    <result column="book_page" property="bookPage" jdbcType="INTEGER" />
+    <result column="book_price" property="bookPrice" jdbcType="INTEGER" />
+    <result column="book_date" property="bookDate" jdbcType="TIMESTAMP" />
+    <result column="book_remainnum" property="bookRemainnum" jdbcType="INTEGER" />
+    <result column="book_num" property="bookNum" jdbcType="INTEGER" />
+    <result column="catalog_man" property="catalogMan" jdbcType="VARCHAR" />
+    <result column="iscanceled" property="iscanceled" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    subnum, classnum, isbn, book_name, book_nameS, book_author, book_authorS, book_version, 
+    book_press, book_pubdate, book_page, book_price, book_date, book_remainnum, book_num, 
+    catalog_man, iscanceled
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yixing.splib.entity.CatalogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from catalog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from catalog
+    where subnum = #{subnum,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from catalog
+    where subnum = #{subnum,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yixing.splib.entity.CatalogExample" >
+    delete from catalog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yixing.splib.entity.Catalog" >
+    insert into catalog (subnum, classnum, isbn, 
+      book_name, book_nameS, book_author, 
+      book_authorS, book_version, book_press, 
+      book_pubdate, book_page, book_price, 
+      book_date, book_remainnum, book_num, 
+      catalog_man, iscanceled)
+    values (#{subnum,jdbcType=VARCHAR}, #{classnum,jdbcType=VARCHAR}, #{isbn,jdbcType=VARCHAR}, 
+      #{bookName,jdbcType=VARCHAR}, #{bookNames,jdbcType=VARCHAR}, #{bookAuthor,jdbcType=VARCHAR}, 
+      #{bookAuthors,jdbcType=VARCHAR}, #{bookVersion,jdbcType=VARCHAR}, #{bookPress,jdbcType=VARCHAR}, 
+      #{bookPubdate,jdbcType=TIMESTAMP}, #{bookPage,jdbcType=INTEGER}, #{bookPrice,jdbcType=INTEGER}, 
+      #{bookDate,jdbcType=TIMESTAMP}, #{bookRemainnum,jdbcType=INTEGER}, #{bookNum,jdbcType=INTEGER}, 
+      #{catalogMan,jdbcType=VARCHAR}, #{iscanceled,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yixing.splib.entity.Catalog" >
+    insert into catalog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="subnum != null" >
+        subnum,
+      </if>
+      <if test="classnum != null" >
+        classnum,
+      </if>
+      <if test="isbn != null" >
+        isbn,
+      </if>
+      <if test="bookName != null" >
+        book_name,
+      </if>
+      <if test="bookNames != null" >
+        book_nameS,
+      </if>
+      <if test="bookAuthor != null" >
+        book_author,
+      </if>
+      <if test="bookAuthors != null" >
+        book_authorS,
+      </if>
+      <if test="bookVersion != null" >
+        book_version,
+      </if>
+      <if test="bookPress != null" >
+        book_press,
+      </if>
+      <if test="bookPubdate != null" >
+        book_pubdate,
+      </if>
+      <if test="bookPage != null" >
+        book_page,
+      </if>
+      <if test="bookPrice != null" >
+        book_price,
+      </if>
+      <if test="bookDate != null" >
+        book_date,
+      </if>
+      <if test="bookRemainnum != null" >
+        book_remainnum,
+      </if>
+      <if test="bookNum != null" >
+        book_num,
+      </if>
+      <if test="catalogMan != null" >
+        catalog_man,
+      </if>
+      <if test="iscanceled != null" >
+        iscanceled,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="subnum != null" >
+        #{subnum,jdbcType=VARCHAR},
+      </if>
+      <if test="classnum != null" >
+        #{classnum,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn != null" >
+        #{isbn,jdbcType=VARCHAR},
+      </if>
+      <if test="bookName != null" >
+        #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookNames != null" >
+        #{bookNames,jdbcType=VARCHAR},
+      </if>
+      <if test="bookAuthor != null" >
+        #{bookAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="bookAuthors != null" >
+        #{bookAuthors,jdbcType=VARCHAR},
+      </if>
+      <if test="bookVersion != null" >
+        #{bookVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPress != null" >
+        #{bookPress,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPubdate != null" >
+        #{bookPubdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bookPage != null" >
+        #{bookPage,jdbcType=INTEGER},
+      </if>
+      <if test="bookPrice != null" >
+        #{bookPrice,jdbcType=INTEGER},
+      </if>
+      <if test="bookDate != null" >
+        #{bookDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bookRemainnum != null" >
+        #{bookRemainnum,jdbcType=INTEGER},
+      </if>
+      <if test="bookNum != null" >
+        #{bookNum,jdbcType=INTEGER},
+      </if>
+      <if test="catalogMan != null" >
+        #{catalogMan,jdbcType=VARCHAR},
+      </if>
+      <if test="iscanceled != null" >
+        #{iscanceled,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yixing.splib.entity.CatalogExample" resultType="java.lang.Integer" >
+    select count(*) from catalog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update catalog
+    <set >
+      <if test="record.subnum != null" >
+        subnum = #{record.subnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.classnum != null" >
+        classnum = #{record.classnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isbn != null" >
+        isbn = #{record.isbn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookName != null" >
+        book_name = #{record.bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookNames != null" >
+        book_nameS = #{record.bookNames,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookAuthor != null" >
+        book_author = #{record.bookAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookAuthors != null" >
+        book_authorS = #{record.bookAuthors,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookVersion != null" >
+        book_version = #{record.bookVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookPress != null" >
+        book_press = #{record.bookPress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bookPubdate != null" >
+        book_pubdate = #{record.bookPubdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bookPage != null" >
+        book_page = #{record.bookPage,jdbcType=INTEGER},
+      </if>
+      <if test="record.bookPrice != null" >
+        book_price = #{record.bookPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.bookDate != null" >
+        book_date = #{record.bookDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bookRemainnum != null" >
+        book_remainnum = #{record.bookRemainnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.bookNum != null" >
+        book_num = #{record.bookNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.catalogMan != null" >
+        catalog_man = #{record.catalogMan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iscanceled != null" >
+        iscanceled = #{record.iscanceled,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update catalog
+    set subnum = #{record.subnum,jdbcType=VARCHAR},
+      classnum = #{record.classnum,jdbcType=VARCHAR},
+      isbn = #{record.isbn,jdbcType=VARCHAR},
+      book_name = #{record.bookName,jdbcType=VARCHAR},
+      book_nameS = #{record.bookNames,jdbcType=VARCHAR},
+      book_author = #{record.bookAuthor,jdbcType=VARCHAR},
+      book_authorS = #{record.bookAuthors,jdbcType=VARCHAR},
+      book_version = #{record.bookVersion,jdbcType=VARCHAR},
+      book_press = #{record.bookPress,jdbcType=VARCHAR},
+      book_pubdate = #{record.bookPubdate,jdbcType=TIMESTAMP},
+      book_page = #{record.bookPage,jdbcType=INTEGER},
+      book_price = #{record.bookPrice,jdbcType=INTEGER},
+      book_date = #{record.bookDate,jdbcType=TIMESTAMP},
+      book_remainnum = #{record.bookRemainnum,jdbcType=INTEGER},
+      book_num = #{record.bookNum,jdbcType=INTEGER},
+      catalog_man = #{record.catalogMan,jdbcType=VARCHAR},
+      iscanceled = #{record.iscanceled,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yixing.splib.entity.Catalog" >
+    update catalog
+    <set >
+      <if test="classnum != null" >
+        classnum = #{classnum,jdbcType=VARCHAR},
+      </if>
+      <if test="isbn != null" >
+        isbn = #{isbn,jdbcType=VARCHAR},
+      </if>
+      <if test="bookName != null" >
+        book_name = #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookNames != null" >
+        book_nameS = #{bookNames,jdbcType=VARCHAR},
+      </if>
+      <if test="bookAuthor != null" >
+        book_author = #{bookAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="bookAuthors != null" >
+        book_authorS = #{bookAuthors,jdbcType=VARCHAR},
+      </if>
+      <if test="bookVersion != null" >
+        book_version = #{bookVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPress != null" >
+        book_press = #{bookPress,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPubdate != null" >
+        book_pubdate = #{bookPubdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bookPage != null" >
+        book_page = #{bookPage,jdbcType=INTEGER},
+      </if>
+      <if test="bookPrice != null" >
+        book_price = #{bookPrice,jdbcType=INTEGER},
+      </if>
+      <if test="bookDate != null" >
+        book_date = #{bookDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bookRemainnum != null" >
+        book_remainnum = #{bookRemainnum,jdbcType=INTEGER},
+      </if>
+      <if test="bookNum != null" >
+        book_num = #{bookNum,jdbcType=INTEGER},
+      </if>
+      <if test="catalogMan != null" >
+        catalog_man = #{catalogMan,jdbcType=VARCHAR},
+      </if>
+      <if test="iscanceled != null" >
+        iscanceled = #{iscanceled,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where subnum = #{subnum,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yixing.splib.entity.Catalog" >
+    update catalog
+    set classnum = #{classnum,jdbcType=VARCHAR},
+      isbn = #{isbn,jdbcType=VARCHAR},
+      book_name = #{bookName,jdbcType=VARCHAR},
+      book_nameS = #{bookNames,jdbcType=VARCHAR},
+      book_author = #{bookAuthor,jdbcType=VARCHAR},
+      book_authorS = #{bookAuthors,jdbcType=VARCHAR},
+      book_version = #{bookVersion,jdbcType=VARCHAR},
+      book_press = #{bookPress,jdbcType=VARCHAR},
+      book_pubdate = #{bookPubdate,jdbcType=TIMESTAMP},
+      book_page = #{bookPage,jdbcType=INTEGER},
+      book_price = #{bookPrice,jdbcType=INTEGER},
+      book_date = #{bookDate,jdbcType=TIMESTAMP},
+      book_remainnum = #{bookRemainnum,jdbcType=INTEGER},
+      book_num = #{bookNum,jdbcType=INTEGER},
+      catalog_man = #{catalogMan,jdbcType=VARCHAR},
+      iscanceled = #{iscanceled,jdbcType=VARCHAR}
+    where subnum = #{subnum,jdbcType=VARCHAR}
+  </update>
+</mapper>

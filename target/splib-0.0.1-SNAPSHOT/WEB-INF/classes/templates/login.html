@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Signin Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="" th:href="@{/css/signin.css}" rel="stylesheet">
+</head>
+
+<body class="text-center">
+
+<form class="form-signin" method="post" action="login">
+    <img class="mb-4" th:src="@{/image/qt1.jpg}" alt="" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal">欢迎使用ZIME图书馆</h1>
+    <p class="bg-dange" th:text="${msg}"></p>
+    <label for="inputEmail" class="sr-only">用户名</label>
+    <input name="username" type="input" id="inputEmail" class="form-control" placeholder="用户名" required autofocus>
+    <label  for="inputPassword" class="sr-only">密码</label>
+    <input name="password" type="password" id="inputPassword" class="form-control" placeholder="密码" required>
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" value="remember-me">记住我
+        </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">登 录</button>
+    <p class="mt-5 mb-3 text-muted" th:text="${time}"></p>
+</form>
+</body>
+</html>

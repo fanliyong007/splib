@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yixing.splib.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.yixing.splib.entity.User" >
+    <id column="user_code" property="userCode" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="regdate" property="regdate" jdbcType="TIMESTAMP" />
+    <result column="borrowed" property="borrowed" jdbcType="INTEGER" />
+    <result column="iscanceled" property="iscanceled" jdbcType="BIT" />
+    <result column="canceleddate" property="canceleddate" jdbcType="TIMESTAMP" />
+    <result column="user_age" property="userAge" jdbcType="INTEGER" />
+    <result column="user_gender" property="userGender" jdbcType="VARCHAR" />
+    <result column="idnum" property="idnum" jdbcType="VARCHAR" />
+    <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+    <result column="brrowlimit" property="brrowlimit" jdbcType="INTEGER" />
+    <result column="iscompensated" property="iscompensated" jdbcType="BIT" />
+    <result column="compensatedint" property="compensatedint" jdbcType="INTEGER" />
+    <result column="isfined" property="isfined" jdbcType="BIT" />
+    <result column="fineint" property="fineint" jdbcType="INTEGER" />
+    <result column="colleage_id" property="colleageId" jdbcType="VARCHAR" />
+    <result column="major_id" property="majorId" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ALLResultMap" type="com.yixing.splib.entity.User" >
+        <id column="user_code" property="userCode" jdbcType="INTEGER" />
+        <result column="user_id" property="userId" jdbcType="VARCHAR" />
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="regdate" property="regdate" jdbcType="TIMESTAMP" />
+        <result column="borrowed" property="borrowed" jdbcType="INTEGER" />
+        <result column="iscanceled" property="iscanceled" jdbcType="BIT" />
+        <result column="canceleddate" property="canceleddate" jdbcType="TIMESTAMP" />
+        <result column="user_age" property="userAge" jdbcType="INTEGER" />
+        <result column="user_gender" property="userGender" jdbcType="VARCHAR" />
+        <result column="idnum" property="idnum" jdbcType="VARCHAR" />
+        <result column="user_phone" property="userPhone" jdbcType="VARCHAR" />
+        <result column="brrowlimit" property="brrowlimit" jdbcType="INTEGER" />
+        <result column="iscompensated" property="iscompensated" jdbcType="BIT" />
+        <result column="compensatedint" property="compensatedint" jdbcType="INTEGER" />
+        <result column="isfined" property="isfined" jdbcType="BIT" />
+        <result column="fineint" property="fineint" jdbcType="INTEGER" />
+        <result column="colleage_id" property="colleageId" jdbcType="VARCHAR" />
+        <result column="major_id" property="majorId" jdbcType="VARCHAR" />
+        <association property="major" javaType="com.yixing.splib.entity.Major">
+            <id column="Major_id" property="majorId"/>
+            <result column="Major_name" property="majorName" />
+        </association>
+        <association property="colleage" javaType="com.yixing.splib.entity.Colleage">
+            <id column="Colleage_id" property="colleageId"/>
+            <result column="Colleage_name" property="colleageName" />
+        </association>
+    </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_code, user_id, user_name, regdate, borrowed, iscanceled, canceleddate, user_age, 
+    user_gender, idnum, user_phone, brrowlimit, iscompensated, compensatedint, isfined, 
+    fineint, colleage_id, major_id
+  </sql>
+  <sql id="ALL_Column_List" >
+    u.user_code, u.user_id, u.user_name, u.regdate, u.borrowed, u.iscanceled, u.canceleddate, u.user_age,
+    u.user_gender, u.idnum, u.user_phone, u.brrowlimit, u.iscompensated, u.compensatedint, u.isfined,
+    u.fineint, u.colleage_id, u.major_id,m.Major_id,m.Major_name,co.Colleage_id,co.Colleage_name
+  </sql>
+    <!--List<User> selectByExampleALL(UserExample example);-->
+
+    <!--User selectByPrimaryKeyALL(Integer userCode);-->
+    <select id="selectByExampleALL" resultMap="ALLResultMap"  >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        <include refid="ALL_Column_List" />
+        FROM lib.user u
+        LEFT outer join majormessage m on u.major_id=m.major_id
+        LEFT outer join colleagemessage co on u.colleage_id=co.colleage_id
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKeyALL" resultMap="ALLResultMap">
+        select
+        <include refid="ALL_Column_List" />
+        FROM lib.user u
+        LEFT outer join majormessage m on u.major_id=m.major_id
+        LEFT outer join colleagemessage co on u.colleage_id=co.colleage_id
+        where user_code = #{userCode,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yixing.splib.entity.UserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_code = #{userCode,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where user_code = #{userCode,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yixing.splib.entity.UserExample" >
+    delete from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yixing.splib.entity.User" >
+    insert into user (user_code, user_id, user_name, 
+      regdate, borrowed, iscanceled, 
+      canceleddate, user_age, user_gender, 
+      idnum, user_phone, brrowlimit, 
+      iscompensated, compensatedint, isfined, 
+      fineint, colleage_id, major_id
+      )
+    values (#{userCode,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{regdate,jdbcType=TIMESTAMP}, #{borrowed,jdbcType=INTEGER}, #{iscanceled,jdbcType=BIT}, 
+      #{canceleddate,jdbcType=TIMESTAMP}, #{userAge,jdbcType=INTEGER}, #{userGender,jdbcType=VARCHAR}, 
+      #{idnum,jdbcType=VARCHAR}, #{userPhone,jdbcType=VARCHAR}, #{brrowlimit,jdbcType=INTEGER}, 
+      #{iscompensated,jdbcType=BIT}, #{compensatedint,jdbcType=INTEGER}, #{isfined,jdbcType=BIT}, 
+      #{fineint,jdbcType=INTEGER}, #{colleageId,jdbcType=VARCHAR}, #{majorId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yixing.splib.entity.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userCode != null" >
+        user_code,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="regdate != null" >
+        regdate,
+      </if>
+      <if test="borrowed != null" >
+        borrowed,
+      </if>
+      <if test="iscanceled != null" >
+        iscanceled,
+      </if>
+      <if test="canceleddate != null" >
+        canceleddate,
+      </if>
+      <if test="userAge != null" >
+        user_age,
+      </if>
+      <if test="userGender != null" >
+        user_gender,
+      </if>
+      <if test="idnum != null" >
+        idnum,
+      </if>
+      <if test="userPhone != null" >
+        user_phone,
+      </if>
+      <if test="brrowlimit != null" >
+        brrowlimit,
+      </if>
+      <if test="iscompensated != null" >
+        iscompensated,
+      </if>
+      <if test="compensatedint != null" >
+        compensatedint,
+      </if>
+      <if test="isfined != null" >
+        isfined,
+      </if>
+      <if test="fineint != null" >
+        fineint,
+      </if>
+      <if test="colleageId != null" >
+        colleage_id,
+      </if>
+      <if test="majorId != null" >
+        major_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userCode != null" >
+        #{userCode,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="regdate != null" >
+        #{regdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowed != null" >
+        #{borrowed,jdbcType=INTEGER},
+      </if>
+      <if test="iscanceled != null" >
+        #{iscanceled,jdbcType=BIT},
+      </if>
+      <if test="canceleddate != null" >
+        #{canceleddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userAge != null" >
+        #{userAge,jdbcType=INTEGER},
+      </if>
+      <if test="userGender != null" >
+        #{userGender,jdbcType=VARCHAR},
+      </if>
+      <if test="idnum != null" >
+        #{idnum,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null" >
+        #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="brrowlimit != null" >
+        #{brrowlimit,jdbcType=INTEGER},
+      </if>
+      <if test="iscompensated != null" >
+        #{iscompensated,jdbcType=BIT},
+      </if>
+      <if test="compensatedint != null" >
+        #{compensatedint,jdbcType=INTEGER},
+      </if>
+      <if test="isfined != null" >
+        #{isfined,jdbcType=BIT},
+      </if>
+      <if test="fineint != null" >
+        #{fineint,jdbcType=INTEGER},
+      </if>
+      <if test="colleageId != null" >
+        #{colleageId,jdbcType=VARCHAR},
+      </if>
+      <if test="majorId != null" >
+        #{majorId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yixing.splib.entity.UserExample" resultType="java.lang.Integer" >
+    select count(*) from user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user
+    <set >
+      <if test="record.userCode != null" >
+        user_code = #{record.userCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regdate != null" >
+        regdate = #{record.regdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.borrowed != null" >
+        borrowed = #{record.borrowed,jdbcType=INTEGER},
+      </if>
+      <if test="record.iscanceled != null" >
+        iscanceled = #{record.iscanceled,jdbcType=BIT},
+      </if>
+      <if test="record.canceleddate != null" >
+        canceleddate = #{record.canceleddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userAge != null" >
+        user_age = #{record.userAge,jdbcType=INTEGER},
+      </if>
+      <if test="record.userGender != null" >
+        user_gender = #{record.userGender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idnum != null" >
+        idnum = #{record.idnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPhone != null" >
+        user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brrowlimit != null" >
+        brrowlimit = #{record.brrowlimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.iscompensated != null" >
+        iscompensated = #{record.iscompensated,jdbcType=BIT},
+      </if>
+      <if test="record.compensatedint != null" >
+        compensatedint = #{record.compensatedint,jdbcType=INTEGER},
+      </if>
+      <if test="record.isfined != null" >
+        isfined = #{record.isfined,jdbcType=BIT},
+      </if>
+      <if test="record.fineint != null" >
+        fineint = #{record.fineint,jdbcType=INTEGER},
+      </if>
+      <if test="record.colleageId != null" >
+        colleage_id = #{record.colleageId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.majorId != null" >
+        major_id = #{record.majorId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user
+    set user_code = #{record.userCode,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      regdate = #{record.regdate,jdbcType=TIMESTAMP},
+      borrowed = #{record.borrowed,jdbcType=INTEGER},
+      iscanceled = #{record.iscanceled,jdbcType=BIT},
+      canceleddate = #{record.canceleddate,jdbcType=TIMESTAMP},
+      user_age = #{record.userAge,jdbcType=INTEGER},
+      user_gender = #{record.userGender,jdbcType=VARCHAR},
+      idnum = #{record.idnum,jdbcType=VARCHAR},
+      user_phone = #{record.userPhone,jdbcType=VARCHAR},
+      brrowlimit = #{record.brrowlimit,jdbcType=INTEGER},
+      iscompensated = #{record.iscompensated,jdbcType=BIT},
+      compensatedint = #{record.compensatedint,jdbcType=INTEGER},
+      isfined = #{record.isfined,jdbcType=BIT},
+      fineint = #{record.fineint,jdbcType=INTEGER},
+      colleage_id = #{record.colleageId,jdbcType=VARCHAR},
+      major_id = #{record.majorId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yixing.splib.entity.User" >
+    update user
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="regdate != null" >
+        regdate = #{regdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="borrowed != null" >
+        borrowed = #{borrowed,jdbcType=INTEGER},
+      </if>
+      <if test="iscanceled != null" >
+        iscanceled = #{iscanceled,jdbcType=BIT},
+      </if>
+      <if test="canceleddate != null" >
+        canceleddate = #{canceleddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userAge != null" >
+        user_age = #{userAge,jdbcType=INTEGER},
+      </if>
+      <if test="userGender != null" >
+        user_gender = #{userGender,jdbcType=VARCHAR},
+      </if>
+      <if test="idnum != null" >
+        idnum = #{idnum,jdbcType=VARCHAR},
+      </if>
+      <if test="userPhone != null" >
+        user_phone = #{userPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="brrowlimit != null" >
+        brrowlimit = #{brrowlimit,jdbcType=INTEGER},
+      </if>
+      <if test="iscompensated != null" >
+        iscompensated = #{iscompensated,jdbcType=BIT},
+      </if>
+      <if test="compensatedint != null" >
+        compensatedint = #{compensatedint,jdbcType=INTEGER},
+      </if>
+      <if test="isfined != null" >
+        isfined = #{isfined,jdbcType=BIT},
+      </if>
+      <if test="fineint != null" >
+        fineint = #{fineint,jdbcType=INTEGER},
+      </if>
+      <if test="colleageId != null" >
+        colleage_id = #{colleageId,jdbcType=VARCHAR},
+      </if>
+      <if test="majorId != null" >
+        major_id = #{majorId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_code = #{userCode,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yixing.splib.entity.User" >
+    update user
+    set user_id = #{userId,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      regdate = #{regdate,jdbcType=TIMESTAMP},
+      borrowed = #{borrowed,jdbcType=INTEGER},
+      iscanceled = #{iscanceled,jdbcType=BIT},
+      canceleddate = #{canceleddate,jdbcType=TIMESTAMP},
+      user_age = #{userAge,jdbcType=INTEGER},
+      user_gender = #{userGender,jdbcType=VARCHAR},
+      idnum = #{idnum,jdbcType=VARCHAR},
+      user_phone = #{userPhone,jdbcType=VARCHAR},
+      brrowlimit = #{brrowlimit,jdbcType=INTEGER},
+      iscompensated = #{iscompensated,jdbcType=BIT},
+      compensatedint = #{compensatedint,jdbcType=INTEGER},
+      isfined = #{isfined,jdbcType=BIT},
+      fineint = #{fineint,jdbcType=INTEGER},
+      colleage_id = #{colleageId,jdbcType=VARCHAR},
+      major_id = #{majorId,jdbcType=VARCHAR}
+    where user_code = #{userCode,jdbcType=INTEGER}
+  </update>
+</mapper>

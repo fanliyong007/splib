@@ -1,15 +1,16 @@
 package com.yixing.splib.controller;
 
+import com.yixing.splib.entity.Login;
+import com.yixing.splib.service.LoginService;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -18,6 +19,8 @@ import java.util.Map;
 
 public class ThymeleafController
 {
+    @Autowired
+    private LoginService loginService;
     @RequestMapping("/")
     public String hello(Map<String, Object> map)
     {
@@ -29,6 +32,18 @@ public class ThymeleafController
     public String manage()
     {
         return "manage";
+    }
+    @RequestMapping("/noAuth")
+    public String noAuth()
+    {
+        return "noAuth";
+    }
+    @RequestMapping("/signout")
+    public String signOut()
+    {
+        Subject subject= SecurityUtils.getSubject();
+        subject.logout();
+        return "redirect:/";
     }
     @RequestMapping("/login")
     public String login(Model model, String username, String password)
@@ -46,6 +61,7 @@ public class ThymeleafController
         //3、执行登录方法
         try
         {
+            Login login=loginService.get(token.getUsername());
             subject.login(token);
             System.out.println("登录成功");
             //没用异常代表登录成功
