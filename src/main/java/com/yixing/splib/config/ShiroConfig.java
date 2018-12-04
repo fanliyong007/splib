@@ -33,6 +33,7 @@ public class ShiroConfig
         //放行登录页面
         filterMap.put("/login","anon");
         filterMap.put("/*","authc");
+        filterMap.put("/manage/*","authc");
         //授权过滤器
         filterMap.put("/api/user","perms[admin]");
         filterMap.put("/api/book","perms[user]");

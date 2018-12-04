@@ -100,7 +100,7 @@ public class BookManageController
         //startPage后面紧跟着的查询就是分页查询
         List<Detail> details=detailService.getAll();
         //使用PageInfo包装查询后的结果，并将pageInfo存入map中
-        PageInfo<Detail> detailpageInfo=new PageInfo<Detail>(details,1);
+        PageInfo<Detail> detailpageInfo=new PageInfo<Detail>(details,5);
         return Msg.success().add("detail",detailpageInfo);
     }
     @InitBinder

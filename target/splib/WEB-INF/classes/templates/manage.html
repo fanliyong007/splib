@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:shiro="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>UserManage</title>
+</head>
+<body>
+<div shiro:hasPermission="admin">
+    <h1>管理员管理</h1>
+</div>
+<div shiro:hasPermission="user">
+    <h1>用户管理</h1>
+</div>
+<form class="form-signout" method="post" action="/signout">
+    <button class="btn btn-lg btn-primary btn-block" type="submit">退出登录</button>
+</form>
+</body>
+</html>

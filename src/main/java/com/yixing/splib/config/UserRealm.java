@@ -11,8 +11,6 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import sun.rmi.runtime.Log;
-
 //自定义Realm
 public class UserRealm extends AuthorizingRealm
 {

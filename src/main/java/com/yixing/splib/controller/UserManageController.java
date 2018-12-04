@@ -66,14 +66,14 @@ public class UserManageController
     }
     //查询user外部接口
     @RequestMapping(value = "/user")
-    public Msg getUser(@RequestParam(value = "pn", defaultValue = "1") Integer pageNum)
+    public Msg getUser(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum)
     {
         //在查询之前调用静态方法设置起始页和页面大小
         PageHelper.startPage(pageNum, 8);
         //startPage后面紧跟着的查询就是分页查询
         List<User> users = userService.getAll();
         //使用PageInfo包装查询后的结果，并将pageInfo存入map中
-        PageInfo<User> pageInfo = new PageInfo<>(users, 1);
+        PageInfo<User> pageInfo = new PageInfo<>(users, 5);
         return Msg.success().add("user", pageInfo);
     }
     //禁用或更新user接口

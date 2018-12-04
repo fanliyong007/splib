@@ -1,18 +1,800 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:shiro="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>UserManage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    s
+    <title>Dashboard Template for Bootstrap</title>
+    <!-- Bootstrap core CSS -->
+    <link href="" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="" th:href="@{/css/dashboard.css}" rel="stylesheet">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <style type="text/css">/* Chart.js */
+    @-webkit-keyframes chartjs-render-animation {
+        from {
+            opacity: 0.99
+        }
+        to {
+            opacity: 1
+        }
+    }
+
+    @keyframes chartjs-render-animation {
+        from {
+            opacity: 0.99
+        }
+        to {
+            opacity: 1
+        }
+    }
+
+    .chartjs-render-monitor {
+        -webkit-animation: chartjs-render-animation 0.001s;
+        animation: chartjs-render-animation 0.001s;
+    }</style>
 </head>
 <body>
-<div shiro:hasPermission="admin">
-    <h1>管理员管理</h1>
+<!--<div shiro:hasPermission="admin">-->
+<!--<h1>管理员管理</h1>-->
+<!--</div>-->
+<!--<div shiro:hasPermission="user">-->
+<!--<h1>用户管理</h1>-->
+<!--</div>-->
+<!--<form class="form-signout" method="post" action="/signout">-->
+<!--<button class="btn btn-lg btn-primary btn-block" type="submit">退出登录</button>-->
+<!--</form>-->
+<!--模板部分-->
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/manage}">奕星图书馆</a>
+    <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+            <a class="nav-link" th:href="@{/signout}">退出</a>
+        </li>
+    </ul>
+</nav>
+<div></div>
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                <ul class="nav flex-column">
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span shiro:hasPermission="admin">管理员功能</span>
+                        <a class="d-flex align-items-center text-muted"
+                           th:href="@{/manage/#}">
+                        </a>
+                    </h6>
+                    <li class="nav-item" shiro:hasPermission="admin">
+                        <a class="nav-link" th:href="@{/manage/#}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-file">
+                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                <polyline points="13 2 13 9 20 9"></polyline>
+                            </svg>
+                            查询图书
+                        </a>
+                    </li>
+                    <li class="nav-item" shiro:hasPermission="admin">
+                        <a class="nav-link" th:href="@{/manage/#}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-users">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                            </svg>
+                            查询用户
+                        </a>
+                    </li>
+                    <li class="nav-item" shiro:hasPermission="admin">
+                        <a class="nav-link" th:href="@{/manage/#}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-bar-chart-2">
+                                <line x1="18" y1="20" x2="18" y2="10"></line>
+                                <line x1="12" y1="20" x2="12" y2="4"></line>
+                                <line x1="6" y1="20" x2="6" y2="14"></line>
+                            </svg>
+                            查询操作记录
+                        </a>
+                    </li>
+                </ul>
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>用户功能</span>
+                    <a class="d-flex align-items-center text-muted"
+                       th:href="@{/manage/#}">
+                    </a>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/manage/#}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-file-text">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            已借图书
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/manage/#}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-file-text">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            密码修改
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+
+            <div class="row text-right">
+                <h2 class="col-md-8">详细信息</h2>
+                <div class="col-md-4 col-md-offset-12">
+                    <button type="button" class="btn btn-primary " id="stu_add_modal_btn">
+                        <span class="glyphicon glyphicon-pencil " aria-hidden="true"></span>
+                        新增
+                    </button>
+                </div>
+            </div>
+            <!-- 更新学生信息的模态框 -->
+            <div class="modal fade" id="stuUpdateModal" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"
+                                    aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">修改学生信息</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">姓名</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="name"
+                                               id="stuName_update_input" placeholder="请输入姓名"> <span
+                                            id="helpBlock2" class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">性别</label>
+                                    <div class="col-sm-10">
+                                        <label class="radio-inline"> <input type="radio"
+                                                                            name="gender" id="gender1_update_input"
+                                                                            value="男"> 男
+                                        </label> <label class="radio-inline"> <input type="radio"
+                                                                                     name="gender"
+                                                                                     id="gender2_update_input"
+                                                                                     value="女"> 女
+                                    </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">邮箱</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="email"
+                                               id="email_update_input" placeholder="email@qq.com"> <span
+                                            id="helpBlock2" class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">电话</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="phone"
+                                               id="phone_update_input" placeholder="13777644458"> <span
+                                            id="helpBlock2" class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">出生日期</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="birth"
+                                               id="birth_update_input" placeholder="1998-04-24"> <span
+                                            id="helpBlock2" class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">注册日期</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="regTime"
+                                               id="regTime_update_input" placeholder="2018-01-01"> <span
+                                            id="helpBlock2" class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">专业</label>
+                                    <div class="col-sm-5">
+                                        <!-- 专业提交专业ID即可 -->
+                                        <select class="form-control" name="majorId">
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" id="stu_update_btn">修改</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- 新增学生的模态框 -->
+            <div class="modal fade" id="stuAddModal" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"
+                                    aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">添加学生信息</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">姓名</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="name"
+                                               id="stuName_add_input" placeholder="请输入姓名"> <span
+                                            id="helpBlock2" class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">性别</label>
+                                    <div class="col-sm-10">
+                                        <label class="radio-inline"> <input type="radio"
+                                                                            name="gender" id="gender1_update_input"
+                                                                            value="男" checked> 男
+                                        </label> <label class="radio-inline"> <input type="radio"
+                                                                                     name="gender"
+                                                                                     id="gender2_update_input"
+                                                                                     value="女"> 女
+                                    </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">邮箱</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="email"
+                                               id="email_add_input" placeholder="email@qq.com"> <span
+                                            id="helpBlock2" class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">电话</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="phone"
+                                               id="phone_add_input" placeholder="13777644458"> <span
+                                            id="helpBlock2" class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">出生日期</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="birth"
+                                               id="birth_add_input" placeholder="1998-04-24"> <span
+                                            id="helpBlock2" class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">注册日期</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="regTime"
+                                               id="regTime_add_input" placeholder="2018-01-01"> <span
+                                            id="helpBlock2" class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">专业</label>
+                                    <div class="col-sm-5">
+                                        <!-- 专业提交专业ID即可 -->
+                                        <select class="form-control" name="majorId">
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" id="stu_save_btn">保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="container">
+                <!-- Insert Delete Button-->
+                <!-- Student Data -->
+                <div class="row">
+                    <table class="table table-hover" id="book_table">
+                        <thead>
+                        <tr>
+                            <th>索书号</th>
+                            <th>分类号</th>
+                            <th>ISBN</th>
+                            <th>题名</th>
+                            <th>并列书名</th>
+                            <th>第一责任者</th>
+                            <th>其他责任者</th>
+                            <th>版本</th>
+                            <th>出版社</th>
+                            <th>出版日期或发行日期</th>
+                            <th>页数</th>
+                            <th>定价</th>
+                            <th>当前库存册书</th>
+                            <th>登记册书</th>
+                            <th>编目员</th>
+                            <th>注销否</th>
+                            <th>图书条形码号</th>
+                            <th>图书出借否</th>
+                            <th>图书出借日期</th>
+                            <th>图书归还日期</th>
+                            <th>借书证编号</th>
+                            <th>挂失标志</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Paging Info -->
+                <div class="row">
+                    <div class="col-md-6" id="page_info_area"></div>
+                    <div class="col-md-6" id="page_nav_area"></div>
+                </div>
+            </div>
+        </main>
+    </div>
 </div>
-<div shiro:hasPermission="user">
-    <h1>用户管理</h1>
-</div>
-<form class="form-signout" method="post" action="/signout">
-    <button class="btn btn-lg btn-primary btn-block" type="submit">退出登录</button>
-</form>
+
+<!-- JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script>
+    var totalPage;
+    var currPage;
+    $(function () {
+        showPage(1);
+    });
+
+    function showPage(n) {
+        $.ajax({
+            url: "/api/book",
+            data: "pn=" + n,
+            type: "GET",
+            success: function (result) {
+                console.log(result);
+                //显示书本数据
+                build_book_table(result);
+                //显示分页信息
+                build_page_info(result);
+                //显示页面的导航信息
+                build_page_nav(result);
+            }
+        });
+    }
+
+    function build_book_table(result) {
+        $("#book_table tbody").empty();
+        var books = result.data.detail.list;
+        $.each(books, function (index, item) {
+            var subnum = $("<td></td>").append(item.subnum);
+            var classnum = $("<td></td>").append(item.catalog.classnum);
+            var isbn = $("<td></td>").append(item.catalog.isbn);
+            var bookName = $("<td></td>").append(item.catalog.bookName);
+            var bookNames = $("<td></td>").append(item.catalog.bookNames);
+            // var birthTd = $("<td></td>").append(
+            //     new Date(item.birth).toLocaleDateString());
+            // var regTimeTd = $("<td></td>").append(
+            //     new Date(item.regTime).toLocaleDateString());
+            // var majorNameTd = $("<td></td>").append(item.major.majorName);
+            /*<button type="button" class="btn btn-primary">
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+            新增
+            </button>
+            <button type="button" class="btn btn-danger">
+            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            删除
+            </button>
+             */
+            var editBtn = $("<button></button>").addClass(
+                "btn btn-primary btn-sm edit-btn").append(
+                $("<span></span>").addClass(
+                    "glyphicon glyphicon-pencil")).append("编辑")
+            editBtn.attr("edit-stuId", item.id);
+            var editBtnTd = $("<td></td>").append(editBtn);
+            $("<tr></tr>").append(subnum).append(classnum).append(isbn)
+                .append(bookName).append(bookNames);
+        });
+    }
+
+    function build_page_info(result) {
+        $("#page_info_area").empty();
+        $("#page_info_area").append(
+            "当前第" + result.data.detail.pageNum + "页/总共"
+            + result.data.detail.pageSize + "页，总记录为"
+            + result.data.detail.page.total + "条");
+        totalPage = result.data.detail.page.total;
+        currPage = result.data.detail.pageNum;
+    }
+
+    function build_page_nav(result) {
+        $("#page_nav_area").empty();
+        var ul = $("<ul></ul>").addClass("pagination");
+        var firstPageLi = $("<li></li>").append(
+            $("<a></a>").append("首页").attr("href", "#"));
+        var previousPageLi = $("<li></li>").append(
+            $("<a></a>").append("&laquo;").attr("href", "#"));
+
+        if (result.detail.page.hasPreviousPage == false) {
+            firstPageLi.addClass("disabled");
+            previousPageLi.addClass("disabled");
+        } else {
+            firstPageLi.click(function () {
+                showPage(1);
+            });
+            previousPageLi.click(function () {
+                showPage(result.detail.page.pageNum - 1);
+            });
+        }
+
+        var nextPageLi = $("<li></li>").append(
+            $("<a></a>").append("&raquo;").attr("href", "#"));
+        var lastPageLi = $("<li></li>").append(
+            $("<a></a>").append("末页").attr("href", "#"));
+
+        if (result.detail.page.hasNextPage == false) {
+            nextPageLi.addClass("disabled");
+            lastPageLi.addClass("disabled");
+        } else {
+            nextPageLi.click(function () {
+                showPage(result.detail.page.pageNum + 1);
+            });
+            lastPageLi.click(function () {
+                showPage(result.detail.page.pages);
+            });
+        }
+
+        ul.append(firstPageLi).append(previousPageLi);
+
+        $.each(result.detail.page.navigatepageNums, function (index, item) {
+            var numLi = $("<li></li>").append(
+                $("<a></a>").append(item).attr("href", "#"));
+            if (result.data.detail.pageNum == item) {
+                numLi.addClass("active");
+            }
+            numLi.click(function () {
+                showPage(item);
+            });
+            ul.append(numLi);
+        });
+        ul.append(nextPageLi).append(lastPageLi);
+        var navElement = $("<nav></nav>").append(ul).appendTo(
+            "#page_nav_area");
+    }
+
+    //重置添加模态框
+    function reset_form(ele) {
+        //清除表单的数据
+        $(ele)[0].reset();
+        //清除校验状态
+        $(ele).find("*").removeClass("has-error has-success");
+        //清除提示信息
+        $(ele).find(".help-block").text("");
+    }
+
+
+    //点击删除按钮
+    $(document).on("click", ".delete-btn", function () {
+        var stuName = $(this).parent().parent().find("td:eq(2)").text();
+        //alert(stuName);
+        if (confirm("确定要删除[" + stuName + "]吗?")) {
+            $.ajax({
+                url: "${pageContext.request.contextPath }/stu/" + $(this).attr("delete-stuid"),
+                type: "DELETE",
+                success: function (result) {
+                    alert(result.msg);
+                    showPage(currPage);
+                }
+            });
+        }
+    });
+
+
+    //点击编辑按钮
+    $(document).on("click", ".edit-btn", function () {
+        //1.显示专业名称
+        getMajors("#stuUpdateModal select");
+        //2.获取要编辑的学生信息
+        getStudent($(this).attr("edit-stuid"));
+        //将编辑按钮的edit-stuid值传递给修改按钮
+        $("#stu_update_btn").attr("edit-stuid", $(this).attr("edit-stuid"));
+        //3.显示模态框
+        $('#stuUpdateModal').modal({
+            backdrop: "static"
+        });
+    });
+
+
+    //点击新增按钮
+    $("#stu_add_modal_btn").click(function () {
+        //0.还原表单的状态
+        reset_form("#stuAddModal form");
+        //1.获取并显示所有专业
+        getMajors("#stuAddModal select");
+        //2.显示模态框
+        $('#stuAddModal').modal({
+            backdrop: "static"
+        });
+    });
+
+    //{"code":101,"msg":"处理成功!","data":
+    //{"majors":[{"majorId":1,"majorName":"计算机应用技术"},{"majorId":2,"majorName":"计算机网络技术"},{"majorId":3,"majorName":"物联网技术"},{"majorId":8,"majorName":"数控技术"},{"majorId":9,"majorName":"机电一体化技术"}]}}
+    //获得专业信息加载到添加的模态框
+    function getMajors(ele) {
+        $.ajax({
+            url: "${pageContext.request.contextPath }/majors",
+            type: "GET",
+            success: function (result) {
+                $(ele).empty();
+                $.each(result.data.majors, function () {
+                    var optionElement = $("<option></option>").append(
+                        this.majorName).attr("value", this.majorId);
+                    optionElement.appendTo(ele);
+                });
+            }
+        });
+    }
+
+    //修改时获取学生信息
+    function getStudent(id) {
+        $.ajax({
+            url: "${pageContext.request.contextPath }/stu/" + id,
+            type: "GET",
+            success: function (result) {
+                if (result.code == 101) {
+                    var student = result.data.student;
+                    $("#stuName_update_input").val(student.name);
+                    $("#email_update_input").val(student.email);
+                    $("#phone_update_input").val(student.phone);
+                    $("#birth_update_input").val(new Date(student.birth).toLocaleDateString());
+                    $("#regTime_update_input").val(new Date(student.regTime).toLocaleDateString());
+                    $("#stuUpdateModal input[name=gender]").val([student.gender]);
+                    $("#stuUpdateModal select").val([student.majorId]);
+                } else {
+
+                }
+            }
+        });
+    }
+
+    //保存按钮的点击事件
+    $("#stu_save_btn").click(function () {
+        //1.对提交给服务器的数据进行规则校验
+        if (!validate_add_form()) {
+            return false;
+        }
+
+        //检测姓名是否可用，不可用的话，不提交AJAX请求
+        if ($(this).attr("checkName") == "error") {
+            return false;
+        }
+
+        //2.校验通过，发送AJAX请求，保存学生数据
+        //alert($("#stuAddModal form").serialize());
+        $.ajax({
+            url: "${pageContext.request.contextPath }/stu",
+            type: "POST",
+            data: $("#stuAddModal form").serialize(),
+            success: function (result) {
+                alert($("#stuAddModal form").serialize());
+                if (result.code == 101) {
+                    $("#stuAddModal").modal('hide');
+                    showPage(totalPage);
+                }
+                else {
+                    if (result.data.errors.name != undefined) {
+                        show_validate_status("#stuName_add_input", "error", "姓名只能是2-8位汉字或者2-16位字符");
+                    }
+                    if (result.data.errors.email != undefined) {
+                        show_validate_status("#email_add_input", "error", "邮箱格式不正确！");
+                    }
+                    if (result.data.errors.phone != undefined) {
+                        show_validate_status("#phone_add_input", "error", "电话号码不正确");
+                    }
+                    if (result.data.errors.birth != undefined) {
+                        show_validate_status("#birth_add_input", "error", "出生日期格式不正确");
+                    }
+                    if (result.data.errors.regTime != undefined) {
+                        show_validate_status("#regTime_add_input", "error", "注册日期格式不正确");
+                    }
+                }
+            }
+        });
+    });
+
+    //添加时的数据校验
+    function validate_add_form() {
+        var stuName = $("#stuName_add_input").val();
+        var regxName = /(^[a-zA-Z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,8}$)/;
+        if (!regxName.test(stuName)) {
+            //alert("姓名只能是2~8位的汉字或6~16位的字符");
+            show_validate_status("#stuName_add_input", "error", "姓名只能是2-8位汉字或者2-16位字符");
+            return false;
+        } else {
+            show_validate_status("#stuName_add_input", "success", "");
+        }
+
+        var email = $("#email_add_input").val();
+        var regxEmail = /^[a-z\d]+(\.[a-z\d]+)*@([\da-z](-[\da-z])?)+(\.{1,2}[a-z]+)+$/;
+        if (!regxEmail.test(email)) {
+            //alert("邮箱格式不正确");
+            show_validate_status("#email_add_input", "error", "邮箱格式不正确！");
+            return false;
+        } else {
+            show_validate_status("#email_add_input", "success", "");
+        }
+
+        return true;
+    }
+
+    //数据校验
+    function show_validate_status(ele, status, msg) {
+        $(ele).parent().removeClass("has-error has-success");
+        if (status == "success") {
+            $(ele).parent().addClass("has-success");
+            $(ele).next("span").text(msg);
+        } else if (status == "error") {
+            $(ele).parent().addClass("has-error");
+            $(ele).next("span").text(msg);
+        }
+    }
+
+    //检测姓名是否可用
+    $("#stuName_add_input").change(function () {
+        var stuName = this.value;
+        $.ajax({
+            url: "${pageContext.request.contextPath }/checkName",
+            type: "POST",
+            data: "stuName=" + stuName,
+            success: function (result) {
+                if (result.code == 101) {
+                    show_validate_status("#stuName_add_input", "success", result.data.va_name);
+                    $("#stu_save_btn").attr("checkName", "success");
+                } else {
+                    show_validate_status("#stuName_add_input", "error", result.data.va_name);
+                    $("#stu_save_btn").attr("checkName", "error");
+                }
+            }
+        });
+    });
+
+    $("#stu_update_btn").click(function () {
+        //1.校验表单数据
+        if (!validate_update_form()) {
+            return false;
+        }
+        //2.发送AJAX请求，更新学生数据
+        $.ajax({
+            url: "${pageContext.request.contextPath }/stu/" + $(this).attr("edit-stuid"),
+            type: "POST",
+            data: $("#stuUpdateModal form").serialize() + "&_method=PUT",
+            success: function (result) {
+                if (result.code == 101) {
+                    $("#stuUpdateModal").modal('hide');
+                    showPage(currPage);
+                }
+                else {
+                    if (result.data.errors.name != undefined) {
+                        show_validate_status("#stuName_update_input", "error", "姓名只能是2-8位汉字或者2-16位字符");
+                    }
+                    if (result.data.errors.email != undefined) {
+                        show_validate_status("#email_update_input", "error", "邮箱格式不正确！");
+                    }
+                    if (result.data.errors.phone != undefined) {
+                        show_validate_status("#phone_update_input", "error", "电话号码不正确");
+                    }
+                    if (result.data.errors.birth != undefined) {
+                        show_validate_status("#birth_update_input", "error", "出生日期格式不正确");
+                    }
+                    if (result.data.errors.regTime != undefined) {
+                        show_validate_status("#regTime_update_input", "error", "注册日期格式不正确");
+                    }
+                }
+            }
+        });
+    });
+
+    //修改时的数据校验
+    function validate_update_form() {
+        var stuName = $("#stuName_update_input").val();
+        var regxName = /(^[a-zA-Z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,8}$)/;
+        if (!regxName.test(stuName)) {
+            //alert("姓名只能是2~8位的汉字或6~16位的字符");
+            show_validate_status("#stuName_update_input", "error", "姓名只能是2-8位汉字或者2-16位字符");
+            return false;
+        } else {
+            show_validate_status("#stuName_update_input", "success", "");
+        }
+
+        var email = $("#email_update_input").val();
+        var regxEmail = /^[a-z\d]+(\.[a-z\d]+)*@([\da-z](-[\da-z])?)+(\.{1,2}[a-z]+)+$/;
+        if (!regxEmail.test(email)) {
+            //alert("邮箱格式不正确");
+            show_validate_status("#email_update_input", "error", "邮箱格式不正确！");
+            return false;
+        } else {
+            show_validate_status("#email_update_input", "success", "");
+        }
+
+        return true;
+    }
+
+    //全选功能的实现
+    $("#check_All").click(function () {
+        //alert($(this).attr("checked"));
+        //alert($(this).prop("checked"));
+        $(".check_item").prop("checked", $(this).prop("checked"));
+    });
+
+    $(document).on("click", ".check_item", function () {
+        //alert($(".check_item").length);
+        //alert($(".check_item:checked").length);
+
+        var flag = $(".check_item:checked").length == $(".check_item").length;
+        $("#check_All").prop("checked", flag);
+    });
+
+    //批量删除按钮的点击事件
+    $("#stu_del_modal_btn").click(function () {
+        var stuNames = "";
+        var stuIds = "";
+        $.each($(".check_item:checked"), function () {
+            stuNames += $(this).parents("tr").find("td:eq(2)").text() + ",";
+            stuIds += $(this).parents("tr").find("td:eq(1)").text() + ",";
+        })
+        stuNames = stuNames.substring(0, stuNames.length - 1);
+        stuIds = stuIds.substring(0, stuIds.length - 1);
+        //alert(stuNames);
+        //alert(stuIds);
+        if (confirm("确定要删除[" + stuNames + "]吗?")) {
+            $.ajax({
+                url: "${pageContext.request.contextPath }/stu/" + stuIds,
+                type: "DELETE",
+                success: function (result) {
+                    alert(result.msg);
+                    showPage(currPage);
+                }
+            });
+        }
+    });
+</script>
+
+
 </body>
 </html>

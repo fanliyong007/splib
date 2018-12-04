@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yixing.splib.dao.OplogMapper" >
+  <resultMap id="BaseResultMap" type="com.yixing.splib.entity.Oplog" >
+    <id column="op_id" property="opId" jdbcType="VARCHAR" />
+    <result column="op_way" property="opWay" jdbcType="VARCHAR" />
+    <result column="op_time" property="opTime" jdbcType="TIMESTAMP" />
+    <result column="book_id" property="bookId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="op_user" property="opUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    op_id, op_way, op_time, book_id, user_id, op_user
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yixing.splib.entity.OplogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from oplog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from oplog
+    where op_id = #{opId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from oplog
+    where op_id = #{opId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yixing.splib.entity.OplogExample" >
+    delete from oplog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yixing.splib.entity.Oplog" >
+    insert into oplog (op_id, op_way, op_time, 
+      book_id, user_id, op_user
+      )
+    values (#{opId,jdbcType=VARCHAR}, #{opWay,jdbcType=VARCHAR}, #{opTime,jdbcType=TIMESTAMP}, 
+      #{bookId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{opUser,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yixing.splib.entity.Oplog" >
+    insert into oplog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="opId != null" >
+        op_id,
+      </if>
+      <if test="opWay != null" >
+        op_way,
+      </if>
+      <if test="opTime != null" >
+        op_time,
+      </if>
+      <if test="bookId != null" >
+        book_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="opUser != null" >
+        op_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="opId != null" >
+        #{opId,jdbcType=VARCHAR},
+      </if>
+      <if test="opWay != null" >
+        #{opWay,jdbcType=VARCHAR},
+      </if>
+      <if test="opTime != null" >
+        #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bookId != null" >
+        #{bookId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="opUser != null" >
+        #{opUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yixing.splib.entity.OplogExample" resultType="java.lang.Integer" >
+    select count(*) from oplog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update oplog
+    <set >
+      <if test="record.opId != null" >
+        op_id = #{record.opId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opWay != null" >
+        op_way = #{record.opWay,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opTime != null" >
+        op_time = #{record.opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.bookId != null" >
+        book_id = #{record.bookId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.opUser != null" >
+        op_user = #{record.opUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update oplog
+    set op_id = #{record.opId,jdbcType=VARCHAR},
+      op_way = #{record.opWay,jdbcType=VARCHAR},
+      op_time = #{record.opTime,jdbcType=TIMESTAMP},
+      book_id = #{record.bookId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      op_user = #{record.opUser,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yixing.splib.entity.Oplog" >
+    update oplog
+    <set >
+      <if test="opWay != null" >
+        op_way = #{opWay,jdbcType=VARCHAR},
+      </if>
+      <if test="opTime != null" >
+        op_time = #{opTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="bookId != null" >
+        book_id = #{bookId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="opUser != null" >
+        op_user = #{opUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where op_id = #{opId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yixing.splib.entity.Oplog" >
+    update oplog
+    set op_way = #{opWay,jdbcType=VARCHAR},
+      op_time = #{opTime,jdbcType=TIMESTAMP},
+      book_id = #{bookId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      op_user = #{opUser,jdbcType=VARCHAR}
+    where op_id = #{opId,jdbcType=VARCHAR}
+  </update>
+</mapper>
