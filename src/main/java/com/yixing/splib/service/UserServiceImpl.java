@@ -5,6 +5,8 @@ import com.yixing.splib.entity.User;
 import com.yixing.splib.entity.UserExample;
 import org.springframework.stereotype.Service;
 import com.yixing.splib.entity.UserExample.Criteria;
+import org.springframework.util.StringUtils;
+
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -36,6 +38,28 @@ public class UserServiceImpl implements UserService
         userExample.setOrderByClause("user_id");
         return userMapper.selectByExampleALL(userExample);
     }
+
+    @Override
+    public List<User> get(User user)
+    {
+        UserExample userExample=new UserExample();
+        UserExample.Criteria criteria = userExample.createCriteria();
+        if(!StringUtils.isEmpty(user.getUserName()))
+        {
+            user.setUserName("%"+user.getUserName()+"%");
+            criteria.andUserNameLike(user.getUserName());
+        }
+        if(!StringUtils.isEmpty(user.getUserId()))
+        {
+            criteria.andUserIdEqualTo(user.getUserId());
+        }
+        if(!StringUtils.isEmpty(user.getUserCode()))
+        {
+            criteria.andUserCodeEqualTo(user.getUserCode());
+        }
+        return userMapper.selectByExample(userExample);
+    }
+
     //批量删除
     public void deleteUserBatch(List<String> ids)
     {

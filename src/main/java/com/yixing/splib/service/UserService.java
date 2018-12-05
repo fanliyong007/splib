@@ -12,4 +12,7 @@ public interface UserService
     public void updateUser(User user);
     //获取所有User信息
     public List<User> getAll();
+    //获取某一User信息
+    public List<User> get(User user);
+
 }

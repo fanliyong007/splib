@@ -51,12 +51,11 @@ public class CatalogServiceImpl implements CatalogService
         }
         if(!StringUtils.isEmpty(catalog.getBookAuthor()))
         {
-            catalog.setBookName("%"+catalog.getBookAuthor()+"%");
-            criteria.andBookNameLike(catalog.getBookAuthor());
+            catalog.setBookAuthor("%"+catalog.getBookAuthor()+"%");
+            criteria.andBookAuthorLike(catalog.getBookAuthor());
         }
         return catalogMapper.selectByExample(catalogExample);
     }
-
     //批量删除
     public void deleteCatalogBatch(List<String> ids)
     {
