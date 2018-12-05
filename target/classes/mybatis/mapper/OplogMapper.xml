@@ -9,6 +9,53 @@
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="op_user" property="opUser" jdbcType="VARCHAR" />
   </resultMap>
+  <resultMap id="ALLResultMap" type="com.yixing.splib.entity.Oplog" >
+    <id column="op_id" property="opId" jdbcType="VARCHAR" />
+    <result column="op_way" property="opWay" jdbcType="VARCHAR" />
+    <result column="op_time" property="opTime" jdbcType="TIMESTAMP" />
+    <result column="book_id" property="bookId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="op_user" property="opUser" jdbcType="VARCHAR" />
+    <association property="user" javaType="com.yixing.splib.entity.User">
+      <!--<id column="user_code" property="userCode" jdbcType="INTEGER" />-->
+      <!--<result column="user_id" property="userId" jdbcType="VARCHAR" />-->
+      <result column="User_name" property="userName"  />
+      <!--<result column="regdate" property="regdate" jdbcType="TIMESTAMP" />-->
+      <!--<result column="borrowed" property="borrowed" jdbcType="INTEGER" />-->
+      <!--<result column="iscanceled" property="iscanceled" jdbcType="BIT" />-->
+      <!--<result column="canceleddate" property="canceleddate" jdbcType="TIMESTAMP" />-->
+      <!--<result column="user_age" property="userAge" jdbcType="INTEGER" />-->
+      <!--<result column="user_gender" property="userGender" jdbcType="VARCHAR" />-->
+      <!--<result column="idnum" property="idnum" jdbcType="VARCHAR" />-->
+      <!--<result column="user_phone" property="userPhone" jdbcType="VARCHAR" />-->
+      <!--<result column="brrowlimit" property="brrowlimit" jdbcType="INTEGER" />-->
+      <!--<result column="iscompensated" property="iscompensated" jdbcType="BIT" />-->
+      <!--<result column="compensatedint" property="compensatedint" jdbcType="INTEGER" />-->
+      <!--<result column="isfined" property="isfined" jdbcType="BIT" />-->
+      <!--<result column="fineint" property="fineint" jdbcType="INTEGER" />-->
+      <!--<result column="colleage_id" property="colleageId" jdbcType="VARCHAR" />-->
+      <!--<result column="major_id" property="majorId" jdbcType="VARCHAR" />-->
+    </association>
+    <association property="catalog" javaType="com.yixing.splib.entity.Catalog">
+       <!--<id column="subnum" property="subnum" jdbcType="VARCHAR" />-->
+      <!--<result column="classnum" property="classnum" jdbcType="VARCHAR" />-->
+      <!--<result column="isbn" property="isbn" jdbcType="VARCHAR" />-->
+      <result column="Book_name" property="bookName" />
+      <!--<result column="book_nameS" property="bookNames" jdbcType="VARCHAR" />-->
+      <!--<result column="book_author" property="bookAuthor" jdbcType="VARCHAR" />-->
+      <!--<result column="book_authorS" property="bookAuthors" jdbcType="VARCHAR" />-->
+      <!--<result column="book_version" property="bookVersion" jdbcType="VARCHAR" />-->
+      <!--<result column="book_press" property="bookPress" jdbcType="VARCHAR" />-->
+      <!--<result column="book_pubdate" property="bookPubdate" jdbcType="TIMESTAMP" />-->
+      <!--<result column="book_page" property="bookPage" jdbcType="INTEGER" />-->
+      <!--<result column="book_price" property="bookPrice" jdbcType="INTEGER" />-->
+      <!--<result column="book_date" property="bookDate" jdbcType="TIMESTAMP" />-->
+      <!--<result column="book_remainnum" property="bookRemainnum" jdbcType="INTEGER" />-->
+      <!--<result column="book_num" property="bookNum" jdbcType="INTEGER" />-->
+      <!--<result column="catalog_man" property="catalogMan" jdbcType="VARCHAR" />-->
+      <!--<result column="iscanceled" property="iscanceled" jdbcType="VARCHAR" />-->
+    </association>
+  </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -70,6 +117,19 @@
   <sql id="Base_Column_List" >
     op_id, op_way, op_time, book_id, user_id, op_user
   </sql>
+  <sql id="ALL_Column_List" >
+    op.op_id, op.op_way, op.op_time, op.book_id, op.user_code, op.op_user,
+    u.User_name,ca.Book_name
+-- u.user_code, u.user_id, u.User_name, u.regdate, u.borrowed, u.iscanceled, u.canceleddate, u.user_age,
+--     u.user_gender, u.idnum, u.user_phone, u.brrowlimit, u.iscompensated, u.compensatedint, u.isfined,
+--     u.fineint, u.colleage_id, u.major_id,
+-- ca.subnum, ca.classnum, ca.isbn, ca.Book_name, ca.book_nameS, ca.book_author, ca.book_authorS, ca.book_version,
+--     ca.book_press, ca.book_pubdate, ca.book_page, ca.book_price, ca.book_date, ca.book_remainnum, ca.book_num,
+--     ca.catalog_man, ca.iscanceled
+  </sql>
+  <!--List<Oplog> selectByExampleALL(OplogExample example);-->
+
+  <!--Oplog selectByPrimaryKeyALL(String opId);-->
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yixing.splib.entity.OplogExample" >
     select
     <if test="distinct" >
@@ -90,6 +150,31 @@
     from oplog
     where op_id = #{opId,jdbcType=VARCHAR}
   </select>
+  <select id="selectByExampleALL" resultMap="ALLResultMap" parameterType="com.yixing.splib.entity.OplogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="ALL_Column_List" />
+    FROM lib.oplog op
+    LEFT outer join catalog ca on op.book_id=ca.Subnum
+    LEFT outer join user u on op.user_code=u.User_code
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKeyALL" resultMap="ALLResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="ALL_Column_List" />
+    FROM lib.oplog op
+    LEFT outer join catalog ca on op.book_id=ca.Subnum
+    LEFT outer join user u on op.user_code=u.User_code
+    where op_id = #{opId,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from oplog
     where op_id = #{opId,jdbcType=VARCHAR}

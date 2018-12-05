@@ -25,8 +25,6 @@ public class OplogServiceImpl implements OplogService
     {
         OplogExample oplogExample=new OplogExample();
         oplogExample.setOrderByClause("op_id");
-        return oplogMapper.selectByExample(oplogExample);
+        return oplogMapper.selectByExampleALL(oplogExample);
     }
-
-
 }

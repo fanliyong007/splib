@@ -37,7 +37,7 @@ public class ShiroConfig
         //授权过滤器
         filterMap.put("/api/user","perms[admin]");
         filterMap.put("/api/book","perms[user]");
-
+        filterMap.put("/api/oplog","perms[admin]");
         //修改跳转页面
         shiroFilterFactoryBean.setLoginUrl("/");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);

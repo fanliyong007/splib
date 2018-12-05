@@ -1,9 +1,11 @@
 package com.yixing.splib.service;
 
+
 import com.yixing.splib.dao.CatalogMapper;
 import com.yixing.splib.entity.Catalog;
 import com.yixing.splib.entity.CatalogExample;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -36,6 +38,25 @@ public class CatalogServiceImpl implements CatalogService
         catalogExample.setOrderByClause("subnum");
         return catalogMapper.selectByExample(catalogExample);
     }
+
+    @Override
+    public List<Catalog> get(Catalog catalog)
+    {
+        CatalogExample catalogExample=new CatalogExample();
+        CatalogExample.Criteria criteria = catalogExample.createCriteria();
+        if(!StringUtils.isEmpty(catalog.getBookName()))
+        {
+            catalog.setBookName("%"+catalog.getBookName()+"%");
+            criteria.andBookNameLike(catalog.getBookName());
+        }
+        if(!StringUtils.isEmpty(catalog.getBookAuthor()))
+        {
+            catalog.setBookName("%"+catalog.getBookAuthor()+"%");
+            criteria.andBookNameLike(catalog.getBookAuthor());
+        }
+        return catalogMapper.selectByExample(catalogExample);
+    }
+
     //批量删除
     public void deleteCatalogBatch(List<String> ids)
     {

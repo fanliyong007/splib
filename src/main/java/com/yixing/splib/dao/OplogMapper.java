@@ -20,6 +20,10 @@ public interface OplogMapper {
 
     Oplog selectByPrimaryKey(String opId);
 
+    List<Oplog> selectByExampleALL(OplogExample example);
+
+    Oplog selectByPrimaryKeyALL(String opId);
+
     int updateByExampleSelective(@Param("record") Oplog record, @Param("example") OplogExample example);
 
     int updateByExample(@Param("record") Oplog record, @Param("example") OplogExample example);

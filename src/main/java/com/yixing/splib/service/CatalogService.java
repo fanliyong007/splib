@@ -6,14 +6,16 @@ import java.util.List;
 
 public interface CatalogService
 {
-    //增加User信息
+    //增加Book信息
     public void saveCatalog(Catalog catalog);
-    //删除User信息
+    //删除Book信息
     public void deleteCatalog(String subnum);
-    //更新User信息
+    //更新Book信息
     public void updateCatalog(Catalog catalog);
-    //获取所有User信息
+    //获取所有Book信息
     public List<Catalog> getAll();
+    // 获取某个学生的信息
+    public List<Catalog> get(Catalog catalog);
     //批量删除
     public void deleteCatalogBatch(List<String> ids);
 }

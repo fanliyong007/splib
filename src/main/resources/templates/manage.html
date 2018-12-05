@@ -46,19 +46,11 @@
 <!--<button class="btn btn-lg btn-primary btn-block" type="submit">退出登录</button>-->
 <!--</form>-->
 <!--模板部分-->
-<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" th:href="@{/manage}">奕星图书馆</a>
-    <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-            <a class="nav-link" th:href="@{/signout}">退出</a>
-        </li>
-    </ul>
-</nav>
-<div></div>
 <div class="container-fluid">
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
+                <h1 class="bg-dark col-sm-3 col-md-2 mr-0" th:href="@{/manage}">奕星图书馆</h1>
                 <ul class="nav flex-column">
                     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                         <span shiro:hasPermission="admin">管理员功能</span>
@@ -67,7 +59,12 @@
                         </a>
                     </h6>
                     <li class="nav-item" shiro:hasPermission="admin">
-                        <a class="nav-link" th:href="@{/manage/#}">
+                        <a class="nav-link btn btn-info btn-md" id="borrowBook" th:href="@{/manage/#}">
+                            <span class="glyphicon glyphicon-book"></span> 借书
+                        </a>
+                    </li>
+                    <li class="nav-item" shiro:hasPermission="admin">
+                        <a class="nav-link" id="searchBook" th:href="@{/manage/#}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-file">
@@ -78,7 +75,7 @@
                         </a>
                     </li>
                     <li class="nav-item" shiro:hasPermission="admin">
-                        <a class="nav-link" th:href="@{/manage/#}">
+                        <a class="nav-link" id="searchUser" th:href="@{/manage/#}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-users">
@@ -137,6 +134,9 @@
                             </svg>
                             密码修改
                         </a>
+                    </li>
+                    <li>
+                        <a class="nav-link bg-danger" th:href="@{/signout}">退出</a>
                     </li>
                 </ul>
             </div>
@@ -328,34 +328,9 @@
                 <!-- Insert Delete Button-->
                 <!-- Student Data -->
                 <div class="row">
-                    <table class="table table-hover" id="book_table">
+                    <table class="table table-hover" id="mytable">
                         <thead>
-                        <tr>
-                            <th>索书号</th>
-                            <th>分类号</th>
-                            <th>ISBN</th>
-                            <th>题名</th>
-                            <th>并列书名</th>
-                            <th>第一责任者</th>
-                            <th>其他责任者</th>
-                            <th>版本</th>
-                            <th>出版社</th>
-                            <th>出版日期或发行日期</th>
-                            <th>页数</th>
-                            <th>定价</th>
-                            <th>当前库存册书</th>
-                            <th>登记册书</th>
-                            <th>编目员</th>
-                            <th>注销否</th>
-                            <th>图书条形码号</th>
-                            <th>图书出借否</th>
-                            <th>图书出借日期</th>
-                            <th>图书归还日期</th>
-                            <th>借书证编号</th>
-                            <th>挂失标志</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
+
                         </thead>
                         <tbody>
 
@@ -363,7 +338,7 @@
                     </table>
                 </div>
                 <!-- Paging Info -->
-                <div class="row">
+                <div class="row" id="pageInfo">
                     <div class="col-md-6" id="page_info_area"></div>
                     <div class="col-md-6" id="page_nav_area"></div>
                 </div>
@@ -378,17 +353,37 @@
 <script>
     var totalPage;
     var currPage;
-    $(function () {
-        showPage(1);
+    $("#searchBook").click(function () {
+        $("#mytable thead").empty();
+        $("<tr></tr>").append($("<th></th>").append("索书号")).append($("<th></th>").append("分类号")).append($("<th></th>").append("ISBN"))
+            .append($("<th></th>").append("题名")).append($("<th></th>").append("并列书名")).append($("<th></th>").append("第一责任者"))
+            .append($("<th></th>").append("其他责任者")).append($("<th></th>").append("版本")).append($("<th></th>").append("出版社"))
+            .append($("<th></th>").append("出版日期或发行日期")).append($("<th></th>").append("页数")).append($("<th></th>").append("定价"))
+            .append($("<th></th>").append("当前库存册书")).append($("<th></th>").append("登记册书")).append($("<th></th>").append("编目员"))
+            .append($("<th></th>").append("注销否")).append($("<th></th>").append("图书条形码号")).append($("<th></th>").append("图书出借否"))
+            .append($("<th></th>").append("图书出借日期")).append($("<th></th>").append("图书归还日期")).append($("<th></th>").append("借书证编号"))
+            .append($("<th></th>").append("挂失标志")).append($("<th></th>").append("挂失日期")).append($("<th></th>").append("Edit"))
+            .appendTo("#mytable thead");
+        showBookPage(1);
     });
-
-    function showPage(n) {
+    $("#searchUser").click(function () {
+        $("#mytable thead").empty();
+        $("<tr></tr>").append($("<th></th>").append("借书证编号")).append($("<th></th>").append("借书证条形码号")).append($("<th></th>").append("姓名"))
+            .append($("<th></th>").append("办理日期")).append($("<th></th>").append("已借阅书本数量")).append($("<th></th>").append("注销标志"))
+            .append($("<th></th>").append("注销日期")).append($("<th></th>").append("年龄")).append($("<th></th>").append("性别"))
+            .append($("<th></th>").append("身份证号")).append($("<th></th>").append("联系电话")).append($("<th></th>").append("借书限额"))
+            .append($("<th></th>").append("罚款未付标志")).append($("<th></th>").append("罚款未付金额")).append($("<th></th>").append("学院"))
+            .append($("<th></th>").append("专业")).append($("<th></th>").append("Edit"))
+            .appendTo("#mytable thead");
+        showUserPage(1);
+    });
+    function showBookPage(n) {
         $.ajax({
             url: "/api/book",
             data: "pn=" + n,
             type: "GET",
             success: function (result) {
-                console.log(result);
+                console.info(result);
                 //显示书本数据
                 build_book_table(result);
                 //显示分页信息
@@ -399,8 +394,26 @@
         });
     }
 
+
+    function showUserPage(n) {
+        $.ajax({
+            url: "/api/user",
+            data: "pn=" + n,
+            type: "GET",
+            success: function (result) {
+                console.info(result);
+                //显示书本数据
+                build_user_table(result);
+                //显示分页信息
+                build_page_info(result);
+                //显示页面的导航信息
+                build_page_nav(result);
+            }
+        });
+    }
+
     function build_book_table(result) {
-        $("#book_table tbody").empty();
+        $("#mytable tbody").empty();
         var books = result.data.detail.list;
         $.each(books, function (index, item) {
             var subnum = $("<td></td>").append(item.subnum);
@@ -408,28 +421,80 @@
             var isbn = $("<td></td>").append(item.catalog.isbn);
             var bookName = $("<td></td>").append(item.catalog.bookName);
             var bookNames = $("<td></td>").append(item.catalog.bookNames);
+            var bookAuthor = $("<td></td>").append(item.catalog.bookAuthor);
+            var bookAuthors = $("<td></td>").append(item.catalog.bookAuthors);
+            var bookVersion = $("<td></td>").append(item.catalog.bookVersion);
+            var bookPress = $("<td></td>").append(item.catalog.bookPress);
+            var bookPubdate = $("<td></td>").append(new Date(item.catalog.bookPubdate).toLocaleDateString());
+            var bookPage = $("<td></td>").append(item.catalog.bookPage);
+            var bookPrice = $("<td></td>").append(item.catalog.bookPrice);
+            var bookRemainnum = $("<td></td>").append(item.catalog.bookRemainnum);
+            var bookNum = $("<td></td>").append(item.catalog.bookNum);
+            var catalogMan = $("<td></td>").append(item.catalog.catalogMan);
+            var iscanceled = $("<td></td>").append(item.catalog.iscanceled);
+            var bookCode = $("<td></td>").append(item.bookCode);
+            var islended = $("<td></td>").append(item.islended);
+            var outdate = $("<td></td>").append(new Date(item.outdate).toLocaleDateString());
+            var indate = $("<td></td>").append(new Date(item.indate).toLocaleDateString());
+            var userId = $("<td></td>").append(item.userId);
+            var islost = $("<td></td>").append(item.islost);
+            var lostdate = $("<td></td>").append(new Date(item.lostdate).toLocaleDateString());
             // var birthTd = $("<td></td>").append(
             //     new Date(item.birth).toLocaleDateString());
             // var regTimeTd = $("<td></td>").append(
             //     new Date(item.regTime).toLocaleDateString());
             // var majorNameTd = $("<td></td>").append(item.major.majorName);
-            /*<button type="button" class="btn btn-primary">
-            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-            新增
-            </button>
-            <button type="button" class="btn btn-danger">
-            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-            删除
-            </button>
-             */
             var editBtn = $("<button></button>").addClass(
                 "btn btn-primary btn-sm edit-btn").append(
                 $("<span></span>").addClass(
-                    "glyphicon glyphicon-pencil")).append("编辑")
+                    "glyphicon glyphicon-pencil")).append("编辑");
             editBtn.attr("edit-stuId", item.id);
             var editBtnTd = $("<td></td>").append(editBtn);
             $("<tr></tr>").append(subnum).append(classnum).append(isbn)
-                .append(bookName).append(bookNames);
+                .append(bookName).append(bookNames).append(bookAuthor)
+                .append(bookAuthors).append(bookVersion).append(bookPress)
+                .append(bookPubdate).append(bookPage).append(bookPrice)
+                .append(bookRemainnum).append(bookNum).append(catalogMan)
+                .append(iscanceled).append(bookCode).append(islended)
+                .append(outdate).append(indate).append(userId)
+                .append(islost).append(lostdate).append(editBtnTd).appendTo(
+                "#mytable tbody");
+        });
+    }
+
+    function build_user_table(result) {
+        $("#mytable tbody").empty();
+        var users = result.data.user.list;
+        $.each(users, function (index, item) {
+            var userId = $("<td></td>").append(item.userId);
+            var userCode = $("<td></td>").append(item.userCode);
+            var userName = $("<td></td>").append(item.userName);
+            var regdate = $("<td></td>").append(new Date(item.regdate).toLocaleDateString());
+            var borrowed = $("<td></td>").append(item.borrowed);
+            var iscanceled = $("<td></td>").append(item.iscanceled);
+            var canceleddate = $("<td></td>").append(new Date(item.canceleddate).toLocaleDateString());
+            var userAge = $("<td></td>").append(item.userAge);
+            var userGender = $("<td></td>").append(item.userGender);
+            var idnum = $("<td></td>").append(item.idnum);
+            var userPhone = $("<td></td>").append(item.userPhone);
+            var brrowlimit = $("<td></td>").append(item.brrowlimit);
+            var iscompensated = $("<td></td>").append(item.iscompensated);
+            var compensatedint = $("<td></td>").append(item.compensatedint);
+            var colleageName = $("<td></td>").append(item.colleage.colleageName);
+            var majorName = $("<td></td>").append(item.major.majorName);
+            var editBtn = $("<button></button>").addClass(
+                "btn btn-primary btn-sm edit-btn").append(
+                $("<span></span>").addClass(
+                    "glyphicon glyphicon-pencil")).append("编辑");
+            editBtn.attr("edit-stuId", item.id);
+            var editBtnTd = $("<td></td>").append(editBtn);
+            $("<tr></tr>").append(userId).append(userCode).append(userName)
+                .append(regdate).append(borrowed).append(iscanceled)
+                .append(canceleddate).append(userAge).append(userGender)
+                .append(idnum).append(userPhone).append(brrowlimit)
+                .append(iscompensated).append(compensatedint).append(colleageName)
+                .append(majorName).append(editBtnTd).appendTo(
+                "#mytable tbody");
         });
     }
 
@@ -438,8 +503,8 @@
         $("#page_info_area").append(
             "当前第" + result.data.detail.pageNum + "页/总共"
             + result.data.detail.pageSize + "页，总记录为"
-            + result.data.detail.page.total + "条");
-        totalPage = result.data.detail.page.total;
+            + result.data.detail.total + "条");
+        totalPage = result.data.detail.total;
         currPage = result.data.detail.pageNum;
     }
 
@@ -451,7 +516,7 @@
         var previousPageLi = $("<li></li>").append(
             $("<a></a>").append("&laquo;").attr("href", "#"));
 
-        if (result.detail.page.hasPreviousPage == false) {
+        if (result.data.detail.hasPreviousPage == false) {
             firstPageLi.addClass("disabled");
             previousPageLi.addClass("disabled");
         } else {
@@ -459,7 +524,7 @@
                 showPage(1);
             });
             previousPageLi.click(function () {
-                showPage(result.detail.page.pageNum - 1);
+                showPage(result.data.detail.pageNum - 1);
             });
         }
 
@@ -468,21 +533,21 @@
         var lastPageLi = $("<li></li>").append(
             $("<a></a>").append("末页").attr("href", "#"));
 
-        if (result.detail.page.hasNextPage == false) {
+        if (result.data.detail.hasNextPage == false) {
             nextPageLi.addClass("disabled");
             lastPageLi.addClass("disabled");
         } else {
             nextPageLi.click(function () {
-                showPage(result.detail.page.pageNum + 1);
+                showPage(result.data.detail.pageNum + 1);
             });
             lastPageLi.click(function () {
-                showPage(result.detail.page.pages);
+                showPage(result.data.detail.pages);
             });
         }
 
         ul.append(firstPageLi).append(previousPageLi);
 
-        $.each(result.detail.page.navigatepageNums, function (index, item) {
+        $.each(result.data.detail.navigatepageNums, function (index, item) {
             var numLi = $("<li></li>").append(
                 $("<a></a>").append(item).attr("href", "#"));
             if (result.data.detail.pageNum == item) {
@@ -507,25 +572,6 @@
         //清除提示信息
         $(ele).find(".help-block").text("");
     }
-
-
-    //点击删除按钮
-    $(document).on("click", ".delete-btn", function () {
-        var stuName = $(this).parent().parent().find("td:eq(2)").text();
-        //alert(stuName);
-        if (confirm("确定要删除[" + stuName + "]吗?")) {
-            $.ajax({
-                url: "${pageContext.request.contextPath }/stu/" + $(this).attr("delete-stuid"),
-                type: "DELETE",
-                success: function (result) {
-                    alert(result.msg);
-                    showPage(currPage);
-                }
-            });
-        }
-    });
-
-
     //点击编辑按钮
     $(document).on("click", ".edit-btn", function () {
         //1.显示专业名称
@@ -539,8 +585,6 @@
             backdrop: "static"
         });
     });
-
-
     //点击新增按钮
     $("#stu_add_modal_btn").click(function () {
         //0.还原表单的状态
@@ -769,32 +813,6 @@
         var flag = $(".check_item:checked").length == $(".check_item").length;
         $("#check_All").prop("checked", flag);
     });
-
-    //批量删除按钮的点击事件
-    $("#stu_del_modal_btn").click(function () {
-        var stuNames = "";
-        var stuIds = "";
-        $.each($(".check_item:checked"), function () {
-            stuNames += $(this).parents("tr").find("td:eq(2)").text() + ",";
-            stuIds += $(this).parents("tr").find("td:eq(1)").text() + ",";
-        })
-        stuNames = stuNames.substring(0, stuNames.length - 1);
-        stuIds = stuIds.substring(0, stuIds.length - 1);
-        //alert(stuNames);
-        //alert(stuIds);
-        if (confirm("确定要删除[" + stuNames + "]吗?")) {
-            $.ajax({
-                url: "${pageContext.request.contextPath }/stu/" + stuIds,
-                type: "DELETE",
-                success: function (result) {
-                    alert(result.msg);
-                    showPage(currPage);
-                }
-            });
-        }
-    });
 </script>
-
-
 </body>
 </html>

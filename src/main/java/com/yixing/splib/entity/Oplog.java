@@ -1,5 +1,6 @@
 package com.yixing.splib.entity;
 
+
 import java.util.Date;
 
 public class Oplog {
@@ -14,6 +15,10 @@ public class Oplog {
     private String userId;
 
     private String opUser;
+
+    private Catalog catalog;
+
+    private User user;
 
     public String getOpId() {
         return opId;
@@ -61,5 +66,53 @@ public class Oplog {
 
     public void setOpUser(String opUser) {
         this.opUser = opUser == null ? null : opUser.trim();
+    }
+
+    public Catalog getCatalog()
+    {
+        return catalog;
+    }
+
+    public void setCatalog(Catalog catalog)
+    {
+        this.catalog = catalog;
+    }
+
+    public User getUser()
+    {
+        return user;
+    }
+
+    public void setUser(User user)
+    {
+        this.user = user;
+    }
+
+    public Oplog(String opId, String opWay, Date opTime, String bookId, String userId, String opUser)
+    {
+        this.opId = opId;
+        this.opWay = opWay;
+        this.opTime = opTime;
+        this.bookId = bookId;
+        this.userId = userId;
+        this.opUser = opUser;
+    }
+
+    public Oplog()
+    {
+        super();
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Oplog{" +
+                "opId='" + opId + '\'' +
+                ", opWay='" + opWay + '\'' +
+                ", opTime=" + opTime +
+                ", bookId='" + bookId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", opUser='" + opUser + '\'' +
+                '}';
     }
 }
