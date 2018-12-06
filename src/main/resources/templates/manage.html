@@ -4,13 +4,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    s
     <title>Dashboard Template for Bootstrap</title>
     <!-- Bootstrap core CSS -->
     <link href="" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="" th:href="@{/css/dashboard.css}" rel="stylesheet">
-    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/jquery.js}"></script>
+    <script th:src="@{/js/bootstrap.js}"></script>
+    <script th:src="@{/js/popper.js}"></script>
     <style type="text/css">/* Chart.js */
     @-webkit-keyframes chartjs-render-animation {
         from {
@@ -46,25 +47,51 @@
 <!--<button class="btn btn-lg btn-primary btn-block" type="submit">退出登录</button>-->
 <!--</form>-->
 <!--模板部分-->
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="https://v4.bootcss.com/docs/4.0/examples/dashboard/#">奕星图书馆</a>
+    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+</nav>
 <div class="container-fluid">
     <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
             <div class="sidebar-sticky">
-                <h1 class="bg-dark col-sm-3 col-md-2 mr-0" th:href="@{/manage}">奕星图书馆</h1>
+
                 <ul class="nav flex-column">
-                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                        <span shiro:hasPermission="admin">管理员功能</span>
-                        <a class="d-flex align-items-center text-muted"
-                           th:href="@{/manage/#}">
-                        </a>
-                    </h6>
                     <li class="nav-item" shiro:hasPermission="admin">
-                        <a class="nav-link btn btn-info btn-md" id="borrowBook" th:href="@{/manage/#}">
-                            <span class="glyphicon glyphicon-book"></span> 借书
-                        </a>
+                        <button type="button" class="btn btn-dark btn-md" data-toggle="modal" id="borrowBook" data-target="#borrowBookModal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-file">
+                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                <polyline points="13 2 13 9 20 9"></polyline>
+                            </svg>
+                            借&nbsp;&nbsp;&nbsp;&nbsp;书&nbsp;&nbsp;&nbsp;&nbsp;
+                        </button>
                     </li>
                     <li class="nav-item" shiro:hasPermission="admin">
-                        <a class="nav-link" id="searchBook" th:href="@{/manage/#}">
+                        <button type="button" class="btn btn-dark btn-md" data-toggle="modal" id="addBook" data-target="#addBookModal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-file">
+                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                <polyline points="13 2 13 9 20 9"></polyline>
+                            </svg>
+                            新增图书
+                        </button>
+                    </li>
+                    <li class="nav-item" shiro:hasPermission="admin">
+                        <button type="button" class="btn btn-dark btn-md" data-toggle="modal" id="addUser" data-target="#addUserModal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-file">
+                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                <polyline points="13 2 13 9 20 9"></polyline>
+                            </svg>
+                            新增用户
+                        </button>
+                    </li>
+                    <li class="nav-item" shiro:hasPermission="admin">
+                        <a class="nav-link" id="searchBook">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-file">
@@ -75,7 +102,7 @@
                         </a>
                     </li>
                     <li class="nav-item" shiro:hasPermission="admin">
-                        <a class="nav-link" id="searchUser" th:href="@{/manage/#}">
+                        <a class="nav-link" id="searchUser">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-users">
@@ -88,7 +115,7 @@
                         </a>
                     </li>
                     <li class="nav-item" shiro:hasPermission="admin">
-                        <a class="nav-link" th:href="@{/manage/#}">
+                        <a class="nav-link" id="searchOplog">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-bar-chart-2">
@@ -100,15 +127,9 @@
                         </a>
                     </li>
                 </ul>
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>用户功能</span>
-                    <a class="d-flex align-items-center text-muted"
-                       th:href="@{/manage/#}">
-                    </a>
-                </h6>
                 <ul class="nav flex-column mb-2">
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/manage/#}">
+                        <a class="nav-link">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-file-text">
@@ -122,7 +143,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{/manage/#}">
+                        <a class="nav-link">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-file-text">
@@ -132,7 +153,7 @@
                                 <line x1="16" y1="17" x2="8" y2="17"></line>
                                 <polyline points="10 9 9 9 8 9"></polyline>
                             </svg>
-                            密码修改
+                            修改密码
                         </a>
                     </li>
                     <li>
@@ -145,110 +166,14 @@
 
             <div class="row text-right">
                 <h2 class="col-md-8">详细信息</h2>
-                <div class="col-md-4 col-md-offset-12">
-                    <button type="button" class="btn btn-primary " id="stu_add_modal_btn">
-                        <span class="glyphicon glyphicon-pencil " aria-hidden="true"></span>
-                        新增
-                    </button>
-                </div>
             </div>
-            <!-- 更新学生信息的模态框 -->
-            <div class="modal fade" id="stuUpdateModal" tabindex="-1" role="dialog"
+            <!--借阅图书模态框-->
+            <div class="modal fade" id="borrowBookModal" tabindex="-1" role="dialog"
                  aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"
-                                    aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title" id="myModalLabel">修改学生信息</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form class="form-horizontal">
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">姓名</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="name"
-                                               id="stuName_update_input" placeholder="请输入姓名"> <span
-                                            id="helpBlock2" class="help-block"></span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">性别</label>
-                                    <div class="col-sm-10">
-                                        <label class="radio-inline"> <input type="radio"
-                                                                            name="gender" id="gender1_update_input"
-                                                                            value="男"> 男
-                                        </label> <label class="radio-inline"> <input type="radio"
-                                                                                     name="gender"
-                                                                                     id="gender2_update_input"
-                                                                                     value="女"> 女
-                                    </label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">邮箱</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="email"
-                                               id="email_update_input" placeholder="email@qq.com"> <span
-                                            id="helpBlock2" class="help-block"></span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">电话</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="phone"
-                                               id="phone_update_input" placeholder="13777644458"> <span
-                                            id="helpBlock2" class="help-block"></span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">出生日期</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="birth"
-                                               id="birth_update_input" placeholder="1998-04-24"> <span
-                                            id="helpBlock2" class="help-block"></span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">注册日期</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="regTime"
-                                               id="regTime_update_input" placeholder="2018-01-01"> <span
-                                            id="helpBlock2" class="help-block"></span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">专业</label>
-                                    <div class="col-sm-5">
-                                        <!-- 专业提交专业ID即可 -->
-                                        <select class="form-control" name="majorId">
-                                        </select>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                            <button type="button" class="btn btn-primary" id="stu_update_btn">修改</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- 新增学生的模态框 -->
-            <div class="modal fade" id="stuAddModal" tabindex="-1" role="dialog"
-                 aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"
-                                    aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title" id="myModalLabel">添加学生信息</h4>
+                            <h4 class="modal-title" id="borrowBookModaModalLabel">借书信息</h4>
                         </div>
                         <div class="modal-body">
                             <form class="form-horizontal">
@@ -322,8 +247,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="container">
                 <!-- Insert Delete Button-->
                 <!-- Student Data -->
@@ -339,8 +262,8 @@
                 </div>
                 <!-- Paging Info -->
                 <div class="row" id="pageInfo">
-                    <div class="col-md-6" id="page_info_area"></div>
-                    <div class="col-md-6" id="page_nav_area"></div>
+                    <div class="col-md-6 btn btn-sm " id="page_info_area"></div>
+                    <div class="col-md-6 btn btn-sm " id="page_nav_area"></div>
                 </div>
             </div>
         </main>
@@ -377,6 +300,31 @@
             .appendTo("#mytable thead");
         showUserPage(1);
     });
+    $("#searchOplog").click(function () {
+        $("#mytable thead").empty();
+        $("<tr></tr>").append($("<th></th>").append("操作流水号")).append($("<th></th>").append("操作类型")).append($("<th></th>").append("操作时间"))
+            .append($("<th></th>").append("书本编号")).append($("<th></th>").append("书本名称")).append($("<th></th>").append("借阅者卡号"))
+            .append($("<th></th>").append("借阅者姓名")).append($("<th></th>").append("操作人员姓名"))
+            .appendTo("#mytable thead");
+        showOplogPage(1);
+    });
+    function showOplogPage(n) {
+        $.ajax({
+            url: "/api/oplog",
+            data: "pn=" + n,
+            type: "GET",
+            success: function (result) {
+                console.info(result);
+                //显示书本数据
+                build_oplog_table(result);
+                //显示分页信息
+                build_page_info(result.data.oplog);
+                //显示页面的导航信息
+                build_page_nav(result.data.oplog,showOplogPage);
+            }
+        });
+    }
+
     function showBookPage(n) {
         $.ajax({
             url: "/api/book",
@@ -387,9 +335,9 @@
                 //显示书本数据
                 build_book_table(result);
                 //显示分页信息
-                build_page_info(result);
+                build_page_info(result.data.detail);
                 //显示页面的导航信息
-                build_page_nav(result);
+                build_page_nav(result.data.detail,showBookPage);
             }
         });
     }
@@ -405,9 +353,9 @@
                 //显示书本数据
                 build_user_table(result);
                 //显示分页信息
-                build_page_info(result);
+                build_page_info(result.data.user);
                 //显示页面的导航信息
-                build_page_nav(result);
+                build_page_nav(result.data.user,showUserPage);
             }
         });
     }
@@ -457,9 +405,9 @@
                 .append(bookRemainnum).append(bookNum).append(catalogMan)
                 .append(iscanceled).append(bookCode).append(islended)
                 .append(outdate).append(indate).append(userId)
-                .append(islost).append(lostdate).append(editBtnTd).appendTo(
-                "#mytable tbody");
-        });
+                .append(islost).append(lostdate).append(editBtnTd)
+                .appendTo("#mytable tbody");
+        })
     }
 
     function build_user_table(result) {
@@ -498,17 +446,36 @@
         });
     }
 
+    function build_oplog_table(result) {
+        $("#mytable tbody").empty();
+        var users = result.data.oplog.list;
+        $.each(users, function (index, item) {
+            var opId = $("<td></td>").append(item.opId);
+            var opWay = $("<td></td>").append(item.opWay);
+            var opTime = $("<td></td>").append(new Date(item.opTime).toLocaleDateString());
+            var bookId = $("<td></td>").append(item.bookId);
+            var bookName = $("<td></td>").append(item.catalog.bookName);
+            var userId = $("<td></td>").append(item.userId);
+            var userName = $("<td></td>").append(item.user.userName);
+            var opUser = $("<td></td>").append(item.opUser);
+            $("<tr></tr>").append(opId).append(opWay).append(opTime)
+                .append(bookId).append(bookName).append(userId)
+                .append(userName).append(opUser).appendTo(
+                "#mytable tbody");
+        });
+    }
+
     function build_page_info(result) {
         $("#page_info_area").empty();
         $("#page_info_area").append(
-            "当前第" + result.data.detail.pageNum + "页/总共"
-            + result.data.detail.pageSize + "页，总记录为"
-            + result.data.detail.total + "条");
-        totalPage = result.data.detail.total;
-        currPage = result.data.detail.pageNum;
+            "当前第" + result.pageNum + "页/总共"
+            + result.pageSize + "页，总记录为"
+            + result.total + "条");
+        totalPage = result.total;
+        currPage = result.pageNum;
     }
 
-    function build_page_nav(result) {
+    function build_page_nav(result,func) {
         $("#page_nav_area").empty();
         var ul = $("<ul></ul>").addClass("pagination");
         var firstPageLi = $("<li></li>").append(
@@ -516,15 +483,15 @@
         var previousPageLi = $("<li></li>").append(
             $("<a></a>").append("&laquo;").attr("href", "#"));
 
-        if (result.data.detail.hasPreviousPage == false) {
+        if (result.hasPreviousPage == false) {
             firstPageLi.addClass("disabled");
             previousPageLi.addClass("disabled");
         } else {
             firstPageLi.click(function () {
-                showPage(1);
+                func(1);
             });
             previousPageLi.click(function () {
-                showPage(result.data.detail.pageNum - 1);
+                func(result.pageNum - 1);
             });
         }
 
@@ -533,32 +500,32 @@
         var lastPageLi = $("<li></li>").append(
             $("<a></a>").append("末页").attr("href", "#"));
 
-        if (result.data.detail.hasNextPage == false) {
+        if (result.hasNextPage == false) {
             nextPageLi.addClass("disabled");
             lastPageLi.addClass("disabled");
         } else {
             nextPageLi.click(function () {
-                showPage(result.data.detail.pageNum + 1);
+                func(result.pageNum + 1);
             });
             lastPageLi.click(function () {
-                showPage(result.data.detail.pages);
+                func(result.pages);
             });
         }
 
-        ul.append(firstPageLi).append(previousPageLi);
+        ul.append(firstPageLi.addClass("btn btn-sm btn-outline-secondary")).append(previousPageLi.addClass("btn btn-sm btn-outline-secondary"));
 
-        $.each(result.data.detail.navigatepageNums, function (index, item) {
+        $.each(result.navigatepageNums, function (index, item) {
             var numLi = $("<li></li>").append(
                 $("<a></a>").append(item).attr("href", "#"));
-            if (result.data.detail.pageNum == item) {
+            if (result.pageNum == item) {
                 numLi.addClass("active");
             }
             numLi.click(function () {
-                showPage(item);
+                func(item);
             });
-            ul.append(numLi);
+            ul.append(numLi.addClass("btn btn-sm btn-outline-secondary"));
         });
-        ul.append(nextPageLi).append(lastPageLi);
+        ul.append(nextPageLi.addClass("btn btn-sm btn-outline-secondary")).append(lastPageLi.addClass("btn btn-sm btn-outline-secondary"));
         var navElement = $("<nav></nav>").append(ul).appendTo(
             "#page_nav_area");
     }
@@ -585,36 +552,15 @@
             backdrop: "static"
         });
     });
-    //点击新增按钮
-    $("#stu_add_modal_btn").click(function () {
-        //0.还原表单的状态
-        reset_form("#stuAddModal form");
-        //1.获取并显示所有专业
-        getMajors("#stuAddModal select");
-        //2.显示模态框
-        $('#stuAddModal').modal({
-            backdrop: "static"
-        });
-    });
-
-    //{"code":101,"msg":"处理成功!","data":
-    //{"majors":[{"majorId":1,"majorName":"计算机应用技术"},{"majorId":2,"majorName":"计算机网络技术"},{"majorId":3,"majorName":"物联网技术"},{"majorId":8,"majorName":"数控技术"},{"majorId":9,"majorName":"机电一体化技术"}]}}
-    //获得专业信息加载到添加的模态框
-    function getMajors(ele) {
-        $.ajax({
-            url: "${pageContext.request.contextPath }/majors",
-            type: "GET",
-            success: function (result) {
-                $(ele).empty();
-                $.each(result.data.majors, function () {
-                    var optionElement = $("<option></option>").append(
-                        this.majorName).attr("value", this.majorId);
-                    optionElement.appendTo(ele);
-                });
-            }
-        });
-    }
-
+    //点击借阅图书
+    // $("#borrowBook").click(function () {
+    //     //0.还原表单的状态
+    //     reset_form("#borrowBookModal form");
+    //     //1.显示模态框
+    //     $("#borrowBookModal").modal({
+    //         backdrop: "static"
+    //     });
+    // });
     //修改时获取学生信息
     function getStudent(id) {
         $.ajax({
