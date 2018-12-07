@@ -58,7 +58,8 @@
 
                 <ul class="nav flex-column">
                     <li class="nav-item" shiro:hasPermission="admin">
-                        <button type="button" class="btn btn-dark btn-md" data-toggle="modal" id="borrowBook" data-target="#borrowBookModal">
+                        <button type="button" class="btn btn-dark btn-md" data-toggle="modal" id="borrowBook"
+                                data-target="#borrowBookModal">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-file">
@@ -69,7 +70,20 @@
                         </button>
                     </li>
                     <li class="nav-item" shiro:hasPermission="admin">
-                        <button type="button" class="btn btn-dark btn-md" data-toggle="modal" id="addBook" data-target="#addBookModal">
+                        <button type="button" class="btn btn-dark btn-md" data-toggle="modal" id="returnBook"
+                                data-target="#borrowBookModal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="feather feather-file">
+                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                <polyline points="13 2 13 9 20 9"></polyline>
+                            </svg>
+                            还&nbsp;&nbsp;&nbsp;&nbsp;书&nbsp;&nbsp;&nbsp;&nbsp;
+                        </button>
+                    </li>
+                    <li class="nav-item" shiro:hasPermission="admin">
+                        <button type="button" class="btn btn-dark btn-md" data-toggle="modal" id="addBook"
+                                data-target="#addBookModal">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-file">
@@ -80,7 +94,8 @@
                         </button>
                     </li>
                     <li class="nav-item" shiro:hasPermission="admin">
-                        <button type="button" class="btn btn-dark btn-md" data-toggle="modal" id="addUser" data-target="#addUserModal">
+                        <button type="button" class="btn btn-dark btn-md" data-toggle="modal" id="addUser"
+                                data-target="#addUserModal">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-file">
@@ -178,71 +193,60 @@
                         <div class="modal-body">
                             <form class="form-horizontal">
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">姓名</label>
+                                    <label class="col-sm-2 control-label">操作编号</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="name"
-                                               id="stuName_add_input" placeholder="请输入姓名"> <span
+                                        <input type="text" class="form-control" name="opId"
+                                               id="opId_add_input" readonly="true"> <span
                                             id="helpBlock2" class="help-block"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">性别</label>
+                                    <label class="col-sm-2 control-label">操作方式</label>
                                     <div class="col-sm-10">
-                                        <label class="radio-inline"> <input type="radio"
-                                                                            name="gender" id="gender1_update_input"
-                                                                            value="男" checked> 男
-                                        </label> <label class="radio-inline"> <input type="radio"
-                                                                                     name="gender"
-                                                                                     id="gender2_update_input"
-                                                                                     value="女"> 女
-                                    </label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">邮箱</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="email"
-                                               id="email_add_input" placeholder="email@qq.com"> <span
+                                        <input type="text" class="form-control" name="opWay"
+                                               id="opWay_add_input"  value="借阅" readonly="true"> <span
                                             id="helpBlock2" class="help-block"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">电话</label>
+                                    <label class="col-sm-2 control-label">操作时间</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="phone"
-                                               id="phone_add_input" placeholder="13777644458"> <span
+                                        <input type="text" class="form-control" name="opTime"
+                                               id="opTime_add_input" readonly="true">
+                                        <span
+                                                id="helpBlock2" class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">书本编号</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="bookId"
+                                               id="bookId_add_input" placeholder="A123"> <span
                                             id="helpBlock2" class="help-block"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">出生日期</label>
+                                    <label class="col-sm-2 control-label">借阅者卡号</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="birth"
-                                               id="birth_add_input" placeholder="1998-04-24"> <span
+                                        <input type="text" class="form-control" name="userId"
+                                               id="userId_add_input" placeholder="1"> <span
                                             id="helpBlock2" class="help-block"></span>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">注册日期</label>
+                                    <label class="col-sm-2 control-label">操作员</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="regTime"
-                                               id="regTime_add_input" placeholder="2018-01-01"> <span
-                                            id="helpBlock2" class="help-block"></span>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">专业</label>
-                                    <div class="col-sm-5">
-                                        <!-- 专业提交专业ID即可 -->
-                                        <select class="form-control" name="majorId">
-                                        </select>
+                                        <input type="text" class="form-control" name="opUser"
+                                               id="opUser_add_input"  th:value="${username}" readonly="true">
+                                        <span
+                                                id="helpBlock2" class="help-block"></span>
                                     </div>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                            <button type="button" class="btn btn-primary" id="stu_save_btn">保存</button>
+                            <button type="button" class="btn btn-primary" id="borrowBook_save_btn">保存</button>
                         </div>
                     </div>
                 </div>
@@ -276,7 +280,9 @@
 <script>
     var totalPage;
     var currPage;
-    $("#searchBook").click(function () {
+    var totalOplog;
+    function showBOOK()
+    {
         $("#mytable thead").empty();
         $("<tr></tr>").append($("<th></th>").append("索书号")).append($("<th></th>").append("分类号")).append($("<th></th>").append("ISBN"))
             .append($("<th></th>").append("题名")).append($("<th></th>").append("并列书名")).append($("<th></th>").append("第一责任者"))
@@ -287,9 +293,13 @@
             .append($("<th></th>").append("图书出借日期")).append($("<th></th>").append("图书归还日期")).append($("<th></th>").append("借书证编号"))
             .append($("<th></th>").append("挂失标志")).append($("<th></th>").append("挂失日期")).append($("<th></th>").append("Edit"))
             .appendTo("#mytable thead");
+    }
+    $("#searchBook").click(function () {
+        showBOOK();
         showBookPage(1);
     });
-    $("#searchUser").click(function () {
+    function showUSER()
+    {
         $("#mytable thead").empty();
         $("<tr></tr>").append($("<th></th>").append("借书证编号")).append($("<th></th>").append("借书证条形码号")).append($("<th></th>").append("姓名"))
             .append($("<th></th>").append("办理日期")).append($("<th></th>").append("已借阅书本数量")).append($("<th></th>").append("注销标志"))
@@ -298,16 +308,24 @@
             .append($("<th></th>").append("罚款未付标志")).append($("<th></th>").append("罚款未付金额")).append($("<th></th>").append("学院"))
             .append($("<th></th>").append("专业")).append($("<th></th>").append("Edit"))
             .appendTo("#mytable thead");
+    }
+    $("#searchUser").click(function () {
+        showUSER();
         showUserPage(1);
     });
-    $("#searchOplog").click(function () {
+    function showOPLOG()
+    {
         $("#mytable thead").empty();
         $("<tr></tr>").append($("<th></th>").append("操作流水号")).append($("<th></th>").append("操作类型")).append($("<th></th>").append("操作时间"))
             .append($("<th></th>").append("书本编号")).append($("<th></th>").append("书本名称")).append($("<th></th>").append("借阅者卡号"))
             .append($("<th></th>").append("借阅者姓名")).append($("<th></th>").append("操作人员姓名"))
             .appendTo("#mytable thead");
+    }
+    $("#searchOplog").click(function () {
+        showOPLOG();
         showOplogPage(1);
     });
+
     function showOplogPage(n) {
         $.ajax({
             url: "/api/oplog",
@@ -320,7 +338,7 @@
                 //显示分页信息
                 build_page_info(result.data.oplog);
                 //显示页面的导航信息
-                build_page_nav(result.data.oplog,showOplogPage);
+                build_page_nav(result.data.oplog, showOplogPage);
             }
         });
     }
@@ -337,7 +355,7 @@
                 //显示分页信息
                 build_page_info(result.data.detail);
                 //显示页面的导航信息
-                build_page_nav(result.data.detail,showBookPage);
+                build_page_nav(result.data.detail, showBookPage);
             }
         });
     }
@@ -355,7 +373,7 @@
                 //显示分页信息
                 build_page_info(result.data.user);
                 //显示页面的导航信息
-                build_page_nav(result.data.user,showUserPage);
+                build_page_nav(result.data.user, showUserPage);
             }
         });
     }
@@ -471,11 +489,11 @@
             "当前第" + result.pageNum + "页/总共"
             + result.pageSize + "页，总记录为"
             + result.total + "条");
-        totalPage = result.total;
+        totalPage = result.pageSize;
         currPage = result.pageNum;
     }
 
-    function build_page_nav(result,func) {
+    function build_page_nav(result, func) {
         $("#page_nav_area").empty();
         var ul = $("<ul></ul>").addClass("pagination");
         var firstPageLi = $("<li></li>").append(
@@ -539,6 +557,7 @@
         //清除提示信息
         $(ele).find(".help-block").text("");
     }
+
     //点击编辑按钮
     $(document).on("click", ".edit-btn", function () {
         //1.显示专业名称
@@ -582,47 +601,40 @@
             }
         });
     }
-
+    function settotalOplog(x,y)
+    {
+        totalOplog=x;
+        totalPage=y;
+    }
+    $.ajax({
+        url: "/api/oplog",
+        data: "pn=" + 1,
+        type: "GET",
+        success: function (result) {
+            settotalOplog(result.data.oplog.total,result.data.oplog.pageSize)
+        }
+    });
+    $("#borrowBook").click(function () {
+        $("#opId_add_input").attr("value",totalOplog+1);
+        var mydate = new Date();
+        $("#opTime_add_input").attr("value",
+            mydate.getFullYear()+"-"+mydate.getMonth()+"-"+mydate.getDay()+"T"+mydate.getHours()+":"+mydate.getMinutes()+":"+mydate.getSeconds());
+    });
     //保存按钮的点击事件
-    $("#stu_save_btn").click(function () {
-        //1.对提交给服务器的数据进行规则校验
-        if (!validate_add_form()) {
-            return false;
-        }
-
-        //检测姓名是否可用，不可用的话，不提交AJAX请求
-        if ($(this).attr("checkName") == "error") {
-            return false;
-        }
-
-        //2.校验通过，发送AJAX请求，保存学生数据
-        //alert($("#stuAddModal form").serialize());
+    $("#borrowBook_save_btn").click(function () {
         $.ajax({
-            url: "${pageContext.request.contextPath }/stu",
+            url: "/api/addOplog",
             type: "POST",
-            data: $("#stuAddModal form").serialize(),
+            data: $("#borrowBookModal form").serialize(),
             success: function (result) {
-                alert($("#stuAddModal form").serialize());
                 if (result.code == 101) {
-                    $("#stuAddModal").modal('hide');
-                    showPage(totalPage);
+                    $("#borrowBookModal").modal('hide');
+                    alert("操作成功");
+                    showOPLOG();
+                    showOplogPage(totalPage);
                 }
-                else {
-                    if (result.data.errors.name != undefined) {
-                        show_validate_status("#stuName_add_input", "error", "姓名只能是2-8位汉字或者2-16位字符");
-                    }
-                    if (result.data.errors.email != undefined) {
-                        show_validate_status("#email_add_input", "error", "邮箱格式不正确！");
-                    }
-                    if (result.data.errors.phone != undefined) {
-                        show_validate_status("#phone_add_input", "error", "电话号码不正确");
-                    }
-                    if (result.data.errors.birth != undefined) {
-                        show_validate_status("#birth_add_input", "error", "出生日期格式不正确");
-                    }
-                    if (result.data.errors.regTime != undefined) {
-                        show_validate_status("#regTime_add_input", "error", "注册日期格式不正确");
-                    }
+                if (result.code == 102) {
+                    alert("操作失败");
                 }
             }
         });

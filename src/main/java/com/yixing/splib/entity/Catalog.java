@@ -172,4 +172,53 @@ public class Catalog {
     public void setIscanceled(String iscanceled) {
         this.iscanceled = iscanceled == null ? null : iscanceled.trim();
     }
+
+    public Catalog(String subnum, String classnum, String isbn, String bookName, String bookNames, String bookAuthor, String bookAuthors, String bookVersion, String bookPress, Date bookPubdate, Integer bookPage, Integer bookPrice, Date bookDate, Integer bookRemainnum, Integer bookNum, String catalogMan, String iscanceled)
+    {
+        this.subnum = subnum;
+        this.classnum = classnum;
+        this.isbn = isbn;
+        this.bookName = bookName;
+        this.bookNames = bookNames;
+        this.bookAuthor = bookAuthor;
+        this.bookAuthors = bookAuthors;
+        this.bookVersion = bookVersion;
+        this.bookPress = bookPress;
+        this.bookPubdate = bookPubdate;
+        this.bookPage = bookPage;
+        this.bookPrice = bookPrice;
+        this.bookDate = bookDate;
+        this.bookRemainnum = bookRemainnum;
+        this.bookNum = bookNum;
+        this.catalogMan = catalogMan;
+        this.iscanceled = iscanceled;
+    }
+    public Catalog()
+    {
+        super();
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Catalog{" +
+                "subnum='" + subnum + '\'' +
+                ", classnum='" + classnum + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", bookName='" + bookName + '\'' +
+                ", bookNames='" + bookNames + '\'' +
+                ", bookAuthor='" + bookAuthor + '\'' +
+                ", bookAuthors='" + bookAuthors + '\'' +
+                ", bookVersion='" + bookVersion + '\'' +
+                ", bookPress='" + bookPress + '\'' +
+                ", bookPubdate=" + bookPubdate +
+                ", bookPage=" + bookPage +
+                ", bookPrice=" + bookPrice +
+                ", bookDate=" + bookDate +
+                ", bookRemainnum=" + bookRemainnum +
+                ", bookNum=" + bookNum +
+                ", catalogMan='" + catalogMan + '\'' +
+                ", iscanceled='" + iscanceled + '\'' +
+                '}';
+    }
 }

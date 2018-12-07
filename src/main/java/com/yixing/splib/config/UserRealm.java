@@ -38,7 +38,6 @@ public class UserRealm extends AuthorizingRealm
     {
         System.out.println("执行认证逻辑");
         //读入数据库的用户名和密码
-
         //编写shiro判断逻辑，判断用户名和密码
         //1、判断用户名
         UsernamePasswordToken token=(UsernamePasswordToken) authenticationToken;

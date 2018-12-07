@@ -4,6 +4,7 @@ import com.yixing.splib.dao.DetailMapper;
 import com.yixing.splib.entity.Detail;
 import com.yixing.splib.entity.DetailExample;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -36,6 +37,18 @@ public class DetailServiceImpl implements DetailService
         DetailExample detailExample=new DetailExample();
         detailExample.setOrderByClause("book_id");
         return detailMapper.selectByExampleALL(detailExample);
+    }
+
+    @Override
+    public Detail get(Detail detail)
+    {
+        DetailExample detailExample=new DetailExample();
+        DetailExample.Criteria criteria = detailExample.createCriteria();
+        if(!StringUtils.isEmpty(detail.getSubnum()))
+        {
+            criteria.andSubnumEqualTo(detail.getSubnum());
+        }
+        return detailMapper.selectByExample(detailExample).get(0);
     }
 
     @Override

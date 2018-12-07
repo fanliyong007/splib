@@ -14,7 +14,6 @@ public class OplogServiceImpl implements OplogService
 {
     @Resource
     private OplogMapper oplogMapper;
-
     @Override
     public void saveOplog(Oplog oplog)
     {

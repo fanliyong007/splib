@@ -15,6 +15,8 @@ public interface DetailService
     public void updateDetail(Detail detail);
     //获取所有Detail信息
     public List<Detail> getAll();
+    //获取单个Detail信息
+    public Detail get(Detail detail);
     //批量删除
     public void deleteDetailBatch(List<String> book_ids);
 

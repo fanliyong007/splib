@@ -3,9 +3,14 @@ package com.yixing.splib.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yixing.splib.entity.Catalog;
+import com.yixing.splib.entity.Detail;
 import com.yixing.splib.entity.Oplog;
+
+import com.yixing.splib.entity.User;
 import com.yixing.splib.service.CatalogService;
+import com.yixing.splib.service.DetailService;
 import com.yixing.splib.service.OplogService;
+import com.yixing.splib.service.UserService;
 import com.yixing.splib.util.Msg;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.validation.BindingResult;
@@ -27,7 +32,12 @@ public class OplogManageController
 {
     @Resource
     private OplogService oplogService;
+    @Resource
     private CatalogService catalogService;
+    @Resource
+    private DetailService detailService;
+    @Resource
+    private UserService userService;
     //增加Catalog外部接口
     @RequestMapping(value = "/addOplog")
     public Msg save(@Valid Oplog oplog, BindingResult result)
@@ -35,7 +45,8 @@ public class OplogManageController
         Catalog catalog=new Catalog();
         catalog.setSubnum(oplog.getBookId());
         catalog=catalogService.get(catalog).get(0);
-        if (result.getErrorCount() > 0&&catalog.getBookRemainnum()>1)
+
+        if (result.getErrorCount() > 0&&catalog.getBookRemainnum()<1)//&&catalog.getBookRemainnum()>1
         {
             Map<String, Object> errors = new HashMap<String, Object>();
             for (FieldError error : result.getFieldErrors())
@@ -47,9 +58,21 @@ public class OplogManageController
         }
         try
         {
+
+            User user=new User();
+            user.setUserCode(new Integer(oplog.getUserId()));
+            user= userService.get(user).get(0);//得到当前借书人的信息
+            Detail detail=new Detail();
+            detail.setSubnum(catalog.getSubnum());
+            detail=detailService.get(detail);//获得当前借阅图书的detail对象
+            detail.setOutdate(oplog.getOpTime());//设置图书借出日期
+            detail.setUserId(user.getUserId());//设置借阅者id
+            detail.setIslended(true);
+            System.out.println(detail.toString());
+            detailService.updateDetail(detail);//更新图书借出情况
             catalog.setBookRemainnum(catalog.getBookRemainnum()-1);
-            catalogService.saveCatalog(catalog);
-            oplogService.saveOplog(oplog);
+            catalogService.updateCatalog(catalog);//更新图书剩余数量
+            oplogService.saveOplog(oplog);//保存操作记录
             return Msg.success();
         } catch (Exception e)
         {

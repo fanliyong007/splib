@@ -29,8 +29,11 @@ public class ThymeleafController
         return "login";
     }
     @RequestMapping("/manage")
-    public String manage()
+    public String manage(Model model)
     {
+        Subject subject= SecurityUtils.getSubject();
+        Login login=loginService.get((String)subject.getPrincipal());
+        model.addAttribute("username",login.getUsername());
         return "manage";
     }
     @RequestMapping("/noAuth")

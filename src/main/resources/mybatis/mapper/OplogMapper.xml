@@ -118,7 +118,7 @@
     op_id, op_way, op_time, book_id, user_id, op_user
   </sql>
   <sql id="ALL_Column_List" >
-    op.op_id, op.op_way, op.op_time, op.book_id, op.user_code, op.op_user,
+    op.op_id, op.op_way, op.op_time, op.book_id, op.user_id, op.op_user,
 u.user_code, u.user_id, u.User_name, u.regdate, u.borrowed, u.iscanceled, u.canceleddate, u.user_age,
     u.user_gender, u.idnum, u.user_phone, u.brrowlimit, u.iscompensated, u.compensatedint, u.isfined,
     u.fineint, u.colleage_id, u.major_id,
@@ -154,7 +154,7 @@ ca.subnum, ca.classnum, ca.isbn, ca.Book_name, ca.book_nameS, ca.book_author, ca
     <include refid="ALL_Column_List" />
     FROM lib.oplog op
     LEFT outer join catalog ca on op.book_id=ca.Subnum
-    LEFT outer join user u on op.user_code=u.User_code
+    LEFT outer join user u on op.user_id=u.User_code
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -167,7 +167,7 @@ ca.subnum, ca.classnum, ca.isbn, ca.Book_name, ca.book_nameS, ca.book_author, ca
     <include refid="ALL_Column_List" />
     FROM lib.oplog op
     LEFT outer join catalog ca on op.book_id=ca.Subnum
-    LEFT outer join user u on op.user_code=u.User_code
+    LEFT outer join user u on op.user_id=u.User_code
     where op_id = #{opId,jdbcType=VARCHAR}
   </select>
 
