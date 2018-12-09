@@ -100,7 +100,7 @@ public class OplogManageController
             catalog.setSubnum(oplog.getBookId());
             catalog=catalogService.get(catalog).get(0);
             User user=new User();
-            user.setUserCode(new Integer(oplog1.getBookId()));
+            user.setUserCode(new Integer(oplog1.getUserId()));
             user=userService.get(user).get(0);
             user.setBorrowed(user.getBorrowed()-1);//学生已借阅书本数量减少
             userService.updateUser(user);//更新学生信息
@@ -113,7 +113,9 @@ public class OplogManageController
             detailService.updateDetail(detail);//更新图书归还情况
             catalog.setBookRemainnum(catalog.getBookRemainnum()+1);
             catalogService.updateCatalog(catalog);//更新图书剩余数量
+            oplog.setUserId(user.getUserCode().toString());
             oplogService.saveOplog(oplog);//保存操作记录
+            System.out.println(oplog.toString());
             return Msg.success();
         } catch (Exception e)
         {

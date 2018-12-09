@@ -4,10 +4,6 @@
     <list default="true" id="c5728232-838d-49ee-9512-9bee47ff3c29" name="Default" comment="外部接口已大致完成">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/OplogManageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/OplogManageController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/OplogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/OplogService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/OplogServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/OplogServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/manage.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/manage.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/manage.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/manage.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -52,7 +48,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="manage.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="manage.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/manage.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="3761">
@@ -61,17 +57,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OplogManageController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="OplogManageController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/OplogManageController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="682">
-              <caret line="103" column="46" selection-start-line="103" selection-start-column="46" selection-end-line="103" selection-end-column="46" />
+            <state relative-caret-position="31">
+              <caret line="115" column="57" selection-start-line="115" selection-start-column="57" selection-end-line="115" selection-end-column="57" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1684#1700#0" expanded="true" />
                 <element signature="e#3730#3746#0" expanded="true" />
                 <element signature="e#3207#3214#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OplogService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/service/OplogService.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="88">
+              <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -173,8 +178,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/SplibApplication.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/OplogService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/service/OplogServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/OplogManageController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/manage.html" />
+        <option value="$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/OplogManageController.java" />
       </list>
     </option>
   </component>
@@ -443,7 +448,7 @@
       <workItem from="1544078041758" duration="6297000" />
       <workItem from="1544156340629" duration="17851000" />
       <workItem from="1544191875948" duration="1728000" />
-      <workItem from="1544362944438" duration="10342000" />
+      <workItem from="1544362944438" duration="11612000" />
     </task>
     <task id="LOCAL-00001" summary="外部接口已大致完成">
       <created>1543453468946</created>
@@ -476,11 +481,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="155811000" />
+    <option name="totallyTimeSpent" value="157081000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="704" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="6" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5004042" side_tool="true" weight="0.74426806" />
@@ -504,7 +508,7 @@
       <window_info anchor="bottom" id="Spring" order="2" weight="0.329806" />
       <window_info anchor="bottom" id="Terminal" order="3" weight="0.329806" />
       <window_info content_ui="combo" id="Project" order="7" sideWeight="0.4973545" weight="0.20048505" />
-      <window_info anchor="bottom" id="Problems" order="16" />
+      <window_info anchor="bottom" id="Problems" order="16" weight="0.329806" />
       <window_info anchor="right" id="Bean Validation" order="5" weight="0.32983023" />
       <window_info id="Web" order="4" sideWeight="0.5026455" side_tool="true" weight="0.27890056" />
       <window_info anchor="right" id="Theme Preview" order="4" />
@@ -848,13 +852,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/service/OplogService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="34" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/entity/Oplog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
@@ -887,16 +884,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/OplogManageController.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/service/OplogService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="682">
-          <caret line="103" column="46" selection-start-line="103" selection-start-column="46" selection-end-line="103" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1684#1700#0" expanded="true" />
-            <element signature="e#3730#3746#0" expanded="true" />
-            <element signature="e#3207#3214#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="88">
+          <caret line="6" column="17" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -904,6 +895,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3761">
           <caret line="446" column="12" selection-start-line="446" selection-start-column="12" selection-end-line="446" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/yixing/splib/controller/OplogManageController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="31">
+          <caret line="115" column="57" selection-start-line="115" selection-start-column="57" selection-end-line="115" selection-end-column="57" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1684#1700#0" expanded="true" />
+            <element signature="e#3730#3746#0" expanded="true" />
+            <element signature="e#3207#3214#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
