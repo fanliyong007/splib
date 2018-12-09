@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Dashboard Template for Bootstrap</title>
+    <title>奕星图书馆管理系统</title>
     <!-- Bootstrap core CSS -->
     <link href="" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <!-- Custom styles for this template -->
@@ -48,7 +48,7 @@
 <!--</form>-->
 <!--模板部分-->
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="https://v4.bootcss.com/docs/4.0/examples/dashboard/#">奕星图书馆</a>
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">奕星图书馆</a>
     <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
 </nav>
 <div class="container-fluid">
@@ -71,7 +71,7 @@
                     </li>
                     <li class="nav-item" shiro:hasPermission="admin">
                         <button type="button" class="btn btn-dark btn-md" data-toggle="modal" id="returnBook"
-                                data-target="#borrowBookModal">
+                                data-target="#returnBookModal">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-file">
@@ -251,6 +251,68 @@
                     </div>
                 </div>
             </div>
+            <!--还书模态框-->
+            <div class="modal fade" id="returnBookModal" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="returnBookModaModalLabel">还书信息</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">操作编号</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="opId"
+                                               id="opId_add_input2" readonly="true"> <span
+                                            id="helpBlock2" class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">操作方式</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="opWay"
+                                               id="opWay_add_input2"  value="归还" readonly="true"> <span
+                                            id="helpBlock2" class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">操作时间</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="opTime"
+                                               id="opTime_add_input2" readonly="true">
+                                        <span
+                                                id="helpBlock2" class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">书本编号</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="bookId"
+                                               id="bookId_add_input2" placeholder="A123"> <span
+                                            id="helpBlock2" class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">操作员</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="opUser"
+                                               id="opUser_add_input2"  th:value="${username}" readonly="true">
+                                        <span
+                                                id="helpBlock2" class="help-block"></span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" id="returnBook_save_btn">保存</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="container">
                 <!-- Insert Delete Button-->
                 <!-- Student Data -->
@@ -606,6 +668,10 @@
         totalOplog=x;
         totalPage=y;
     }
+    function sleep(n) { //n表示的毫秒数
+        var start = new Date().getTime();
+        while (true) if (new Date().getTime() - start > n) break;
+    }
     $.ajax({
         url: "/api/oplog",
         data: "pn=" + 1,
@@ -618,28 +684,58 @@
         $("#opId_add_input").attr("value",totalOplog+1);
         var mydate = new Date();
         $("#opTime_add_input").attr("value",
-            mydate.getFullYear()+"-"+mydate.getMonth()+"-"+mydate.getDay()+"T"+mydate.getHours()+":"+mydate.getMinutes()+":"+mydate.getSeconds());
+            mydate.getFullYear()+"-"+(mydate.getMonth()+1)+"-"+mydate.getDate()+"T"+mydate.getHours()+":"+mydate.getMinutes()+":"+mydate.getSeconds());
+    });
+    $(document).on("click", "#returnBook", function () {
+        console.log("给编号赋值");
+        $("#opId_add_input2").attr("value",totalOplog+1);
+        console.log("赋值："+totalOplog+1+"成功");
+        var mydate = new Date();
+        console.log("给time赋值");
+        $("#opTime_add_input2").attr("value",
+            mydate.getFullYear()+"-"+(mydate.getMonth()+1)+"-"+mydate.getDate()+"T"+mydate.getHours()+":"+mydate.getMinutes()+":"+mydate.getSeconds());
+        console.log("赋值："+mydate.getFullYear()+"-"+(mydate.getMonth()+1)+"-"+mydate.getDate()+"T"+mydate.getHours()+":"+mydate.getMinutes()+":"+mydate.getSeconds()+"成功");
     });
     //保存按钮的点击事件
     $("#borrowBook_save_btn").click(function () {
         $.ajax({
-            url: "/api/addOplog",
+            url: "/api/borrowBook",
             type: "POST",
             data: $("#borrowBookModal form").serialize(),
             success: function (result) {
                 if (result.code == 101) {
                     $("#borrowBookModal").modal('hide');
-                    alert("操作成功");
+                    alert("借书成功");
                     showOPLOG();
                     showOplogPage(totalPage);
+                    settotalOplog(result.data.oplog.total,result.data.oplog.pageSize);//更新操作编号
                 }
                 if (result.code == 102) {
-                    alert("操作失败");
+                    alert("借书失败");
                 }
             }
         });
     });
-
+    //保存按钮的点击事件
+    $("#returnBook_save_btn").click(function () {
+        $.ajax({
+            url: "/api/returnBook",
+            type: "POST",
+            data: $("#returnBookModal form").serialize(),
+            success: function (result) {
+                if (result.code == 101) {
+                    $("#returnBookModal").modal('hide');
+                    alert("还书成功");
+                    showOPLOG();
+                    showOplogPage(totalPage);
+                    settotalOplog(result.data.oplog.total,result.data.oplog.pageSize);//更新操作编号
+                }
+                if (result.code == 102) {
+                    alert("还书失败");
+                }
+            }
+        });
+    });
     //添加时的数据校验
     function validate_add_form() {
         var stuName = $("#stuName_add_input").val();

@@ -38,15 +38,18 @@ public class OplogManageController
     private DetailService detailService;
     @Resource
     private UserService userService;
-    //增加Catalog外部接口
-    @RequestMapping(value = "/addOplog")
-    public Msg save(@Valid Oplog oplog, BindingResult result)
+    //借书外部接口
+    @RequestMapping(value = "/borrowBook")
+    public Msg borrowBook(@Valid Oplog oplog, BindingResult result)
     {
         Catalog catalog=new Catalog();
         catalog.setSubnum(oplog.getBookId());
         catalog=catalogService.get(catalog).get(0);
-
-        if (result.getErrorCount() > 0&&catalog.getBookRemainnum()<1)//&&catalog.getBookRemainnum()>1
+        User user=new User();
+        user.setUserCode(new Integer(oplog.getUserId()));
+        user= userService.get(user).get(0);//得到当前借书人的信息
+        if (result.getErrorCount() > 0&&catalog.getBookRemainnum()<1&&user.getBrrowlimit()<=user.getBorrowed())//&&catalog.getBookRemainnum()>1
+       //数据绑定错误或图书剩余数量不够或读者借阅余额不足
         {
             Map<String, Object> errors = new HashMap<String, Object>();
             for (FieldError error : result.getFieldErrors())
@@ -58,19 +61,57 @@ public class OplogManageController
         }
         try
         {
-
-            User user=new User();
-            user.setUserCode(new Integer(oplog.getUserId()));
-            user= userService.get(user).get(0);//得到当前借书人的信息
+            user.setBorrowed(user.getBorrowed()+1);//学生已借阅书本数量增加
+            userService.updateUser(user);//更新学生信息
             Detail detail=new Detail();
             detail.setSubnum(catalog.getSubnum());
             detail=detailService.get(detail);//获得当前借阅图书的detail对象
             detail.setOutdate(oplog.getOpTime());//设置图书借出日期
             detail.setUserId(user.getUserId());//设置借阅者id
-            detail.setIslended(true);
-            System.out.println(detail.toString());
+            detail.setIslended(true);//标记书本已借出
             detailService.updateDetail(detail);//更新图书借出情况
             catalog.setBookRemainnum(catalog.getBookRemainnum()-1);
+            catalogService.updateCatalog(catalog);//更新图书剩余数量
+            oplogService.saveOplog(oplog);//保存操作记录
+            return Msg.success();
+        } catch (Exception e)
+        {
+            return Msg.fail().add("errors", e.getMessage());
+        }
+    }
+    //还书外部接口
+    @RequestMapping(value = "/returnBook")
+    public Msg returnBook(@Valid Oplog oplog, BindingResult result)
+    {
+        if (result.getErrorCount()>0)
+        {
+            Map<String, Object> errors = new HashMap<String, Object>();
+            for (FieldError error : result.getFieldErrors())
+            {
+                System.out.println(error.getField() + ":" + error.getDefaultMessage());
+                errors.put(error.getField(), error.getDefaultMessage());
+            }
+            return Msg.fail().add("errors", errors);
+        }
+        try
+        {
+            Catalog catalog=new Catalog();
+            Oplog oplog1=oplogService.get(oplog.getBookId());//得到归还书本借出时的操作记录
+            catalog.setSubnum(oplog.getBookId());
+            catalog=catalogService.get(catalog).get(0);
+            User user=new User();
+            user.setUserCode(new Integer(oplog1.getBookId()));
+            user=userService.get(user).get(0);
+            user.setBorrowed(user.getBorrowed()-1);//学生已借阅书本数量减少
+            userService.updateUser(user);//更新学生信息
+            Detail detail=new Detail();
+            detail.setSubnum(catalog.getSubnum());
+            detail=detailService.get(detail);//获得当前归还图书的detail对象
+            detail.setIndate(oplog.getOpTime());//设置图书归还日期
+            detail.setUserId(null);//设置借阅者id
+            detail.setIslended(false);//标记书本已借出
+            detailService.updateDetail(detail);//更新图书归还情况
+            catalog.setBookRemainnum(catalog.getBookRemainnum()+1);
             catalogService.updateCatalog(catalog);//更新图书剩余数量
             oplogService.saveOplog(oplog);//保存操作记录
             return Msg.success();
