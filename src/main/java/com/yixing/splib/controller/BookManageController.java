@@ -43,7 +43,10 @@ public class BookManageController
         }
         try
         {
+            System.out.println("catalog:"+catalog.toString());
+            System.out.println("detail:"+detail.toString());
             catalogService.saveCatalog(catalog);
+            Thread.sleep(1000);
             detailService.saveDetail(detail);
             return Msg.success();
         } catch (Exception e)

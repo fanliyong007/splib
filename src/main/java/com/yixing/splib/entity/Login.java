@@ -30,4 +30,26 @@ public class Login {
     public void setPerms(String perms) {
         this.perms = perms == null ? null : perms.trim();
     }
+
+    public Login(String username, String password, String perms)
+    {
+        this.username = username;
+        this.password = password;
+        this.perms = perms;
+    }
+
+    public Login()
+    {
+        super();
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Login{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", perms='" + perms + '\'' +
+                '}';
+    }
 }

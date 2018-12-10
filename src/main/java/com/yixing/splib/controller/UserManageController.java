@@ -41,7 +41,7 @@ public class UserManageController
     private LoginService loginService;
     //增加user外部接口
     @RequestMapping(value = "/addUser")
-    public Msg save(@Valid User user,@Valid Login login,BindingResult result)
+    public Msg save(@Valid User user,BindingResult result)
     {
 
         if (result.getErrorCount() > 0)
@@ -56,6 +56,12 @@ public class UserManageController
         }
         try
         {
+            Login login=new Login();
+            login.setUsername(user.getUserId());
+            login.setPassword("123456");//设置默认密码
+            login.setPerms("user");//默认为普通用户
+            System.out.println("login=\n"+login.toString());
+            System.out.println("user=\n"+user.toString());
             loginService.saveLogin(login);
             userService.saveUser(user);
             return Msg.success();
