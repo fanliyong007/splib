@@ -58,7 +58,7 @@ public class CatalogServiceImpl implements CatalogService
             catalog.setBookAuthor("%"+catalog.getBookAuthor()+"%");
             criteria.andBookAuthorLike(catalog.getBookAuthor());
         }
-           return catalogMapper.selectByExample(catalogExample);
+        return catalogMapper.selectByExample(catalogExample);
     }
     //批量删除
     public void deleteCatalogBatch(List<String> ids)

@@ -146,8 +146,7 @@
                 </ul>
                 <ul class="nav flex-column mb-2">
                     <li class="nav-item">
-                        <a class="nav-link" id="borrowedBook" data-toggle="modal"
-                           data-target="#borrowedBookModal">
+                        <a class="nav-link" id="borrowedBook">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                  stroke-linejoin="round" class="feather feather-file-text">
@@ -655,6 +654,84 @@
                     </div>
                 </div>
             </div>
+            <!--查询用户模态框-->
+            <div class="modal fade" id="searchUserModal" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="searchUserModalLabel">查询用户信息</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">图书卡证号</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="userCode"
+                                               id="searchUser_userCode_add_input" placeholder=""> <span
+                                            class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">学生证号</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="userId"
+                                               id="searchUser_userId_add_input"> <span
+                                            class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">学生姓名</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="userName"
+                                               id="searchUser_userName_add_input"> <span
+                                            class="help-block"></span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" id="searchUser_save_btn">搜索学生</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--修改密码-->
+            <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog"
+                 aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="changePasswordModalLabel">修改密码</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">用户名</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="username"
+                                               id="changePassword_username_add_input" th:value="${username}" readonly="true"> <span
+                                            class="help-block"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">新密码</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control" name="password"
+                                               id="changePassword_password_add_input" placeholder=""> <span
+                                            class="help-block"></span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary" id="changePassword_save_btn">修改</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="container">
                 <!-- Insert Delete Button-->
@@ -683,5 +760,44 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script th:src="@{/js/manage.js}"></script>
+<script th:inline="javascript">
+    //显示已借阅图书borrowedBook
+    $(document).on("click","#borrowedBook",function () {
+        $.ajax({
+            url: "/api/getBook",
+            data:"userId="+/*[[${username}]]*/ '',
+            type: "GET",
+            success: function (result) {
+                console.info(result);
+                showBOOKs();
+                //显示学生数据
+                build_borrowedBook_table(result);
+                //显示分页信息
+                build_page_info(result.data.borrowedBook);
+                //显示页面的导航信息
+                build_page_nav(result.data.borrowedBook, showBookPage);
+            }
+        });
+    });
+    //修改密码
+    $(document).on("click","#changePassword_save_btn",function () {
+        $.ajax({
+            url: "/api/updateUser",
+            data:$("#changePasswordModal form").serialize(),
+            type: "POST",
+            success: function (result) {
+                if(result.code=="101")
+                {
+                    $("#changePasswordModal").modal('hide');
+                    alert("修改密码成功");
+                }
+                else
+                {
+                    alert("修改密码失败");
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>

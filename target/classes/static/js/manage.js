@@ -39,6 +39,15 @@ function showUSER()
         .append($("<th></th>").append("专业")).append($("<th></th>").append("Edit"))
         .appendTo("#mytable thead");
 }
+function showUSERs()
+{
+    $("#mytable thead").empty();
+    $("<tr></tr>").append($("<th></th>").append("借书证编号")).append($("<th></th>").append("借书证条形码号")).append($("<th></th>").append("姓名"))
+        .append($("<th></th>").append("办理日期")).append($("<th></th>").append("已借阅书本数量")).append($("<th></th>").append("注销标志"))
+        .append($("<th></th>").append("注销日期")).append($("<th></th>").append("年龄")).append($("<th></th>").append("性别"))
+        .append($("<th></th>").append("身份证号")).append($("<th></th>").append("联系电话")).append($("<th></th>").append("借书限额"))
+        .appendTo("#mytable thead");
+}
 $("#searchUser").click(function () {
     showUSER();
     showUserPage(1);
@@ -179,8 +188,35 @@ function build_book_tables(result) {
             .append(bookRemainnum).append(bookNum)
             .appendTo("#mytable tbody");
     })
-
 }
+
+function build_borrowedBook_table(result) {
+    $("#mytable tbody").empty();
+    var books = result.data.borrowedBook.list;
+    $.each(books, function (index, item) {
+        var subnum = $("<td></td>").append(item.subnum);
+        var classnum = $("<td></td>").append(item.classnum);
+        var isbn = $("<td></td>").append(item.isbn);
+        var bookName = $("<td></td>").append(item.bookName);
+        var bookNames = $("<td></td>").append(item.bookNames);
+        var bookAuthor = $("<td></td>").append(item.bookAuthor);
+        var bookAuthors = $("<td></td>").append(item.bookAuthors);
+        var bookVersion = $("<td></td>").append(item.bookVersion);
+        var bookPress = $("<td></td>").append(item.bookPress);
+        var bookPubdate = $("<td></td>").append(new Date(item.bookPubdate).toLocaleDateString());
+        var bookPage = $("<td></td>").append(item.bookPage);
+        var bookPrice = $("<td></td>").append(item.bookPrice);
+        var bookRemainnum = $("<td></td>").append(item.bookRemainnum);
+        var bookNum = $("<td></td>").append(item.bookNum);
+        $("<tr></tr>").append(subnum).append(classnum).append(isbn)
+            .append(bookName).append(bookNames).append(bookAuthor)
+            .append(bookAuthors).append(bookVersion).append(bookPress)
+            .append(bookPubdate).append(bookPage).append(bookPrice)
+            .append(bookRemainnum).append(bookNum)
+            .appendTo("#mytable tbody");
+    })
+}
+
 
 function build_user_table(result) {
     $("#mytable tbody").empty();
@@ -215,6 +251,31 @@ function build_user_table(result) {
             .append(iscompensated).append(compensatedint).append(colleageName)
             .append(majorName).append(editBtnTd).appendTo(
             "#mytable tbody");
+    });
+}
+
+
+function build_user_tables(result) {
+    $("#mytable tbody").empty();
+    var users = result.data.user.list;
+    $.each(users, function (index, item) {
+        var userId = $("<td></td>").append(item.userId);
+        var userCode = $("<td></td>").append(item.userCode);
+        var userName = $("<td></td>").append(item.userName);
+        var regdate = $("<td></td>").append(new Date(item.regdate).toLocaleDateString());
+        var borrowed = $("<td></td>").append(item.borrowed);
+        var iscanceled = $("<td></td>").append(item.iscanceled);
+        var canceleddate = $("<td></td>").append(new Date(item.canceleddate).toLocaleDateString());
+        var userAge = $("<td></td>").append(item.userAge);
+        var userGender = $("<td></td>").append(item.userGender);
+        var idnum = $("<td></td>").append(item.idnum);
+        var userPhone = $("<td></td>").append(item.userPhone);
+        var brrowlimit = $("<td></td>").append(item.brrowlimit);
+        $("<tr></tr>").append(userId).append(userCode).append(userName)
+            .append(regdate).append(borrowed).append(iscanceled)
+            .append(canceleddate).append(userAge).append(userGender)
+            .append(idnum).append(userPhone).append(brrowlimit)
+            .appendTo("#mytable tbody");
     });
 }
 
@@ -302,30 +363,30 @@ function build_page_nav(result, func) {
     var navElement = $("<nav></nav>").append(ul).appendTo(
         "#page_nav_area");
 }
-
-//重置添加模态框
-function reset_form(ele) {
-    //清除表单的数据
-    $(ele)[0].reset();
-    //清除校验状态
-    $(ele).find("*").removeClass("has-error has-success");
-    //清除提示信息
-    $(ele).find(".help-block").text("");
-}
+//
+// //重置添加模态框
+// function reset_form(ele) {
+//     //清除表单的数据
+//     $(ele)[0].reset();
+//     //清除校验状态
+//     $(ele).find("*").removeClass("has-error has-success");
+//     //清除提示信息
+//     $(ele).find(".help-block").text("");
+// }
 
 //点击编辑按钮
-$(document).on("click", ".edit-btn", function () {
-    //1.显示专业名称
-    getMajors("#stuUpdateModal select");
-    //2.获取要编辑的学生信息
-    getStudent($(this).attr("edit-stuid"));
-    //将编辑按钮的edit-stuid值传递给修改按钮
-    $("#stu_update_btn").attr("edit-stuid", $(this).attr("edit-stuid"));
-    //3.显示模态框
-    $('#stuUpdateModal').modal({
-        backdrop: "static"
-    });
-});
+// $(document).on("click", ".edit-btn", function () {
+//     //1.显示专业名称
+//     getMajors("#stuUpdateModal select");
+//     //2.获取要编辑的学生信息
+//     getStudent($(this).attr("edit-stuid"));
+//     //将编辑按钮的edit-stuid值传递给修改按钮
+//     $("#stu_update_btn").attr("edit-stuid", $(this).attr("edit-stuid"));
+//     //3.显示模态框
+//     $('#stuUpdateModal').modal({
+//         backdrop: "static"
+//     });
+// });
 //点击借阅图书
 // $("#borrowBook").click(function () {
 //     //0.还原表单的状态
@@ -336,26 +397,26 @@ $(document).on("click", ".edit-btn", function () {
 //     });
 // });
 //修改时获取学生信息
-function getStudent(id) {
-    $.ajax({
-        url: "${pageContext.request.contextPath }/stu/" + id,
-        type: "GET",
-        success: function (result) {
-            if (result.code == 101) {
-                var student = result.data.student;
-                $("#stuName_update_input").val(student.name);
-                $("#email_update_input").val(student.email);
-                $("#phone_update_input").val(student.phone);
-                $("#birth_update_input").val(new Date(student.birth).toLocaleDateString());
-                $("#regTime_update_input").val(new Date(student.regTime).toLocaleDateString());
-                $("#stuUpdateModal input[name=gender]").val([student.gender]);
-                $("#stuUpdateModal select").val([student.majorId]);
-            } else {
-
-            }
-        }
-    });
-}
+// function getStudent(id) {
+//     $.ajax({
+//         url: "${pageContext.request.contextPath }/stu/" + id,
+//         type: "GET",
+//         success: function (result) {
+//             if (result.code == 101) {
+//                 var student = result.data.student;
+//                 $("#stuName_update_input").val(student.name);
+//                 $("#email_update_input").val(student.email);
+//                 $("#phone_update_input").val(student.phone);
+//                 $("#birth_update_input").val(new Date(student.birth).toLocaleDateString());
+//                 $("#regTime_update_input").val(new Date(student.regTime).toLocaleDateString());
+//                 $("#stuUpdateModal input[name=gender]").val([student.gender]);
+//                 $("#stuUpdateModal select").val([student.majorId]);
+//             } else {
+//
+//             }
+//         }
+//     });
+// }
 function settotalOplog(x,y)
 {
     totalOplog=x;
@@ -485,6 +546,25 @@ $(document).on("click","#searchBook_save_btn",function () {
             build_page_info(result.data.detail);
             //显示页面的导航信息
             build_page_nav(result.data.detail, showBookPage);
+        }
+    });
+});
+//搜索学生按钮
+$(document).on("click","#searchUser_save_btn",function () {
+    $.ajax({
+        url: "/api/getUser",
+        data: "pn=1&" + $("#searchUserModal form").serialize(),
+        type: "GET",
+        success: function (result) {
+            console.info(result);
+            $("#searchUserModal").modal('hide');
+            showUSERs();
+            //显示学生数据
+            build_user_tables(result);
+            //显示分页信息
+            build_page_info(result.data.user);
+            //显示页面的导航信息
+            build_page_nav(result.data.user, showBookPage);
         }
     });
 });

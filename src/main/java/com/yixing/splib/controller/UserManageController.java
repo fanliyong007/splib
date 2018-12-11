@@ -94,8 +94,8 @@ public class UserManageController
         return Msg.success().add("user", pageInfo);
     }
     //禁用或更新user接口
-    @RequestMapping(value = "/updateUser/{id}")
-    public Msg disableUser(@Valid User user,BindingResult result)
+    @RequestMapping(value = "/updateUser")
+    public Msg disableUser(@Valid User user,Login login,BindingResult result)
     {
         if (result.getErrorCount() > 0)
         {
@@ -109,6 +109,9 @@ public class UserManageController
         }
         try
         {
+            Login tmp=loginService.get(login.getUsername());
+            login.setPerms(tmp.getPerms());
+            loginService.updateLogin(login);
             userService.updateUser(user);
             return Msg.success();
         } catch (Exception e)

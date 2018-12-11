@@ -40,7 +40,7 @@ public class DetailServiceImpl implements DetailService
     }
 
     @Override
-    public Detail get(Detail detail)
+    public List<Detail> get(Detail detail)
     {
         DetailExample detailExample=new DetailExample();
         DetailExample.Criteria criteria = detailExample.createCriteria();
@@ -48,7 +48,11 @@ public class DetailServiceImpl implements DetailService
         {
             criteria.andSubnumEqualTo(detail.getSubnum());
         }
-        return detailMapper.selectByExampleALL(detailExample).get(0);
+        if(!StringUtils.isEmpty(detail.getUserId()))
+        {
+            criteria.andUserIdEqualTo(detail.getUserId());
+        }
+        return detailMapper.selectByExample(detailExample);
     }
 
     @Override

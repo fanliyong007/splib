@@ -65,7 +65,7 @@ public class OplogManageController
             userService.updateUser(user);//更新学生信息
             Detail detail=new Detail();
             detail.setSubnum(catalog.getSubnum());
-            detail=detailService.get(detail);//获得当前借阅图书的detail对象
+            detail=detailService.get(detail).get(0);//获得当前借阅图书的detail对象
             detail.setOutdate(oplog.getOpTime());//设置图书借出日期
             detail.setUserId(user.getUserId());//设置借阅者id
             detail.setIslended(true);//标记书本已借出
@@ -106,7 +106,7 @@ public class OplogManageController
             userService.updateUser(user);//更新学生信息
             Detail detail=new Detail();
             detail.setSubnum(catalog.getSubnum());
-            detail=detailService.get(detail);//获得当前归还图书的detail对象
+            detail=detailService.get(detail).get(0);//获得当前归还图书的detail对象
             detail.setIndate(oplog.getOpTime());//设置图书归还日期
             detail.setUserId(null);//设置借阅者id
             detail.setIslended(false);//标记书本已借出
