@@ -44,9 +44,12 @@ public class BookManageController
         try
         {
             System.out.println("catalog:"+catalog.toString());
+            List<Detail>details=detailService.getAll();
+            Detail detail1=details.get(details.size()-1);
+            Integer tmp=new Integer(detail1.getBookId())+1;
+            detail.setBookId(tmp.toString());
             System.out.println("detail:"+detail.toString());
             catalogService.saveCatalog(catalog);
-            Thread.sleep(1000);
             detailService.saveDetail(detail);
             return Msg.success();
         } catch (Exception e)
@@ -96,7 +99,7 @@ public class BookManageController
     {
         //在查询之前调用静态方法设置起始页和页面大小
         PageHelper.startPage(pageNum, 8);
-        //startPage后面紧跟着的查询就是分页查询
+        //startPage后面紧跟着的查询就是分页查询s
         List<Catalog> catalogs=catalogService.get(catalog);
         //使用PageInfo包装查询后的结果，并将pageInfo存入map中
         PageInfo<Catalog> detailpageInfo=new PageInfo<Catalog>(catalogs,5);

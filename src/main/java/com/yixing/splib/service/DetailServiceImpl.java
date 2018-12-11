@@ -48,7 +48,7 @@ public class DetailServiceImpl implements DetailService
         {
             criteria.andSubnumEqualTo(detail.getSubnum());
         }
-        return detailMapper.selectByExample(detailExample).get(0);
+        return detailMapper.selectByExampleALL(detailExample).get(0);
     }
 
     @Override

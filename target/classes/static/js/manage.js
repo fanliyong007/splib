@@ -14,6 +14,16 @@ function showBOOK()
         .append($("<th></th>").append("挂失标志")).append($("<th></th>").append("挂失日期")).append($("<th></th>").append("Edit"))
         .appendTo("#mytable thead");
 }
+function showBOOKs()
+{
+    $("#mytable thead").empty();
+    $("<tr></tr>").append($("<th></th>").append("索书号")).append($("<th></th>").append("分类号")).append($("<th></th>").append("ISBN"))
+        .append($("<th></th>").append("题名")).append($("<th></th>").append("并列书名")).append($("<th></th>").append("第一责任者"))
+        .append($("<th></th>").append("其他责任者")).append($("<th></th>").append("版本")).append($("<th></th>").append("出版社"))
+        .append($("<th></th>").append("出版日期或发行日期")).append($("<th></th>").append("页数")).append($("<th></th>").append("定价"))
+        .append($("<th></th>").append("当前库存册书")).append($("<th></th>").append("登记册书"))
+        .appendTo("#mytable thead");
+}
 $("#searchBook").click(function () {
     showBOOK();
     showBookPage(1);
@@ -126,11 +136,6 @@ function build_book_table(result) {
         var userId = $("<td></td>").append(item.userId);
         var islost = $("<td></td>").append(item.islost);
         var lostdate = $("<td></td>").append(new Date(item.lostdate).toLocaleDateString());
-        // var birthTd = $("<td></td>").append(
-        //     new Date(item.birth).toLocaleDateString());
-        // var regTimeTd = $("<td></td>").append(
-        //     new Date(item.regTime).toLocaleDateString());
-        // var majorNameTd = $("<td></td>").append(item.major.majorName);
         var editBtn = $("<button></button>").addClass(
             "btn btn-primary btn-sm edit-btn").append(
             $("<span></span>").addClass(
@@ -147,6 +152,34 @@ function build_book_table(result) {
             .append(islost).append(lostdate).append(editBtnTd)
             .appendTo("#mytable tbody");
     })
+}
+
+function build_book_tables(result) {
+    $("#mytable tbody").empty();
+    var books = result.data.detail.list;
+    $.each(books, function (index, item) {
+        var subnum = $("<td></td>").append(item.subnum);
+        var classnum = $("<td></td>").append(item.classnum);
+        var isbn = $("<td></td>").append(item.isbn);
+        var bookName = $("<td></td>").append(item.bookName);
+        var bookNames = $("<td></td>").append(item.bookNames);
+        var bookAuthor = $("<td></td>").append(item.bookAuthor);
+        var bookAuthors = $("<td></td>").append(item.bookAuthors);
+        var bookVersion = $("<td></td>").append(item.bookVersion);
+        var bookPress = $("<td></td>").append(item.bookPress);
+        var bookPubdate = $("<td></td>").append(new Date(item.bookPubdate).toLocaleDateString());
+        var bookPage = $("<td></td>").append(item.bookPage);
+        var bookPrice = $("<td></td>").append(item.bookPrice);
+        var bookRemainnum = $("<td></td>").append(item.bookRemainnum);
+        var bookNum = $("<td></td>").append(item.bookNum);
+        $("<tr></tr>").append(subnum).append(classnum).append(isbn)
+            .append(bookName).append(bookNames).append(bookAuthor)
+            .append(bookAuthors).append(bookVersion).append(bookPress)
+            .append(bookPubdate).append(bookPage).append(bookPrice)
+            .append(bookRemainnum).append(bookNum)
+            .appendTo("#mytable tbody");
+    })
+
 }
 
 function build_user_table(result) {
@@ -184,6 +217,7 @@ function build_user_table(result) {
             "#mytable tbody");
     });
 }
+
 
 function build_oplog_table(result) {
     $("#mytable tbody").empty();
@@ -423,7 +457,6 @@ $("#addBook_save_btn").click(function () {
         type: "POST",
         data: $("#addBookModal form").serialize(),
         success: function (result) {
-            alert($("#addBookModal form").serialize());
             if (result.code == 101) {
                 $("#addBookModal").modal('hide');
                 alert("新增图书成功");
@@ -436,7 +469,25 @@ $("#addBook_save_btn").click(function () {
         }
     });
 });
-
+//搜索图书按钮
+$(document).on("click","#searchBook_save_btn",function () {
+    $.ajax({
+        url: "/api/getBook",
+        data: "pn=1&" + $("#searchBookModal form").serialize(),
+        type: "GET",
+        success: function (result) {
+            console.info(result);
+            $("#searchBookModal").modal('hide');
+            showBOOKs();
+            //显示书本数据
+            build_book_tables(result);
+            //显示分页信息
+            build_page_info(result.data.detail);
+            //显示页面的导航信息
+            build_page_nav(result.data.detail, showBookPage);
+        }
+    });
+});
 
 
 //添加时的数据校验

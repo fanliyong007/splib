@@ -108,9 +108,6 @@
     ca.Subnum, ca.Classnum, ca.Isbn, ca.Book_name, ca.Book_nameS, ca.Book_author, ca.Book_authorS, ca.Book_version,
     ca.Book_press, ca.Book_pubdate, ca.Book_page, ca.Book_price, ca.Book_date, ca.Book_remainnum, ca.Book_num,
     ca.Catalog_man, ca.Iscanceled</sql>
-  <!--List<Detail> selectByExampleALL(DetailExample example);-->
-
-  <!--Detail selectByPrimaryKeyALL(String bookId);-->
   <select id="selectByExampleALL" resultMap="ALLResultMap" parameterType="com.yixing.splib.entity.DetailExample" >
     select
     <if test="distinct" >
