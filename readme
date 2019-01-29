@@ -1,0 +1,478 @@
+﻿目录
+1.准备工作(centos7)	2
+（1）配置系统自动联网(本操作需要重启生效)	2
+（2）关闭selinux	3
+（3）关闭防火墙	4
+（4）更换软件源（以aliyun mirror为例）	4
+2.安装网络应用服务器（centos7）	5
+（1）安装xampp	5
+（2）安装MySQL	6
+（3）安装tomcat	8
+3.安装DNS、DHCP服务以及freeradius	8
+（1）安装DNS服务	8
+（2）安装DHCP服务	11
+（3）安装freeradius	13
+4、配置AP	15
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1.准备工作(centos7)
+（1）配置系统自动联网(本操作需要重启生效)
+进入/etc/sysconfig/network-scripts/文件夹找到网卡对应的文件如网卡是enp2s0文件则是ifcfg-enp2s0
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN qlen 1
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: enp0s31f6: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast state UP qlen 1000
+    link/ether 48:2a:e3:1b:7c:cc brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.24/24 brd 192.168.1.255 scope global dynamic enp0s31f6
+       valid_lft 6401sec preferred_lft 6401sec
+    inet6 fe80::46e2:a097:c19f:1d22/64 scope link
+       valid_lft forever preferred_lft forever
+===========================================================
+修改为
+NM_CONTROLLED=no
+IPADDR=192.168.1.23
+NETMASK=255.255.255.0
+GATEWAY=192.168.1.1
+TYPE=Ethernet
+PROXY_METHOD=none
+BROWSER_ONLY=no
+#BOOTPROTO=dhcp
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+IPV6INIT=yes
+IPV6_AUTOCONF=yes
+IPV6_DEFROUTE=yes
+IPV6_FAILURE_FATAL=no
+IPV6_ADDR_GEN_MODE=stable-privacy
+NAME=SERVERA
+UUID=d5e93f63-c3cf-48c8-9d88-1b2432da5759
+DEVICE=enp0s31f6
+ONBOOT=yes
+修改/etc/sysconfig/network
+#vim /etc/sysconfig/network
+# Created by anaconda
+NETWORKING=yes
+GATEWAY=192.168.1.23
+DNS1=223.5.5.5
+DNS2=223.6.6.6
+重启服务
+#service network restart
+（2）关闭selinux
+通过命令getenforce来查看一下SELinux的状态，enforcing为强制启用
+[root@localhost ~]# getenforce
+Enforcing
+
+SELinux一共有3种状态，分别是Enforcing，Permissive和Disabled状态。第一种是默认状态，表示强制启用，第二种是宽容的意思，即大部分规则都放行。第三种是禁用，即不设置任何规则。只能通过setenforce命令来设置前面两种状态，而如果想修改为disable状态，需要修改配置文件，同时重启系统。
+打开配置文件/etc/selinux/config
+修改为SELINUX=disabled
+[root@localhost ~]# cat /etc/selinux/config
+
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#     enforcing - SELinux security policy is enforced.
+#     permissive - SELinux prints warnings instead of enforcing.
+#     disabled - No SELinux policy is loaded.
+SELINUX=enforcing
+# SELINUXTYPE= can take one of three two values:
+#     targeted - Targeted processes are protected,
+#     minimum - Modification of targeted policy. Only selected processes are protected.
+#     mls - Multi Level Security protection.
+SELINUXTYPE=targeted
+
+
+[root@localhost ~]# vim /etc/selinux/config
+[root@localhost ~]# cat /etc/selinux/config
+
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#     enforcing - SELinux security policy is enforced.
+#     permissive - SELinux prints warnings instead of enforcing.
+#     disabled - No SELinux policy is loaded.
+SELINUX=disabled
+# SELINUXTYPE= can take one of three two values:
+#     targeted - Targeted processes are protected,
+#     minimum - Modification of targeted policy. Only selected processes are protected.
+#     mls - Multi Level Security protection.
+SELINUXTYPE=targeted
+
+保存并退出重启即可
+（3）关闭防火墙
+CentOS 7.0默认使用的是firewall作为防火墙
+关闭firewall禁止firewall开机启动
+
+[root@localhost ~]# systemctl stop firewalld
+[root@localhost ~]# systemctl disabled firewalld
+Unknown operation 'disabled'.
+[root@localhost ~]# systemctl disable firewalld
+Removed symlink /etc/systemd/system/multi-user.target.wants/firewalld.service.
+Removed symlink /etc/systemd/system/dbus-org.fedoraproject.FirewallD1.service.
+重启即可
+（4）更换软件源（以aliyun mirror为例）
+首先备份/etc/yum.repos.d/CentOS-Base.repo
+[root@localhost yum.repos.d]# cp -a CentOS-Base.repo CentOS-Base.repo.bk
+
+进入源文件所在位置并下载aliyun mirror
+[root@localhost yum.repos.d]# wget http://mirrors.aliyun.com/repo/Centos-7.repo
+
+重命名为CentOS-Base.repo创建缓存
+[root@localhost yum.repos.d]# mv Centos-7.repo CentOS-Base.repo
+mv: overwrite ‘CentOS-Base.repo’? y
+[root@localhost yum.repos.d]# yum makecache
+
+
+2.安装网络应用服务器（centos7）
+（1）安装xampp
+/opt/lampp/bin/                    XAMPP 命令库。例如 /opt/lampp/bin/mysql 可执行 MySQL 监视器。
+/opt/lampp/htdocs/               Apache 文档根目录。
+/opt/lampp/etc/httpd.conf     Apache 配制文件。
+/opt/lampp/etc/my.cnf          MySQL 配制文件。
+/opt/lampp/etc/php.ini          PHP 配制文件。
+/opt/lampp/etc/proftpd.conf   ProFTPD 配制文件。（从 0.9.5 版开始）
+/opt/lampp/phpmyadmin/config.inc.php        phpMyAdmin 配制文件
+
+服务器：testone
+通过wget下载xammp,增加可执行权限,运行文件
+
+wget https://www.apachefriends.org/xampp-files/7.3.0/xampp-linux-x64-7.3.0-0-installer.run
+#chmod +x xampp-linux-x64-7.3.0-0-installer.run
+#./xampp-linux-x64-7.3.0-0-installer.run
+把xampp复制到/etc/init.d下面
+编辑xampp的头部为
+#!/bin/sh 
+# 
+# chkconfig: 2345 80 30 
+# description: XAMPP
+
+设置虚拟目录ip/dashboard/docs/configure-vhosts.html
+修改/opt/lampp/etc/httpd.conf文件
+#vim /opt/lampp/etc/httpd.conf
+把Include etc/extra/httpd-vhosts.conf前面的注释去掉
+
+修改httpd-vhosts.conf文件
+
+#vim /opt/lampp/etc/extra/httpd-vhosts.conf
+<VirtualHost *:80>
+       DocumentRoot "/opt/lampp/app"
+       ServerName www.zime.com
+       <Directory "/opt/lampp/app">
+                Options Indexes FollowSymLinks ExecCGI Includes
+                AllowOverride All
+                Require all granted
+        </Directory>
+</VirtualHost>
+
+访问www.zime.com即可看到
+
+（2）安装MySQL
+服务器：testtwo
+Yum下载比较慢
+用户名:root 密码：
+删除本机自带的mariaDB数据库
+# yum remove mariadb;
+
+在安装mysql的时候，使用yum list | grep mysql 来查找yum源中是否有mysql，结果如下
+查资料发现是CentOS 7 版本将MySQL数据库软件从默认的程序列表中移除，用mariadb代替了。
+从官网下载MySQL加入MySQL源,安装rpm包
+
+#wget http://repo.mysql.com/mysql80-community-release-el7-1.noarch.rpm
+#rpm -ivh mysql80-community-release-el7-1.noarch.rpm
+
+查询MySQL的源
+#yum repolist all | grep mysql
+修改文件/etc/yum.repos.d/mysql-community.repo来安装MySQL5.7
+将MySQL80属性中的enable=1改为enable=0
+将MySQL57属性中的enable=0改为enable=1
+# Enable to use MySQL 5.7
+[mysql57-community]
+name=MySQL 5.7 Community Server
+baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/7/$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+
+[mysql80-community]
+name=MySQL 8.0 Community Server
+baseurl=http://repo.mysql.com/yum/mysql-8.0-community/el/7/$basearch/
+enabled=0
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+
+使用yum repolist enabled | grep mysql查看mysql将会安装的情况
+#yum repolist enabled | grep mysql
+使用yum install mysql-community-server安装MySQL
+启动MySQL服务
+显示初始密码
+进入MySQL修改密码
+
+#yum install mysql-community-server
+#sudo service mysqld start
+#sudo grep 'temporary password' /var/log/mysqld.log
+ALTER USER 'root'@'localhost' IDENTIFIED BY '你的密码'
+
+设置密码等级强度刷新设置
+
+mysql>set global validate_password_policy=0; #密码强度设为最低等级
+mysql>set global validate_password_length=4; #密码允许最小长度为4
+mysql>flush privileges;                      #更新授权表，生效
+
+修改设置创建账户admin使用密码Admin+使得可以远程访问
+GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY 'Fanliyong8880+' WITH GRANT OPTION;
+FLUSH PRIVILEGES;# 刷新设置
+（3）安装tomcat
+服务器：testone
+首先安装Java
+#sudo yum install java-1.8.0-openjdk-devel
+下载tomcat解压tomcat
+#wget https://mirrors.tuna.tsinghua.edu.cn/apache/tomcat/tomcat-8/v8.5.37/bin/apache-
+#tar -zxvf apache-tomcat-8.5.37.tar.gz
+
+转移到/opt文件夹下面复制/opt/apache-tomcat-8.5.37/bin/catalina.sh到/etc/init.d下并改名为tomcat
+
+编辑tomcat在#OS specific support前面增加
+
+
+#chkconfig: 2345 10 90
+#description:Tomcat service
+CATALINA_HOME=/opt/apache-tomcat-8.5.37
+JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk
+
+
+添加到开机自启动
+#chkconfig –add tomcat
+#systemctl enable tomcat
+
+3.安装DNS、DHCP服务以及freeradius
+（1）安装DNS服务
+服务器：testone
+IP: 10.6.1.8
+端口：53
+安装bind
+查看安装情况
+
+#yum install bind*
+#rpm -qa bind*
+
+通过修改named.conf 来配置dns绑定的ip,可以访问的人等
+#vim /etc/named.conf
+修改allow-query     { localhost; };为allow-query     {any;};
+修改listen-on port 53     {127.0.0.1; };为listen-on port 53     {127.0.0.1; any;};
+使任何任都能访问DNS服务
+设定了这个，如果访问外网的网站dns主机也能解析223.5.5.5 223.6.6.6为阿里云的DNS
+forwarders { 114.114.114.114;223.5.5.5;223.6.6.6; };
+修改最后的include "/etc/named.rfc1912.zones";
+options {
+        listen-on port 53 { localhost;any; };
+        listen-on-v6 port 53 { ::1; };
+        directory       "/var/named";
+        dump-file       "/var/named/data/cache_dump.db";
+        statistics-file "/var/named/data/named_stats.txt";
+        memstatistics-file "/var/named/data/named_mem_stats.txt";
+        recursing-file  "/var/named/data/named.recursing";
+        secroots-file   "/var/named/data/named.secroots";
+        allow-query     { any; };
+        forwarders       {223.5.5.5;223.6.6.6;114.114.114.114;};
+        recursion yes;
+        dnssec-enable yes;
+        dnssec-validation yes;
+        bindkeys-file "/etc/named.iscdlv.key";
+        managed-keys-directory "/var/named/dynamic";
+        pid-file "/run/named/named.pid";
+        session-keyfile "/run/named/session.key";
+};
+logging {
+        channel default_debug {
+                file "data/named.run";
+                severity dynamic;
+        };
+};
+zone "." IN {
+        type hint;
+        file "named.ca";
+};
+include "/etc/named.zones";
+include "/etc/named.root.key";
+
+带权限复制named.rfc1912.zones为named.zones
+# cp -a named.rfc1912.zones  named.zones
+修改named.zones 添加正向解析
+#vim /etc/named.zones
+在文件中添加
+
+zone "zime.com" IN{
+        type master;
+        file "zime.com.zone";
+        allow-update {  none;  };
+};
+
+进入文件夹
+#cd /var/named/
+带权限复制named.localhost.zone文件
+#cp -a named.localhost fly.com.zone
+编辑fly.com.zone文件
+$TTL 1D
+@       IN SOA  @ china.com. (
+                                        0       ; serial
+                                        1D      ; refresh
+                                        1H      ; retry
+                                        1W      ; expire
+                                        3H )    ; minimum
+        NS      @
+        A       127.0.0.1
+        AAAA    ::1
+www     IN      A       192.168.1.24
+db      IN      A       192.168.1.23
+ftp     IN      A       192.168.1.24
+
+启动服务
+#systemctl  start named 
+把服务加入开机自启动
+#systemctl enable named
+设置DNS服务
+#vim /etc/sysconfig/network-scripts/你的网卡名字
+# Created by anaconda
+NETWORKING=yes
+GATEWAY=192.168.1.23
+DNS1=192.168.1.23
+DNS2=223.6.6.6
+重启网络服务
+#systemctl restart network
+（2）安装DHCP服务
+服务器:testone
+IP: 10.6.1.8
+从yum源安装
+#yum install dhcp*
+修改dhcpd服务配置规定网卡
+#vim /etc/sysconfig/dhcpd
+DHCPDARGS="enp2s0"
+# $ systemctl --system daemon-reload
+# $ systemctl restart dhcpd.service
+DHCPDARGS="enp0s31f6"
+
+配置DHCP服务全局配置
+#vim /etc/dhcp/dhcpd.conf
+option domain-name "";
+option domain-name-servers 10.6.1.8;
+default-lease-time 600;
+max-lease-time 7200;
+log-facility local7;
+subnet 10.6.1.0 netmask 255.255.255.0 {
+        range 10.6.1.80 10.6.1.89;
+        option routers 10.6.1.254;
+}
+
+以下为具体配置
+启动DHCP服务
+#systemctl start dhcpd
+开启开机启动
+#systemctl enable dhcpd
+查看端口开启情况
+#netstat -tlunp |grep dhcp
+定时查看日志文件的输出信息
+#tail -n 30 /var/log/messages
+
+（3）安装freeradius
+参考：http://www.beijinghuayu.com.cn/centos7-freeradius-mysql配置/
+服务器：testtwo
+IP：10.6.10.6
+安装freeradius
+# yum install freeradius-devel freeradius-utils freeradius-mysql
+在数据库当中创建radius数据库并将
+/etc/raddb/mods-config/sql/main/mysql/schema.sql导入
+修改freeradius 配置文件，以便使用sql数据库
+#vim /etc/raddb/radiusd.conf
+将下面三项内容修改为yes
+auth = no
+auth_badpass = no
+auth_goodpass = no
+修改为
+auth = yes
+auth_badpass = yes
+auth_goodpass = yes
+
+修改default文件
+vim /etc/raddb/sites-available/default
+将
+-sql
+修改为
+sql
+查找到session { 中内容
+去掉sql前面的注释
+
+#vim /etc/raddb/mods-available/sql
+1)将
+driver = "rlm_sql_null"
+修改为
+driver = "rlm_sql_mysql"
+(2)将
+        dialect = "sqlite"
+#        server = "localhost"
+#        port = 3306
+#        login = "radius"
+#        password = "radpass"
+修改为
+        dialect = "mysql"
+        server = "localhost"
+        port = 3306
+        login = "radius"
+        password = "passwd-radius"
+(3)将
+#       read_clients = yes
+修改为
+       read_clients = yes
+
+拷贝sql文件到/etc/raddb/mods-enabled/
+#ln -s  /etc/raddb/mods-available/sql /etc/raddb/mods-enabled/
+帐号信息是添加在 radius库的radcheck表里面：
+mysql>insert into radcheck set username='guest', attribute='Cleartext-Password', op=':=', value='testpassword';
+编辑客户端文件
+#vim clients.conf
+client tplinkAP {
+        ipv4addr  =       0.0.0.0/0
+        secret  =       12345678
+}
+
+4、配置AP
+Would you like to terminate autoinstall? [yes]: yes
+Enter Administrative User Name (24 characters max): Cisco
+Enter Administrative Password (3 to 127 characters): ********
+Re-enter Administrative Password                 : ********
+
+System Name [Cisco_b8:04:00] (31 characters max): CHINA-CISCO
+
+Enter Country Code list (enter 'help' for a list of countries) [US]: TH
+
+Configure a NTP server now? [YES][no]: no
+Configure the system time now? [YES][no]: no
+
+Note! Default NTP servers will be used
+
+Management Interface IP Address Configuration [STATIC][dhcp]: STATIC
+
+Management Interface IP Address: 192.168.1.88
+Management Interface Netmask: 255.255.255.0
+Management Interface Default Router: 192.168.1.1
+Create Management DHCP Scope? [yes][NO]: NO
+Employee Network Name (SSID)?: CHINA
+Employee Network Security? [PSK][enterprise]: PSK
+Employee PSK Passphrase (8-63 characters)?: ********
+Re-enter Employee PSK Passphrase: ********
+Enable RF Parameter Optimization? [YES][no]: no
+
+Configuration correct? If yes, system will save it and reset. [yes][NO]: yes
+
